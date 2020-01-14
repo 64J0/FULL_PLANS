@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "maybe later",
   "main": "backend/bin/server.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node node_modules/nodemon/bin/nodemon bin/server"
@@ -21,6 +22,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.3.1",
-    "mongoose": "^5.8.7"
+    "mongoose": "^5.8.7",
+    "nodemon": "^2.0.2"
   }
 }

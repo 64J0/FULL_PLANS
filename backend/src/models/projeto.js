@@ -12,7 +12,15 @@ const projetoSchema = new Schema({
         type: String,
         required: true,
         trim: true
+    },
+    projeto: {
+        nomeProjeto: String,
+        disciplina: String,
+        area: String,
+        codigo: String,
+        projetista: String,
+        verificador: String
     }
 });
 
-module.exports = mongoose.model('Projeto', projetoSchema);
+module.exports = mongoose.model('Projetos', projetoSchema);
