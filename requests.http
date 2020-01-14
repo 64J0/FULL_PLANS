@@ -2,7 +2,12 @@ POST http://localhost:3000/projetos
 Content-Type: application/json
 
 {
-    "nomeEmpresa" : "Fiat"
+    "nomeEmpresa" : "  Gerdau  Ouro Branco",
+    "projeto" : {
+        "nomeProjeto": "Chute do novo projeto",
+        "disciplina": "Mecânica estrutural",
+        "area": "Engenharia Mecânica"
+    }
 }
 
 ###

@@ -11,24 +11,85 @@ const projetoSchema = new Schema({
     nomeEmpresa: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        uppercase: true
     },
     projeto: {
-        nomeProjeto: String,
-        disciplina: String,
-        area: String,
-        codigo: String,
-        projetista: String,
-        verificador: String,
-        numPedido: String,
-        responsavel: String,
-        revisao: String,
-        numNosso: String,
-        numCliente: String,
-        formato: String,
-        descricao: String,
-        objetivo: String,
-        tipoEngenharia: String
+        nomeProjeto: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        disciplina: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        area: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        codigo: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        projetista: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        verificador: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        numPedido: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        responsavel: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        revisao: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        numNosso: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        numCliente: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        formato: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        descricao: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        objetivo: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
+        tipoEngenharia: {
+            type: String,
+            trim: true,
+            uppercase: true
+        },
     }
 });
 

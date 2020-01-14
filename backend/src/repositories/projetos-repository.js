@@ -11,6 +11,7 @@ exports.listNomeEmpresa = async () => {
 };
 
 exports.createNomeEmpresa = async data => {
+    console.log(data);
     const nomeEmpresa = new Projetos(data);
     await nomeEmpresa.save();
 };
