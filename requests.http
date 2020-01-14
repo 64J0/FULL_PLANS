@@ -1,0 +1,22 @@
+POST http://localhost:3000/projetos
+Content-Type: application/json
+
+{
+    "nomeEmpresa" : "Fiat"
+}
+
+###
+
+GET http://localhost:3000/projetos
+
+###
+
+PUT http://localhost:3000/projetos/5e1db6550dc4370eb4ac3052
+Content-Type: application/json
+
+{
+    "nomeEmpresa" : "FULL Engenharia"
+}
+
+###
+DELETE http://localhost:3000/projetos/5e1db6480dc4370eb4ac3051
