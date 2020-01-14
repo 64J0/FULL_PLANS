@@ -19,7 +19,16 @@ const projetoSchema = new Schema({
         area: String,
         codigo: String,
         projetista: String,
-        verificador: String
+        verificador: String,
+        numPedido: String,
+        responsavel: String,
+        revisao: String,
+        numNosso: String,
+        numCliente: String,
+        formato: String,
+        descricao: String,
+        objetivo: String,
+        tipoEngenharia: String
     }
 });
 
