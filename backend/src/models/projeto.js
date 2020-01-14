@@ -12,7 +12,24 @@ const projetoSchema = new Schema({
         type: String,
         required: true,
         trim: true
+    },
+    projeto: {
+        nomeProjeto: String,
+        disciplina: String,
+        area: String,
+        codigo: String,
+        projetista: String,
+        verificador: String,
+        numPedido: String,
+        responsavel: String,
+        revisao: String,
+        numNosso: String,
+        numCliente: String,
+        formato: String,
+        descricao: String,
+        objetivo: String,
+        tipoEngenharia: String
     }
 });
 
-module.exports = mongoose.model('Projeto', projetoSchema);
+module.exports = mongoose.model('Projetos', projetoSchema);
