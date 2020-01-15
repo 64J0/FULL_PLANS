@@ -90,6 +90,11 @@ const projetoSchema = new Schema({
             trim: true,
             uppercase: true
         },
+        algumaData: {
+            type: String,
+            trim: true,
+            uppercase: true
+        }
     }
 });
 
