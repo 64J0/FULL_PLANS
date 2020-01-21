@@ -2,12 +2,8 @@ POST http://localhost:3000/projetos
 Content-Type: application/json
 
 {
-    "nomeEmpresa" : "  Gerdau  Ouro Branco",
-    "projeto" : {
-        "nomeProjeto": "Chute do novo projeto",
-        "disciplina": "Mecânica estrutural",
-        "area": "Engenharia Mecânica"
-    }
+    "nomeEmpresa" : "  Gerdau ouro branco",
+    "nomeProjeto" : "Linha de vida 1"
 }
 
 ###
@@ -16,12 +12,18 @@ GET http://localhost:3000/projetos
 
 ###
 
-PUT http://localhost:3000/projetos/5e1db6550dc4370eb4ac3052
+PUT http://localhost:3000/projetos/5e263f8392c6960b6c5001e0
 Content-Type: application/json
 
-{
-    "nomeEmpresa" : "FULL Engenharia"
+{   
+    "nomeEmpresa" : "gerdau divinopolis",
+    "nomeProjeto" : "Plataforma tandem.",
+    "descricao" : "empresa de produção de aço e perfis.",
+    "codigo" : "999999",
+    "disciplina" : "mecânica",
+    "numNosso" : "123456"
 }
 
 ###
-DELETE http://localhost:3000/projetos/5e1db6480dc4370eb4ac3051
+
+DELETE http://localhost:3000/projetos/5e2342623f6fec1510006ff6

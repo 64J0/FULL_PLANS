@@ -5,23 +5,40 @@
 const mongoose = require('mongoose');
 const Projetos = mongoose.model('Projetos')
 
-exports.listNomeEmpresa = async () => {
+exports.listProjeto = async () => {
     const res = await Projetos.find({});
     return res;
 };
 
-exports.createNomeEmpresa = async data => {
-    console.log(data);
-    const nomeEmpresa = new Projetos(data);
-    await nomeEmpresa.save();
+exports.createProjeto = async data => {
+    const projeto = new Projetos(data);
+    await projeto.save();
 };
 
-exports.updateNomeEmpresa = async (id, data) => {
+exports.updateProjeto = async (id, data) => {
+    /*
+    if (req.params.nomeProjeto) {
+        await Projetos.updateOne({
+            nomeEmpresa: params.nomeEmpresa,
+            nomeProjeto: params.nomeProjeto
+        }, {
+            $set: data
+        });
+    } else {
+        await Projetos.updateOne({
+            nomeEmpresa: params.nomeEmpresa,
+            numPedido: params.numPedido
+        }, {
+            $set: data
+        });
+    }
+    */
+    
     await Projetos.findByIdAndUpdate(id, {
         $set: data
     });
 };
 
-exports.deleteNomeEmpresa = async id => {
+exports.deleteProjeto = async id => {
     await Projetos.findOneAndRemove(id);
 };

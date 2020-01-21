@@ -7,9 +7,9 @@ const router = express.Router();
 /*
     De acordo com o que está definido em app.js, quando o usuário entrar na página inicial, INDEX, será enviado um comando GET pelo navegador. Em seguida, o servidor, ouvindo este comando GET, retornará uma resposta, com o código 200 que significa que tudo deu certo, e em seguida será mostrado um arquivo json com um título e a versão.
 */
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
     res.status(200).send({
-        title: 'MentionsAPI',
+        title: 'FULL Plans API',
         version: '1.0.0'
     });
 });
