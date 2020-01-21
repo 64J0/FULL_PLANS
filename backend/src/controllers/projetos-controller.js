@@ -1,9 +1,9 @@
 const repository = require('../repositories/projetos-repository');
 
 //list
-exports.listProjetos = async (req, res) => {
+exports.listProjeto = async (req, res) => {
     try {
-        const data = await repository.listProjetos();
+        const data = await repository.listProjeto();
         res.status(200).send(data);
     } catch(e) {
         res.status(500).send({ mesage: 'Falha ao carregar os projetos! '});
@@ -42,7 +42,7 @@ exports.createProjeto = async (req, res) => {
 //update
 exports.updateProjeto = async (req, res) => {
     try {
-        await repository.updateProjeto(req.body);
+        await repository.updateProjeto(req.params.id, req.body);
         res.status(200).send({
             message: 'Projeto atualizado com sucesso!'
         });

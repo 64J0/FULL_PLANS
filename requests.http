@@ -12,17 +12,18 @@ GET http://localhost:3000/projetos
 
 ###
 
-PUT http://localhost:3000/projetos
+PUT http://localhost:3000/projetos/5e263f8392c6960b6c5001e0
 Content-Type: application/json
 
 {   
-    "nomeEmpresa" : "gerdau divinopoliis",
+    "nomeEmpresa" : "gerdau divinopolis",
     "nomeProjeto" : "Plataforma tandem.",
     "descricao" : "empresa de produção de aço e perfis.",
     "codigo" : "999999",
-    "disciplina" : "mecânica"
+    "disciplina" : "mecânica",
+    "numNosso" : "123456"
 }
 
 ###
 
-DELETE http://localhost:3000/projetos/5e233db7fa7fed0a7cf4f0f9
+DELETE http://localhost:3000/projetos/5e2342623f6fec1510006ff6
