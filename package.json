@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/64J0/FULL_PLANS#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.3.1",

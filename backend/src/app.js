@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 */
 const path = require('path');
 const dotenv = require('dotenv');
+const cors = require('cors');
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 /*
@@ -22,6 +23,7 @@ const app = express();
     O primeiro comando indica que a instância do Express (app) irá analisar respostas em formato json
     Já o segundo comando especifica que a instância do Express (app) analisará uma requisição codificada no formato x-www
 */
+app.use(cors({}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
