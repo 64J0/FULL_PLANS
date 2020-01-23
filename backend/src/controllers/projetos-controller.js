@@ -34,7 +34,7 @@ exports.createProjeto = async (req, res) => {
         });
         res.status(201).send({ message: 'Projeto cadastrado com sucesso!' });
     } catch(e) {
-        res.status(500).send({ message: 'Falha ao cadastrar o projeto!' });
+        res.status(400).send({ message: 'Falha ao cadastrar o projeto!' });
         console.log(e);
     }
 };

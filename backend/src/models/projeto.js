@@ -89,6 +89,10 @@ const projetoSchema = new Schema({
         type: String,
         trim: true,
         uppercase: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
     }
 });
 /*
@@ -175,11 +179,6 @@ const projetoSchema = new Schema({
             trim: true,
             uppercase: true
         },
-        algumaData: {
-            type: String,
-            trim: true,
-            uppercase: true
-        }
     }
 });
 */

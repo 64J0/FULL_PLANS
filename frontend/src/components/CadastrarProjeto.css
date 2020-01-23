@@ -1,0 +1,19 @@
+input {
+    width: 75%;
+    max-width: 600px;
+    height: 30px;
+    margin: 15px 0;
+    display: block;
+    font-size: 14px;
+    justify-content: center;
+}
+
+button {
+    height: 30px;
+    text-transform: uppercase;
+    padding: 10px;
+    margin: 10px;
+    background-color: #eee;
+    font-weight: bold;
+    text-align: center;
+}
