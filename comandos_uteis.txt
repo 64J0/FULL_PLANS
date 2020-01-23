@@ -1,1 +1,3 @@
 node backend/bin/server.js
+npm run dev
+npm install -> Esse comando instalará todos os pacotes definidos no package.json
