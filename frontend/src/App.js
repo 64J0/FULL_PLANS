@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from './services/api';
 import CadastrarProjeto from './components/CadastrarProjeto';
+import Cabecalho from './components/Cabecalho';
 
 import './App.css';
 import './global.css';
@@ -28,7 +29,7 @@ function App() {
   return (
     <div id="App">
       <header className="App-header">
-        <h1 className="titulo">Planejamento FULL</h1>
+        <Cabecalho />
       </header>
       <main>
 

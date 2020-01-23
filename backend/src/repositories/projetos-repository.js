@@ -16,24 +16,6 @@ exports.createProjeto = async data => {
 };
 
 exports.updateProjeto = async (id, data) => {
-    /*
-    if (req.params.nomeProjeto) {
-        await Projetos.updateOne({
-            nomeEmpresa: params.nomeEmpresa,
-            nomeProjeto: params.nomeProjeto
-        }, {
-            $set: data
-        });
-    } else {
-        await Projetos.updateOne({
-            nomeEmpresa: params.nomeEmpresa,
-            numPedido: params.numPedido
-        }, {
-            $set: data
-        });
-    }
-    */
-    
     await Projetos.findByIdAndUpdate(id, {
         $set: data
     });

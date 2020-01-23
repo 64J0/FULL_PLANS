@@ -1,0 +1,51 @@
+.cabecalho {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+h1 {
+    margin-left: 150px;
+    font-size: 40px;
+    color: #cac7c6;
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 50px;
+    padding-bottom: 60px;
+    color: #cac7c6;
+}
+
+ul img {
+    width: 24px;
+    margin-left: 50px;
+}
+
+ul li + li {
+    margin: 0 20px 80px 20px;
+    font-size: 20px;
+}
+
+@media(max-width: 700px) {
+    .cabecalho {
+        justify-content: center;
+    }
+
+    ul img {
+        width: 24px;
+        margin-left: 0;
+    }
+
+    ul li + li {
+        margin: 0 10px 80px 10px;
+        font-size: 18px;
+    }
+
+    h1 {
+        margin: 0;
+    }
+}
