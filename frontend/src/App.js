@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import api from './services/api';
 import CadastrarProjeto from './components/CadastrarProjeto';
-import Cabecalho from './components/Cabecalho';
+//import Cabecalho from './components/Cabecalho';
+import Listar from './components/Listar'
 
 import './App.css';
 import './global.css';
+import Cabecalho from './components/Cabecalho';
 
 function App() {
-
-  const [projetos, setProjetos] = useState([]);
 
   useEffect(() => {
     async function loadProjetos() {
@@ -20,11 +20,36 @@ function App() {
     loadProjetos();
   }, []);
 
+  //=================================================================
+
+  const [projetos, setProjetos] = useState([]);
+
   async function handleAddProjeto(data) {
     const response = await api.post('/projetos', data);
 
     setProjetos([...projetos, response.data]);
   }
+
+  //=================================================================
+
+  const [stringPagina, setStringPagina] = useState('');
+
+  function decideWhatToDisplay() {
+
+    switch (stringPagina)  {
+      case 'Home': 
+        return (<CadastrarProjeto onSubmit={handleAddProjeto} />);
+
+      case 'Listar':
+        return (<Listar />);
+
+      default:
+        return (<Listar />);
+
+    }
+  }
+
+  //=================================================================
 
   return (
     <div id="App">
@@ -33,7 +58,9 @@ function App() {
       </header>
       <main>
 
-        <CadastrarProjeto onSubmit={handleAddProjeto} />
+        {
+          decideWhatToDisplay()
+        }
 
       </main>
 
