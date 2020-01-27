@@ -5,6 +5,14 @@
   min-width: 540px;
 }
 
+main {
+  padding: 20px;
+  margin: 50px;
+  width: 90%;
+  background-color: #fff;
+  border-radius: 10px 0;
+}
+
 @media(max-width: 700px) {
   #App {
     margin: 0;

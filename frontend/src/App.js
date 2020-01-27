@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import api from './services/api';
 import CadastrarProjeto from './components/CadastrarProjeto';
 //import Cabecalho from './components/Cabecalho';
-import Listar from './components/Listar'
+import Listar from './components/Listar';
+import Home from './components/Home';
+import Footer from './components/Footer';
+import Logo from './fullE_icon.png';
 
 import './App.css';
 import './global.css';
-import Cabecalho from './components/Cabecalho';
+import './components/Cabecalho.css';
+//import Cabecalho from './components/Cabecalho';
 
 function App() {
 
@@ -37,14 +41,17 @@ function App() {
   function decideWhatToDisplay() {
 
     switch (stringPagina)  {
-      case 'Home': 
-        return (<CadastrarProjeto onSubmit={handleAddProjeto} />);
+      case 'Home' :
+        return (<Home />);
 
       case 'Listar':
         return (<Listar />);
 
+      case 'Cadastrar': 
+        return (<CadastrarProjeto onSubmit={handleAddProjeto} />);
+
       default:
-        return (<Listar />);
+        return (<Home />);
 
     }
   }
@@ -53,10 +60,20 @@ function App() {
 
   return (
     <div id="App">
-      <header className="App-header">
-        <Cabecalho />
+
+      <header className="App-header cabecalho">
+
+        <ul>
+            <li><img src={Logo} alt="Ícone da empresa"/></li>
+            <li><button onClick={() => setStringPagina('Home')}>Home</button></li>
+            <li><button onClick={() => setStringPagina('Listar')}>Listar</button></li>
+            <li><button onClick={() => setStringPagina('Cadastrar')}>Cadastrar</button></li>
+        </ul>
+        <h1>Planejamento FULL</h1>
+
       </header>
-      <main>
+
+      <main className="App-main">
 
         {
           decideWhatToDisplay()
@@ -65,7 +82,7 @@ function App() {
       </main>
 
       <footer className="App-footer">
-
+        <Footer />
       </footer>
     </div>
   );
