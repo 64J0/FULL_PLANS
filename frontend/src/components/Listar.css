@@ -1,0 +1,19 @@
+div.listar {
+    height: 1000px;
+}
+
+div.listar h2 {
+    color: #353839;
+    text-align: center;
+    padding: 20px 0;
+}
+
+div.listar ul {
+    display: block;
+    list-style: none;
+}
+
+div.listar ul li {
+    display: block;
+    width: 100%;
+}

@@ -14,7 +14,7 @@ exports.listProjeto = async (req, res) => {
 //create
 exports.createProjeto = async (req, res) => {
     try {
-        await repository.createProjeto({
+        let projeto = await repository.createProjeto({
             nomeEmpresa: req.body.nomeEmpresa,
             nomeProjeto: req.body.nomeProjeto,
             disciplina: req.body.disciplina,
@@ -32,7 +32,7 @@ exports.createProjeto = async (req, res) => {
             objetivo: req.body.objetivo,
             tipoEngenharia: req.body.tipoEngenharia
         });
-        res.status(201).send({ message: 'Projeto cadastrado com sucesso!' });
+        res.status(201).send(projeto);
     } catch(e) {
         res.status(400).send({ message: 'Falha ao cadastrar o projeto!' });
         console.log(e);

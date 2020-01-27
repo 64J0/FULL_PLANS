@@ -1,13 +1,23 @@
 import React from 'react';
+import ListItem from './ListItem';
 
 import './Listar.css';
 
-function Listar() {
+function Listar(data) {
     return(
-        <div>
+        <div className="listar">
             <h2>Página de listagem do banco de dados</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi ratione velit deleniti, corporis sapiente blanditiis maxime incidunt minima ullam a, iusto commodi totam natus nesciunt doloribus eum nemo ducimus praesentium.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi ratione velit deleniti, corporis sapiente blanditiis maxime incidunt minima ullam a, iusto commodi totam natus nesciunt doloribus eum nemo ducimus praesentium.</p>
+            {console.log(data.props)}
+            <ul>
+                <li>
+                    {data.props.map(projeto => (
+                        <ListItem 
+                            key={projeto._id}
+                            projeto={projeto}
+                        />
+                    ))}
+                </li>
+            </ul>
         </div>
     );
 }

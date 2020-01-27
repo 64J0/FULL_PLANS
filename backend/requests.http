@@ -2,7 +2,7 @@ POST http://localhost:3333/projetos
 Content-Type: application/json
 
 {
-    "nomeEmpresa" : "  Gerdau ouro branco",
+    "nomeEmpresa" : "  teste resposta",
     "nomeProjeto" : "Linha de vida 1"
 }
 

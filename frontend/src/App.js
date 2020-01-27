@@ -45,7 +45,7 @@ function App() {
         return (<Home />);
 
       case 'Listar':
-        return (<Listar />);
+        return (<Listar props={projetos} />);
 
       case 'Cadastrar': 
         return (<CadastrarProjeto onSubmit={handleAddProjeto} />);

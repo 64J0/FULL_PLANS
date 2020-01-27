@@ -13,6 +13,7 @@ exports.listProjeto = async () => {
 exports.createProjeto = async data => {
     const projeto = new Projetos(data);
     await projeto.save();
+    return projeto;
 };
 
 exports.updateProjeto = async (id, data) => {
