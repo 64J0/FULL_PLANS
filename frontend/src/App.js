@@ -14,6 +14,8 @@ import './components/Cabecalho.css';
 
 function App() {
 
+  const [projetos, setProjetos] = useState([]);
+
   useEffect(() => {
     async function loadProjetos() {
       const response = await api.get('/projetos');
@@ -26,12 +28,29 @@ function App() {
 
   //=================================================================
 
-  const [projetos, setProjetos] = useState([]);
-
   async function handleAddProjeto(data) {
-    const response = await api.post('/projetos', data);
+    await api.post('/projetos', data)
+    .then(response => {
+      setProjetos([...projetos, response.data]);
+    });
 
-    setProjetos([...projetos, response.data]);
+    
+    setStringPagina('Listar');
+  }
+
+  //=================================================================
+
+  async function handleDeleteProjeto(data) {
+    console.log('Id: ' + data)
+    await api.delete(`/projetos/${data}`)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    setProjetos(projetos.filter(projeto => projeto._id !== data));
   }
 
   //=================================================================
@@ -45,7 +64,7 @@ function App() {
         return (<Home />);
 
       case 'Listar':
-        return (<Listar props={projetos} />);
+        return (<Listar props={projetos} onDelete={handleDeleteProjeto} />);
 
       case 'Cadastrar': 
         return (<CadastrarProjeto onSubmit={handleAddProjeto} />);

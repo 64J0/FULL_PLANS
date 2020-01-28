@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 
 import './ListItem.css';
 
-function ListItem(data) {
+function ListItem({ projeto, onDelete }) {
 
     const [toggle, setToggle] = useState(1);
 
     const handleClick = (projeto) => {
         let card = document.getElementById(projeto._id);
-        let botao = document.getElementById("btn");
-        console.log(botao, toggle);
+        let botao = document.getElementById("btn"+projeto._id);
 
         if (toggle) {
             card.innerHTML = (
@@ -63,19 +62,43 @@ function ListItem(data) {
          
     }
 
+    // ==================================================================================================================
+
+    async function handleDeletar(id) {
+        await onDelete(id);
+    }
+
     return(
         <div className="list-item">
-            <div id={data.projeto._id} className="grid-container">
+            <div id={projeto._id} className="grid-container">
                 <p>Empresa: </p>
-                <p>{data.projeto.nomeEmpresa}</p>
+                <p>{projeto.nomeEmpresa}</p>
                 <p>Projeto: </p>
-                <p>{data.projeto.nomeProjeto}</p>
+                <p>{projeto.nomeProjeto}</p>
             </div>
-            <button 
-                type="button" 
-                id="btn"
-                onClick={() => handleClick(data.projeto)}>+
-            </button>
+            <div className="div-buttons">
+                <button 
+                    type="button" 
+                    id={"btn"+projeto._id}
+                    className="btn"
+                    onClick={() => handleClick(projeto)}
+                >
+                    +
+                </button>
+                <button
+                    type="button"
+                    className="btn-deletar"
+                    onClick={() => handleDeletar(projeto._id)}
+                >
+                    Deletar
+                </button>
+                <button
+                    type="button"
+                    className="btn-editar"
+                >
+                    Editar
+                </button>
+            </div>
         </div>
     );
 }
