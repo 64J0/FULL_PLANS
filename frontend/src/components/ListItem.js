@@ -1,10 +1,57 @@
 import React, { useState } from 'react';
+import UpdateProjeto from './UpdateProjeto';
 
 import './ListItem.css';
 
-function ListItem({ projeto, onDelete }) {
+function ListItem({ projeto, onDelete, onUpdate }) {
 
     const [toggle, setToggle] = useState(1);
+    const [stringPagina, setStringPagina] = useState('');
+
+    function decideWhatToDisplay() {
+        switch(stringPagina){
+            case 'Update':
+                return (<UpdateProjeto projeto={projeto} onUpdate={onUpdate} onDelete={onDelete} setStringPagina={setStringPagina} />);
+
+            default :
+                return (
+                    <div className="list-item">
+                        <div id={projeto._id} className="grid-container">
+                            <p>Empresa: </p>
+                            <p>{projeto.nomeEmpresa}</p>
+                            <p>Projeto: </p>
+                            <p>{projeto.nomeProjeto}</p>
+                        </div>
+                        <div className="div-buttons">
+                            <button 
+                                type="button" 
+                                id={"btn"+projeto._id}
+                                className="btn"
+                                onClick={() => handleClick(projeto)}
+                            >
+                                +
+                            </button>
+                            <button
+                                type="button"
+                                className="btn-deletar"
+                                onClick={() => handleDeletar(projeto._id)}
+                            >
+                                Deletar
+                            </button>
+                            <button
+                                type="button"
+                                className="btn-editar"
+                                onClick={() => setStringPagina('Update')}
+                            >
+                                Editar
+                            </button>
+                        </div>
+                    </div>
+                );
+        }
+    }
+
+    // ==================================================================================================================
 
     const handleClick = (projeto) => {
         let card = document.getElementById(projeto._id);
@@ -68,38 +115,15 @@ function ListItem({ projeto, onDelete }) {
         await onDelete(id);
     }
 
+    // ==================================================================================================================
+
+
     return(
-        <div className="list-item">
-            <div id={projeto._id} className="grid-container">
-                <p>Empresa: </p>
-                <p>{projeto.nomeEmpresa}</p>
-                <p>Projeto: </p>
-                <p>{projeto.nomeProjeto}</p>
-            </div>
-            <div className="div-buttons">
-                <button 
-                    type="button" 
-                    id={"btn"+projeto._id}
-                    className="btn"
-                    onClick={() => handleClick(projeto)}
-                >
-                    +
-                </button>
-                <button
-                    type="button"
-                    className="btn-deletar"
-                    onClick={() => handleDeletar(projeto._id)}
-                >
-                    Deletar
-                </button>
-                <button
-                    type="button"
-                    className="btn-editar"
-                >
-                    Editar
-                </button>
-            </div>
-        </div>
+        <>
+         {
+             decideWhatToDisplay()
+         }
+        </>
     );
 }
 

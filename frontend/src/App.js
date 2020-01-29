@@ -10,7 +10,6 @@ import Logo from './fullE_icon.png';
 import './App.css';
 import './global.css';
 import './components/Cabecalho.css';
-//import Cabecalho from './components/Cabecalho';
 
 function App() {
 
@@ -32,25 +31,36 @@ function App() {
     await api.post('/projetos', data)
     .then(response => {
       setProjetos([...projetos, response.data]);
+    })
+    .then(() => {
+      setStringPagina('Listar');
     });
-
-    
-    setStringPagina('Listar');
   }
 
   //=================================================================
 
-  async function handleDeleteProjeto(data) {
-    console.log('Id: ' + data)
-    await api.delete(`/projetos/${data}`)
-      .then(res => {
-        console.log(res.data);
-      })
+  async function handleDeleteProjeto(id) {
+    await api.delete(`/projetos/${id}`)
       .catch(error => {
         console.log(error);
       });
 
-    setProjetos(projetos.filter(projeto => projeto._id !== data));
+    setProjetos(projetos.filter(projeto => projeto._id !== id));
+  }
+
+  //=================================================================
+
+  async function handleUpdateProjeto(id, body) {
+    const config = { headers: {'Content-Type': 'application/json'} };
+    await api.put(`/projetos/${id}`, body, config)
+    .then(() => {
+      let projeto = projetos.filter(projeto => projeto._id === id);
+      setProjetos(projetos.filter(projeto => projeto._id !== id));
+      projeto = body;
+      setProjetos([...projetos, projeto]);
+    });
+
+    setStringPagina('Home');
   }
 
   //=================================================================
@@ -64,7 +74,7 @@ function App() {
         return (<Home />);
 
       case 'Listar':
-        return (<Listar props={projetos} onDelete={handleDeleteProjeto} />);
+        return (<Listar props={projetos} onDelete={handleDeleteProjeto}  onUpdate={handleUpdateProjeto} />);
 
       case 'Cadastrar': 
         return (<CadastrarProjeto onSubmit={handleAddProjeto} />);
