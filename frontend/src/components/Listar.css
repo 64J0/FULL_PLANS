@@ -12,8 +12,3 @@ div.listar ul {
     display: block;
     list-style: none;
 }
-
-div.listar ul li {
-    display: block;
-    width: 100%;
-}

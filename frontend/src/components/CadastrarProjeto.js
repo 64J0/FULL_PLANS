@@ -41,23 +41,6 @@ function CadastrarProjeto({ onSubmit }) {
             objetivo,
             tipoEngenharia,
         });
-
-        setNomeEmpresa('');
-        setNomeProjeto('');
-        setDisciplina('');
-        setArea('');
-        setCodigo('');
-        setProjetista('');
-        setVerificador('');
-        setNumPedido('');
-        setResponsavel('');
-        setRevisao('');
-        setNumNosso('');
-        setNumCliente('');
-        setFormato('');
-        setDescricao('');
-        setObjetivo('');
-        setTipoEngenharia('');
     }
 
     return(

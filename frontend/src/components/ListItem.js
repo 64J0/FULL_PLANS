@@ -15,38 +15,40 @@ function ListItem({ projeto, onDelete, onUpdate }) {
 
             default :
                 return (
-                    <div className="list-item">
-                        <div id={projeto._id} className="grid-container">
-                            <p>Empresa: </p>
-                            <p>{projeto.nomeEmpresa}</p>
-                            <p>Projeto: </p>
-                            <p>{projeto.nomeProjeto}</p>
+                    <li>
+                        <div className="list-item">
+                            <div id={projeto._id} className="grid-container">
+                                <p>Empresa: </p>
+                                <p>{projeto.nomeEmpresa}</p>
+                                <p>Projeto: </p>
+                                <p>{projeto.nomeProjeto}</p>
+                            </div>
+                            <div className="div-buttons">
+                                <button 
+                                    type="button" 
+                                    id={"btn"+projeto._id}
+                                    className="btn"
+                                    onClick={() => handleClick(projeto)}
+                                >
+                                    +
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn-deletar"
+                                    onClick={() => handleDeletar(projeto._id)}
+                                >
+                                    Deletar
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn-editar"
+                                    onClick={() => setStringPagina('Update')}
+                                >
+                                    Editar
+                                </button>
+                            </div>
                         </div>
-                        <div className="div-buttons">
-                            <button 
-                                type="button" 
-                                id={"btn"+projeto._id}
-                                className="btn"
-                                onClick={() => handleClick(projeto)}
-                            >
-                                +
-                            </button>
-                            <button
-                                type="button"
-                                className="btn-deletar"
-                                onClick={() => handleDeletar(projeto._id)}
-                            >
-                                Deletar
-                            </button>
-                            <button
-                                type="button"
-                                className="btn-editar"
-                                onClick={() => setStringPagina('Update')}
-                            >
-                                Editar
-                            </button>
-                        </div>
-                    </div>
+                    </li>
                 );
         }
     }
@@ -59,7 +61,8 @@ function ListItem({ projeto, onDelete, onUpdate }) {
 
         if (toggle) {
             card.innerHTML = (
-                `<p>Empresa: </p>
+                `
+                <p>Empresa: </p>
                 <p>${projeto.nomeEmpresa}</p>
                 <p>Projeto: </p>
                 <p>${projeto.nomeProjeto}</p>
@@ -91,16 +94,19 @@ function ListItem({ projeto, onDelete, onUpdate }) {
                 <p>${projeto.objetivo}</p>
                 <p>Tipo da engenharia: </p>
                 <p>${projeto.tipoEngenharia}</p>
+                
                 `
             );
             botao.innerHTML = '-';
             setToggle(0);
         } else {
             card.innerHTML = (
-                `<p>Empresa: </p>
+                `
+                <p>Empresa: </p>
                 <p>${projeto.nomeEmpresa}</p>
                 <p>Projeto: </p>
                 <p>${projeto.nomeProjeto}</p>
+                
                 `
             );
             botao.innerHTML = '+';
