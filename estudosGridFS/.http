@@ -1,0 +1,13 @@
+POST http://localhost:3000/write/?teste
+Content-Type: application/json
+
+{
+    "nomeEmpresa" : "  teste resposta",
+    "nomeProjeto" : "Linha de vida 1"
+}
+
+###
+
+GET http://localhost:3000/?teste
+
+###

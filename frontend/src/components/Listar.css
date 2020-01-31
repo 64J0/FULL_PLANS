@@ -1,5 +1,5 @@
 div.listar {
-    height: 1000px;
+    height: 100%;
 }
 
 div.listar h2 {
@@ -11,9 +11,4 @@ div.listar h2 {
 div.listar ul {
     display: block;
     list-style: none;
-}
-
-div.listar ul li {
-    display: block;
-    width: 100%;
 }

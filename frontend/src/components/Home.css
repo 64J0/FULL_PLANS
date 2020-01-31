@@ -6,19 +6,16 @@ div.home {
     align-content: center;
 }
 
-#img-logo {
+.home  #img-logo {
     text-align: center;
     padding-top: 15px;
 }
 
-#img-logo img {
+.home #img-logo img {
     width: 130px;
 }
 
-hr {
-}
-
-h3 {
+.home h3 {
     padding-bottom: 40px;
     color: #353839;
 }

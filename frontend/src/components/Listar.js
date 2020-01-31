@@ -3,20 +3,20 @@ import ListItem from './ListItem';
 
 import './Listar.css';
 
-function Listar(data) {
+function Listar({ props, onDelete, onUpdate }) {
+
     return(
         <div className="listar">
             <h2>Página de listagem do banco de dados</h2>
-            {console.log(data.props)}
             <ul>
-                <li>
-                    {data.props.map(projeto => (
-                        <ListItem 
-                            key={projeto._id}
-                            projeto={projeto}
-                        />
-                    ))}
-                </li>
+                {props.map(projeto => (
+                    <ListItem 
+                        key={String(projeto._id)}
+                        projeto={projeto}
+                        onDelete={onDelete}
+                        onUpdate={onUpdate}
+                    />
+                ))}
             </ul>
         </div>
     );

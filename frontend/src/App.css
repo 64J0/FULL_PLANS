@@ -5,7 +5,7 @@
   min-width: 540px;
 }
 
-main {
+#App main {
   padding: 20px;
   margin: 50px;
   width: 90%;
@@ -18,5 +18,14 @@ main {
     margin: 0;
     padding: 60px 0;
     min-width: 540px;
+  }
+
+  #App main {
+    padding: 20px;
+    margin: 0 auto;
+  }
+
+  #App header {
+    margin-bottom: 50px;
   }
 }

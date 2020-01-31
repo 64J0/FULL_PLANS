@@ -2,13 +2,13 @@
     display: block;
 }
 
-h1 {
+.cabecalho h1 {
     text-align: center;
     font-size: 40px;
     color: #cac7c6;
 }
 
-ul {
+.cabecalho ul {
     list-style-type: none;
     display: flex;
     flex-direction: row;
@@ -17,12 +17,12 @@ ul {
     padding-bottom: 80px;
 }
 
-ul img {
+.cabecalho ul img {
     width: 40px;
     margin-left: 50px;
 }
 
-ul li + li {
+.cabecalho ul li + li {
     margin: 0 20px 80px 20px;
     font-size: 20px;
 }
@@ -50,21 +50,21 @@ ul li + li {
         text-align: center;
     }
 
-    ul {
+    .cabecalho ul {
         justify-content: center;
     }
 
-    ul img {
+    .cabecalho ul img {
         width: 40px;
         margin-left: 0;
     }
 
-    ul li + li {
+    .cabecalho ul li + li {
         margin: 0 10px 80px 10px;
         font-size: 18px;
     }
 
-    h1 {
+    .cabecalho h1 {
         margin: 0;
     }
 }

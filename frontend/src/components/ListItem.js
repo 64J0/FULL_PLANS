@@ -1,19 +1,68 @@
 import React, { useState } from 'react';
+import UpdateProjeto from './UpdateProjeto';
 
 import './ListItem.css';
 
-function ListItem(data) {
+function ListItem({ projeto, onDelete, onUpdate }) {
 
     const [toggle, setToggle] = useState(1);
+    const [stringPagina, setStringPagina] = useState('');
+
+    function decideWhatToDisplay() {
+        switch(stringPagina){
+            case 'Update':
+                return (<UpdateProjeto projeto={projeto} onUpdate={onUpdate} onDelete={onDelete} setStringPagina={setStringPagina} />);
+
+            default :
+                return (
+                    <li>
+                        <div className="list-item">
+                            <div id={projeto._id} className="grid-container">
+                                <p>Empresa: </p>
+                                <p>{projeto.nomeEmpresa}</p>
+                                <p>Projeto: </p>
+                                <p>{projeto.nomeProjeto}</p>
+                            </div>
+                            <div className="div-buttons">
+                                <button 
+                                    type="button" 
+                                    id={"btn"+projeto._id}
+                                    className="btn"
+                                    onClick={() => handleClick(projeto)}
+                                >
+                                    +
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn-deletar"
+                                    onClick={() => handleDeletar(projeto._id)}
+                                >
+                                    Deletar
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn-editar"
+                                    onClick={() => setStringPagina('Update')}
+                                >
+                                    Editar
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                );
+        }
+    }
+
+    // ==================================================================================================================
 
     const handleClick = (projeto) => {
         let card = document.getElementById(projeto._id);
-        let botao = document.getElementById("btn");
-        console.log(botao, toggle);
+        let botao = document.getElementById("btn"+projeto._id);
 
         if (toggle) {
             card.innerHTML = (
-                `<p>Empresa: </p>
+                `
+                <p>Empresa: </p>
                 <p>${projeto.nomeEmpresa}</p>
                 <p>Projeto: </p>
                 <p>${projeto.nomeProjeto}</p>
@@ -45,16 +94,19 @@ function ListItem(data) {
                 <p>${projeto.objetivo}</p>
                 <p>Tipo da engenharia: </p>
                 <p>${projeto.tipoEngenharia}</p>
+                
                 `
             );
             botao.innerHTML = '-';
             setToggle(0);
         } else {
             card.innerHTML = (
-                `<p>Empresa: </p>
+                `
+                <p>Empresa: </p>
                 <p>${projeto.nomeEmpresa}</p>
                 <p>Projeto: </p>
                 <p>${projeto.nomeProjeto}</p>
+                
                 `
             );
             botao.innerHTML = '+';
@@ -63,20 +115,21 @@ function ListItem(data) {
          
     }
 
+    // ==================================================================================================================
+
+    async function handleDeletar(id) {
+        await onDelete(id);
+    }
+
+    // ==================================================================================================================
+
+
     return(
-        <div className="list-item">
-            <div id={data.projeto._id} className="grid-container">
-                <p>Empresa: </p>
-                <p>{data.projeto.nomeEmpresa}</p>
-                <p>Projeto: </p>
-                <p>{data.projeto.nomeProjeto}</p>
-            </div>
-            <button 
-                type="button" 
-                id="btn"
-                onClick={() => handleClick(data.projeto)}>+
-            </button>
-        </div>
+        <>
+         {
+             decideWhatToDisplay()
+         }
+        </>
     );
 }
 

@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import api from './services/api';
 import CadastrarProjeto from './components/CadastrarProjeto';
-//import Cabecalho from './components/Cabecalho';
+import Cabecalho from './components/Cabecalho';
 import Listar from './components/Listar';
 import Home from './components/Home';
 import Footer from './components/Footer';
-import Logo from './fullE_icon.png';
+//import Logo from './fullE_icon.png';
 
 import './App.css';
 import './global.css';
 import './components/Cabecalho.css';
-//import Cabecalho from './components/Cabecalho';
 
 function App() {
 
+  const [projetos, setProjetos] = useState([]);
+
   useEffect(() => {
+
     async function loadProjetos() {
       const response = await api.get('/projetos');
 
@@ -22,16 +24,58 @@ function App() {
     }
 
     loadProjetos();
+
   }, []);
 
   //=================================================================
 
-  const [projetos, setProjetos] = useState([]);
-
   async function handleAddProjeto(data) {
-    const response = await api.post('/projetos', data);
 
-    setProjetos([...projetos, response.data]);
+    await api.post('/projetos', data)
+    .then(response => {
+      setProjetos([...projetos, response.data]);
+    })
+    .then(() => {
+      setStringPagina('Listar');
+    })
+    .catch(error => console.log(error));
+
+  }
+
+  //=================================================================
+
+  async function handleDeleteProjeto(id) {
+
+    await api.delete(`/projetos/${id}`)
+    .then(() => {
+      setProjetos(projetos.filter(projeto => projeto._id !== id));
+    })
+    .catch(error => {
+      console.log(error);
+    });
+
+  }
+
+  //=================================================================
+
+  async function handleUpdateProjeto(id, body) {
+
+    var index = projetos.findIndex(x => x._id === id);
+
+    const config = { headers: {'Content-Type': 'application/json'} };
+    await api.put(`/projetos/${id}`, body, config)
+    .then(() => {
+      body._id = id;
+      setProjetos([
+        ...projetos.slice(0, index),
+        body,
+        ...projetos.slice(index+1)
+      ]);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   }
 
   //=================================================================
@@ -45,7 +89,9 @@ function App() {
         return (<Home />);
 
       case 'Listar':
-        return (<Listar props={projetos} />);
+        return (
+          <Listar props={projetos} onDelete={handleDeleteProjeto}  onUpdate={handleUpdateProjeto} />
+        );
 
       case 'Cadastrar': 
         return (<CadastrarProjeto onSubmit={handleAddProjeto} />);
@@ -62,15 +108,7 @@ function App() {
     <div id="App">
 
       <header className="App-header cabecalho">
-
-        <ul>
-            <li><img src={Logo} alt="Ícone da empresa"/></li>
-            <li><button onClick={() => setStringPagina('Home')}>Home</button></li>
-            <li><button onClick={() => setStringPagina('Listar')}>Listar</button></li>
-            <li><button onClick={() => setStringPagina('Cadastrar')}>Cadastrar</button></li>
-        </ul>
-        <h1>Planejamento FULL</h1>
-
+        <Cabecalho stringPagina={setStringPagina} />
       </header>
 
       <main className="App-main">

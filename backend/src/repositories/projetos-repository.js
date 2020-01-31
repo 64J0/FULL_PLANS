@@ -23,5 +23,5 @@ exports.updateProjeto = async (id, data) => {
 };
 
 exports.deleteProjeto = async id => {
-    await Projetos.findOneAndRemove(id);
+    await Projetos.findByIdAndDelete(id);
 };
