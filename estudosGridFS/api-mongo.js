@@ -84,7 +84,6 @@ client.connect(function(error) {
 
     app.get('/delete/:id', (req, res) => {
 
-        // mongo.ObjectId("5e39729b1801dd10d44e6113")
         let id = mongo.ObjectId(req.params.id);
 
         bucket.delete(id, (error) => {
