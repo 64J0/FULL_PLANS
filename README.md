@@ -19,4 +19,4 @@ Este projeto está sendo desenvolvido como meio de aprimorar meus conhecimentos 
 * Implementar uma feature de buscar um projeto no banco de dados baseado numa search query;
 * Alguns detalhes no frontend, como por exemplo, uma tela de confirmação quando o usuário quiser deletar um determinado arquivo;
 
-*Vinícius Gajo Marques Oliveira*
+*Vinícius Gajo Marques Oliveira* 2020.
