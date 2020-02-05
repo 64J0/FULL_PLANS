@@ -30,6 +30,7 @@ exports.createProjeto = async (req, res) => {
             formato: req.body.formato,
             descricao: req.body.descricao,
             objetivo: req.body.objetivo,
+            arquivado: req.body.arquivado,
             tipoEngenharia: req.body.tipoEngenharia
         });
         res.status(201).send(projeto);

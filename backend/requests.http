@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "nomeEmpresa" : "  teste resposta",
-    "nomeProjeto" : "Linha de vida 1"
+    "nomeProjeto" : "Linha de vida 1",
 }
 
 ###
@@ -12,16 +12,15 @@ GET http://localhost:3333/projetos
 
 ###
 
-PUT http://localhost:3333/projetos/5e263f8392c6960b6c5001e0
+GET http://localhost:3333/projetos/arquivados
+
+###
+//Não funciona quando é passado como parâmetro um valor boolean
+PUT http://localhost:3333/projetos/5e3ac07099a7df146c014161
 Content-Type: application/json
 
 {   
-    "nomeEmpresa" : "gerdau divinopolis",
-    "nomeProjeto" : "Plataforma tandem.",
-    "descricao" : "empresa de produção de aço e perfis.",
-    "codigo" : "999999",
-    "disciplina" : "mecânica",
-    "numNosso" : "123456"
+    "arquivado": true,
 }
 
 ###
