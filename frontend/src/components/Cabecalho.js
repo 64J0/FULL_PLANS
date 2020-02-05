@@ -12,6 +12,7 @@ function Cabecalho({ stringPagina }) {
                 <li><img src={Logo} alt="Ícone da empresa"/></li>
                 <li><button onClick={() => stringPagina('Home')}>Home</button></li>
                 <li><button onClick={() => stringPagina('Listar')}>Listar</button></li>
+                <li><button onClick={() => stringPagina('Arquivados')}>Arquivados</button></li>
                 <li><button onClick={() => stringPagina('Cadastrar')}>Cadastrar</button></li>
             </ul>
             <h1>Planejamento FULL</h1>

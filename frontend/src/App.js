@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+
 import api from './services/api';
 import CadastrarProjeto from './components/CadastrarProjeto';
 import Cabecalho from './components/Cabecalho';
 import Listar from './components/Listar';
+import Arquivados from './components/Arquivados';
 import Home from './components/Home';
 import Footer from './components/Footer';
 //import Logo from './fullE_icon.png';
@@ -14,6 +16,8 @@ import './components/Cabecalho.css';
 function App() {
 
   const [projetos, setProjetos] = useState([]);
+  const [projetosArquivados, setProjetosArquivados] = useState([]);
+  const [projetosAbertos, setProjetosAbertos] = useState([]);
 
   useEffect(() => {
 
@@ -21,11 +25,31 @@ function App() {
       const response = await api.get('/projetos');
 
       setProjetos(response.data);
+      
     }
 
     loadProjetos();
 
   }, []);
+
+  //=================================================================
+
+  // Não está funcionando
+  useEffect(() => {
+
+    function classificarProjeto() {
+      projetos.map(projeto => {
+        if (projeto.arquivado === true) {
+          return setProjetosArquivados([...projetosArquivados, projeto]);
+        } else {
+          return setProjetosAbertos([...projetosAbertos, projeto]);
+        }
+      });
+    }
+
+    classificarProjeto();
+
+  }, [projetos]);
 
   //=================================================================
 
@@ -39,6 +63,8 @@ function App() {
       setStringPagina('Listar');
     })
     .catch(error => console.log(error));
+
+
 
   }
 
@@ -85,19 +111,26 @@ function App() {
   function decideWhatToDisplay() {
 
     switch (stringPagina)  {
-      case 'Home' :
-        return (<Home />);
 
       case 'Listar':
         return (
-          <Listar props={projetos} onDelete={handleDeleteProjeto}  onUpdate={handleUpdateProjeto} />
+          <Listar props={projetosAbertos} onDelete={handleDeleteProjeto}  onUpdate={handleUpdateProjeto} />
+        );
+
+      case 'Arquivados':
+        return(
+          <Arquivados props={projetosArquivados} onDelete={handleDeleteProjeto}  onUpdate={handleUpdateProjeto} />
         );
 
       case 'Cadastrar': 
-        return (<CadastrarProjeto onSubmit={handleAddProjeto} />);
+        return (
+          <CadastrarProjeto onSubmit={handleAddProjeto} />
+        );
 
       default:
-        return (<Home />);
+        return (
+          <Home />
+        );
 
     }
   }
