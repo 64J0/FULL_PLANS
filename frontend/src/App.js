@@ -34,6 +34,7 @@ function App() {
 
   //=================================================================
 
+  // Não está funcionando
   useEffect(() => {
 
     function classificarProjeto() {
@@ -48,7 +49,7 @@ function App() {
 
     classificarProjeto();
 
-  });
+  }, [projetos]);
 
   //=================================================================
 
