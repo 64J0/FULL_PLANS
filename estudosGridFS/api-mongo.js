@@ -29,8 +29,6 @@ client.connect(function(error) {
         res.end(
             '<form action="/fileupload" enctype="multipart/form-data" method="post">'+
             '<h1>Formulario para testar a API</h1>'+
-            '<p>Entre com o titulo da imagem</p>'+
-            '<input type="text" name="title"><br>'+
             '<input type="file" name="upload" multiple="multiple"><br>'+
             '<input type="submit" value="Salvar informacoes">'+
             '</form>'
@@ -63,10 +61,10 @@ client.connect(function(error) {
     
     });
     
-    app.get('/content', (req, res) => {
-        /*
-        let files = bucket.openDownloadStreamByName('Penguins.jpg').
-        pipe(fs.createWriteStream('./output.jpg')).
+    app.get('/content/:name', (req, res) => {
+
+        let files = bucket.openDownloadStreamByName(req.params.name).
+        pipe(fs.createWriteStream('./' + req.params.name)).
         on('error', function(error) {
             assert.ifError(error);
         }).
@@ -74,12 +72,7 @@ client.connect(function(error) {
             console.log('done!');
             //process.exit(0);
         });
-        */
 
-        let files = bucket.openDownloadStreamByName('Penguins.jpg');
-
-        console.log(files.s);
-        res.send(`<img src="${files.path}" />`);
     });
 
     app.get('/delete/:id', (req, res) => {
