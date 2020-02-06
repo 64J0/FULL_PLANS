@@ -1,0 +1,15 @@
+
+div.projetos-arquivados {
+    height: 100%;
+}
+
+div.projetos-arquivados h2 {
+    color: #353839;
+    text-align: center;
+    padding: 20px 0;
+}
+
+div.projetos-arquivados ul {
+    display: block;
+    list-style: none;
+}

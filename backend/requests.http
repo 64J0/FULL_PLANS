@@ -16,11 +16,11 @@ GET http://localhost:3333/projetos/arquivados
 
 ###
 //Não funciona quando é passado como parâmetro um valor boolean
-PUT http://localhost:3333/projetos/5e3ac07099a7df146c014161
+PUT http://localhost:3333/projetos/5e32dc949987390a24c64880
 Content-Type: application/json
 
 {   
-    "arquivado": true,
+    "arquivado": true
 }
 
 ###

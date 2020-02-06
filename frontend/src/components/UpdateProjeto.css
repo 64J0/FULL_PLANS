@@ -72,3 +72,23 @@
     background-color: #74868f;
     color: black;
 }
+
+
+
+
+.update-item .input-checkBox input {
+    display: block;
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+}
+
+.update-item .input-checkBox input:hover {
+    background: #ccc;
+    cursor: pointer;
+}
+
+/* When the checkbox is checked, add a blue background */
+.update-item .input-checkBox input:checked {
+    background-color: #2196F3;
+}

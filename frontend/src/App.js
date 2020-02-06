@@ -21,15 +21,25 @@ function App() {
 
   useEffect(() => {
 
+    async function loadProjetos() {
+
+      const response = await api.get('/projetos');
+      setProjetos(response.data);
+      
+    }
+
+    loadProjetos();
+
+  }, []);
+
+  useEffect(() => {
+
     let arrayProjetosArquivados = [];
     let arrayProjetosAbertos = [];
 
-    async function loadProjetos() {
-      const response = await api.get('/projetos');
+    function asignTheCorrectState() {
+      projetos.map(projeto => {
 
-      setProjetos(response.data);
-
-      response.data.map(projeto => {
         if (projeto.arquivado === true) {
           arrayProjetosArquivados.push(projeto);
         } else {
@@ -40,14 +50,42 @@ function App() {
       });
 
       setProjetosArquivados(arrayProjetosArquivados);
+      console.log(arrayProjetosArquivados);
       setProjetosAbertos(arrayProjetosAbertos);
-      
+      console.log(arrayProjetosAbertos);
     }
 
-    loadProjetos();
+    asignTheCorrectState();
 
-  }, []);
+  }, [projetos]);
 
+  //=================================================================
+
+  /*
+  function asignTheCorrectState(data, caseString) {
+
+    switch (caseString) {
+
+      case 'Add':
+        if (data.arquivado === true) {
+          setProjetosArquivados([...projetosArquivados, data]);
+        } else {
+          setProjetosAbertos([...projetosAbertos, data]);
+        }
+        return null;
+
+      case 'Remove':
+        if (data.arquivado === true) {
+          setProjetosArquivados(projetosArquivados.filter(projetoArquivado => projetoArquivado !== data));
+        }
+        return null;
+
+      default:
+        return null;
+    }
+
+  }
+  */
 
   //=================================================================
 
@@ -56,13 +94,12 @@ function App() {
     await api.post('/projetos', data)
     .then(response => {
       setProjetos([...projetos, response.data]);
+      //asignTheCorrectState(response.data, 'Add');
     })
     .then(() => {
       setStringPagina('Listar');
     })
     .catch(error => console.log(error));
-
-
 
   }
 

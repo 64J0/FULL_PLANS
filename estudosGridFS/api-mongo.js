@@ -11,7 +11,7 @@ dotenv.config({ path: path.resolve(__dirname, './.env') });
 const app = express();
 app.use(bodyParser.json());
 
-let dbName = 'GridFS';
+let dbName = 'Arquivos';
 
 const client = new mongo.MongoClient(process.env.DATABASE_CONNECTION_STRING, {
     useUnifiedTopology: true
@@ -38,14 +38,24 @@ client.connect(function(error) {
     // Rota de uma chamada POST
     app.post('/fileupload', function (req, res) {
         const form = new formidable.IncomingForm();
+        //form.encoding = 'utf-8';
+        //form.uploadDir = './uploadData';
         form.keepExtensions = true;
         form.parse(req, function(err, fields, files) {
             if (!err) {
-        
+                
                 fs.createReadStream(files.upload.path).
                 pipe(bucket.openUploadStream(files.upload.name)).
                 on('error', function(error) {
                     assert.ifError(error);
+                }).
+                on('progress', function(bytesReceived, bytesExpected) {
+                    let percentage = Math.round(bytesReceived/bytesExpected);
+                    if (percentage >= 90) {
+                        console.log('It has been uploaded ' + Math.round(bytesReceived/bytesExpected) + '% of the total');
+                    } else {
+                        return null;
+                    }
                 }).
                 on('finish', function() {
                     console.log('done!');
@@ -63,13 +73,14 @@ client.connect(function(error) {
     
     app.get('/content/:name', (req, res) => {
 
-        let files = bucket.openDownloadStreamByName(req.params.name).
-        pipe(fs.createWriteStream('./' + req.params.name)).
+        bucket.openDownloadStreamByName(req.params.name).
+        pipe(fs.createWriteStream('C:\\Users\\projetista11\\Desktop\\Programas\\FULL_PLANS-branchFull\\estudosGridFS\\downloads' + req.params.name)).
         on('error', function(error) {
             assert.ifError(error);
         }).
         on('end', function() {
             console.log('done!');
+            res.send('done');
             //process.exit(0);
         });
 
