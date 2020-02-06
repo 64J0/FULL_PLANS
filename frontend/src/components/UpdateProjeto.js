@@ -19,6 +19,7 @@ function UpdateProjeto({ projeto, onUpdate, onDelete, setStringPagina }) {
     const [formato, setFormato] = useState(projeto.formato);
     const [descricao, setDescricao] = useState(projeto.descricao);
     const [objetivo, setObjetivo] = useState(projeto.objetivo);
+    const [arquivado, setArquivado] = useState(projeto.arquivado);
     const [tipoEngenharia, setTipoEngenharia] = useState(projeto.tipoEngenharia);
 
     async function handleDeletar(id) {
@@ -28,6 +29,7 @@ function UpdateProjeto({ projeto, onUpdate, onDelete, setStringPagina }) {
     async function handleUpdate(id) {
         
         await onUpdate(id, {
+            arquivado,
             nomeEmpresa,
             nomeProjeto,
             disciplina,
@@ -46,6 +48,36 @@ function UpdateProjeto({ projeto, onUpdate, onDelete, setStringPagina }) {
             tipoEngenharia,
         });
     }
+
+    function decideWhatToDisplay() {
+
+        if (arquivado === true) {
+            
+            return (
+                <input 
+                    type="checkbox" 
+                    name="arquivado"
+                    checked
+                    onChange={() => {
+                        setArquivado(!arquivado)
+                    }}
+                />
+            );
+        } else {
+            return (
+                <input 
+                    type="checkbox" 
+                    name="arquivado"
+                    onChange={() => {
+                        setArquivado(!arquivado)
+                    }}
+                />
+            );
+        }
+
+    }
+
+    console.log(arquivado);
 
     return(
         <li>
@@ -259,6 +291,15 @@ function UpdateProjeto({ projeto, onUpdate, onDelete, setStringPagina }) {
                             value={tipoEngenharia}
                             onChange={e => setTipoEngenharia(e.target.value)}
                         />
+                    </div>
+
+                    <div className="input-checkBox input-block">
+                        <label htmlFor="arquivado">
+                            Arquivar projeto
+                        </label>
+                        {
+                            decideWhatToDisplay()
+                        }
                     </div>
 
                     <div className="div-buttons">
