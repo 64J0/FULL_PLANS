@@ -21,10 +21,26 @@ function App() {
 
   useEffect(() => {
 
+    let arrayProjetosArquivados = [];
+    let arrayProjetosAbertos = [];
+
     async function loadProjetos() {
       const response = await api.get('/projetos');
 
       setProjetos(response.data);
+
+      response.data.map(projeto => {
+        if (projeto.arquivado === true) {
+          arrayProjetosArquivados.push(projeto);
+        } else {
+          arrayProjetosAbertos.push(projeto);
+        }
+
+        return null;
+      });
+
+      setProjetosArquivados(arrayProjetosArquivados);
+      setProjetosAbertos(arrayProjetosAbertos);
       
     }
 
@@ -32,24 +48,6 @@ function App() {
 
   }, []);
 
-  //=================================================================
-
-  // Não está funcionando
-  useEffect(() => {
-
-    function classificarProjeto() {
-      projetos.map(projeto => {
-        if (projeto.arquivado === true) {
-          return setProjetosArquivados([...projetosArquivados, projeto]);
-        } else {
-          return setProjetosAbertos([...projetosAbertos, projeto]);
-        }
-      });
-    }
-
-    classificarProjeto();
-
-  }, [projetos]);
 
   //=================================================================
 
