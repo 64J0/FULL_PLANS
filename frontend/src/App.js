@@ -38,6 +38,7 @@ function App() {
     let arrayProjetosAbertos = [];
 
     function asignTheCorrectState() {
+
       projetos.map(projeto => {
 
         if (projeto.arquivado === true) {
@@ -45,14 +46,12 @@ function App() {
         } else {
           arrayProjetosAbertos.push(projeto);
         }
-
         return null;
+        
       });
 
       setProjetosArquivados(arrayProjetosArquivados);
-      console.log(arrayProjetosArquivados);
       setProjetosAbertos(arrayProjetosAbertos);
-      console.log(arrayProjetosAbertos);
     }
 
     asignTheCorrectState();
@@ -61,40 +60,11 @@ function App() {
 
   //=================================================================
 
-  /*
-  function asignTheCorrectState(data, caseString) {
-
-    switch (caseString) {
-
-      case 'Add':
-        if (data.arquivado === true) {
-          setProjetosArquivados([...projetosArquivados, data]);
-        } else {
-          setProjetosAbertos([...projetosAbertos, data]);
-        }
-        return null;
-
-      case 'Remove':
-        if (data.arquivado === true) {
-          setProjetosArquivados(projetosArquivados.filter(projetoArquivado => projetoArquivado !== data));
-        }
-        return null;
-
-      default:
-        return null;
-    }
-
-  }
-  */
-
-  //=================================================================
-
   async function handleAddProjeto(data) {
 
     await api.post('/projetos', data)
     .then(response => {
       setProjetos([...projetos, response.data]);
-      //asignTheCorrectState(response.data, 'Add');
     })
     .then(() => {
       setStringPagina('Listar');

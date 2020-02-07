@@ -6,6 +6,7 @@
 */
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 const cors = require('cors');
 /*
     O dotenv é um módulo que não necessita de outras dependências. Este módulo carrega variáveis de ambiente de um arquivo nomeado .env para um arquivo nomeado process.env. Armazenar algumas configurações sensíveis ou secretas em um ambiente separado, como é caso quando é utilizado o dotenv é uma boa prática de programação
@@ -26,7 +27,10 @@ app.use(cors({}));
 */
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
+/*
+    Middleware que informa alguns dados sobre a conexão com o servidor, como por exemplo, tempo de resposta, qual o verbo HTTP foi solicitado, entre outras informações.
+*/
+app.use(morgan('dev'));
 
 
 /* ============================================================================================================ */

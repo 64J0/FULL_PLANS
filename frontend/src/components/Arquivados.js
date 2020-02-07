@@ -1,15 +1,24 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import ListItem from './ListItem';
+import Buscar from './Buscar';
+
 import './Arquivados.css';
 
 function Arquivados({ props, onDelete, onUpdate }) {
 
+    const [projetosEncontrados, setProjetosEncontrados] = useState([]);
+
+    function defineProjetosEncontrados(projetos) {
+        setProjetosEncontrados(projetos);
+        console.log(projetosEncontrados);
+    }
+
     return(
         <div className="projetos-arquivados">
             <h2>Projetos Arquivados</h2>
+            <Buscar projetos={props} onProjetosEncontrados={defineProjetosEncontrados} />
             <ul>
-                {props.map(projeto => (
+                {projetosEncontrados.map(projeto => (
                     <ListItem 
                         key={String(projeto._id)}
                         projeto={projeto}

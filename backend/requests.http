@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "nomeEmpresa" : "  teste resposta",
-    "nomeProjeto" : "Linha de vida 1",
+    "nomeProjeto" : "Linha de vida 1"
 }
 
 ###
@@ -11,11 +11,10 @@ Content-Type: application/json
 GET http://localhost:3333/projetos
 
 ###
-
+// Rota para acessar os projetos arquivados
 GET http://localhost:3333/projetos/arquivados
 
 ###
-//Não funciona quando é passado como parâmetro um valor boolean
 PUT http://localhost:3333/projetos/5e32dc949987390a24c64880
 Content-Type: application/json
 
