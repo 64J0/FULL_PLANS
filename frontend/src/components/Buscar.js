@@ -82,21 +82,21 @@ function Buscar({ projetos, onProjetosEncontrados }) {
                     <span>Código</span>
                     <input 
                         type="text" 
-                        onChange={(e) => setCodigo(e.target.value.trim().toUpperCase())}
+                        onChange={(e) => setCodigo(e.target.value.toUpperCase())}
                         value={codigo}
                         id="searchCodigo"
                     />
                     <span>Disciplina</span>
                     <input 
                         type="text" 
-                        onChange={(e) => setDisciplina(e.target.value.trim().toUpperCase())}
+                        onChange={(e) => setDisciplina(e.target.value.toUpperCase())}
                         value={disciplina}
                         id="searchDisciplina"
                     />
                     <span>Área</span>
                     <input 
                         type="text" 
-                        onChange={(e) => setArea(e.target.value.trim().toUpperCase())}
+                        onChange={(e) => setArea(e.target.value.toUpperCase())}
                         value={area}
                         id="searchArea"
                     />

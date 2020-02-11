@@ -84,7 +84,8 @@ process.on('SIGINT', () => {
 /*
     Estes modelos estão associados a como especificamos um objeto que será salvo no banco de dados MongoDB. Neste arquivo está definido o Schema que será salvo na coleção.
 */
-const Projetos = require('./models/projeto');
+require('./models/projeto');
+require('./models/user');
 
 // Load routes
 const indexRoutes = require('./routes/index-routes');
@@ -92,5 +93,8 @@ app.use('/', indexRoutes);
 
 const projetosRoutes = require('./routes/projetos-routes');
 app.use('/projetos', projetosRoutes);
+
+const loginRoutes = require('./routes/login-routes');
+app.use('/login', loginRoutes);
 
 module.exports = app;

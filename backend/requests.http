@@ -23,5 +23,4 @@ Content-Type: application/json
 }
 
 ###
-
 DELETE http://localhost:3333/projetos/5e2342623f6fec1510006ff6

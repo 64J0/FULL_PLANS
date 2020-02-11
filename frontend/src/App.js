@@ -7,6 +7,7 @@ import Listar from './components/Listar';
 import Arquivados from './components/Arquivados';
 import Home from './components/Home';
 import Footer from './components/Footer';
+import Login from './components/Login';
 //import Logo from './fullE_icon.png';
 
 import './App.css';
@@ -18,6 +19,40 @@ function App() {
   const [projetos, setProjetos] = useState([]);
   const [projetosArquivados, setProjetosArquivados] = useState([]);
   const [projetosAbertos, setProjetosAbertos] = useState([]);
+  const [login, setLogin] = useState(false);
+
+  function displayLogin() {
+
+    if (!login) {
+
+      return (
+        <Login onSubmit={handleLogin} />
+      );
+
+    } else {
+
+      return (
+        <>
+          <header className="App-header cabecalho">
+            <Cabecalho stringPagina={setStringPagina} />
+          </header>
+
+          <main className="App-main">
+
+            {
+              decideWhatToDisplay()
+            }
+
+          </main>
+
+          <footer className="App-footer">
+            <Footer />
+          </footer>
+        </>
+      );
+
+    }
+  }
 
   useEffect(() => {
 
@@ -57,6 +92,23 @@ function App() {
     asignTheCorrectState();
 
   }, [projetos]);
+
+  //=================================================================
+
+  async function handleLogin(data) {
+
+    await api.post('/login', data)
+    .then(response => {
+      //console.log(response.data.auth);
+      if (!response.data.auth) {
+        alert('Falha no login');
+      } else {
+        setLogin(response.data.auth);
+      }
+    })
+    .catch(error => console.log(error));
+
+  }
 
   //=================================================================
 
@@ -145,21 +197,10 @@ function App() {
   return (
     <div id="App">
 
-      <header className="App-header cabecalho">
-        <Cabecalho stringPagina={setStringPagina} />
-      </header>
-
-      <main className="App-main">
-
-        {
-          decideWhatToDisplay()
-        }
-
-      </main>
-
-      <footer className="App-footer">
-        <Footer />
-      </footer>
+      {
+        displayLogin()
+      }
+      
     </div>
   );
 }

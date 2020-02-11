@@ -261,21 +261,6 @@ function CadastrarProjeto({ onSubmit }) {
                     />
                 </div>
 
-                {/* 
-                    <div className="input-block">
-                        <label htmlFor="tipoEngenharia">
-                            Tipo de engenharia
-                        </label>
-                        <input 
-                            type="file" 
-                            name="fileToUpload"
-                            id="fileToUpload"
-                            value={fileToUpload_path}
-                            onChange={e => setFileToUpload_path(e.target.value)}
-                        />
-                    </div>
-                */}
-
                 <button type="submit">
                     Cadastrar novo projeto
                 </button>
