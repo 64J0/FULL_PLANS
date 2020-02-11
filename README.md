@@ -11,11 +11,12 @@ Este projeto está sendo desenvolvido como meio de aprimorar meus conhecimentos 
 * Operações CRUD básicas funcionando tanto no frontend quanto no backend, para cadastrar um novo projeto, deletar ou modificar um determinado projeto e exibir o conteúdo dos projetos no banco de dados;
 * Funcionalidade de arquivar projetos finalizados, e separar em páginas diferentes;
 * Implementar uma feature de buscar um projeto no banco de dados baseado numa search query;
+* Sistema de login para acessar as funcionalidades do resto da aplicação;
 
 ### O que ainda será desenvolvido:
 
-* Sistema de login para acessar as funcionalidades do resto da aplicação;
 * Implementar um sistema de upload de arquivos para armazenar detalhes de projetos já finalizados. Para isso está sendo estudada uma implementação usando o GridFS do MongoDB, pois este é o banco de dados escolhido para se utilizar no projeto. *O GridFS deve ser usado quando for necessário guardar no banco de dados MongoDB um arquivo de tamanho superior a 16 MB*;
+* Implementar um sistema de autenticação e autorização;
 * Layout precisa ser ajustado para ficar mais user friendly:
   * Uma tela de confirmação quando o usuário quiser deletar um determinado arquivo;
   * Uma tela de loading para quando os projetos estiverem sendo carregados do banco de dados;
