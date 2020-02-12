@@ -8,7 +8,6 @@ import Arquivados from './components/Arquivados';
 import Home from './components/Home';
 import Footer from './components/Footer';
 import Login from './components/Login';
-//import Logo from './fullE_icon.png';
 
 import './App.css';
 import './global.css';

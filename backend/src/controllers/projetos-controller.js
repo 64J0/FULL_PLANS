@@ -15,11 +15,9 @@ exports.listProjeto = async (req, res) => {
 exports.createProjeto = async (req, res) => {
     try {
         let projeto = await repository.createProjeto({
-            nomeEmpresa: req.body.nomeEmpresa,
+            cliente: req.body.cliente,
             nomeProjeto: req.body.nomeProjeto,
             disciplina: req.body.disciplina,
-            area: req.body.area,
-            codigo: req.body.codigo,
             projetista: req.body.projetista,
             verificador: req.body.verificador,
             numPedido: req.body.numPedido,
@@ -31,7 +29,8 @@ exports.createProjeto = async (req, res) => {
             descricao: req.body.descricao,
             objetivo: req.body.objetivo,
             arquivado: req.body.arquivado,
-            tipoEngenharia: req.body.tipoEngenharia
+            tipoEngenharia: req.body.tipoEngenharia,
+            motivoArquivado: req.body.motivoArquivado
         });
         res.status(201).send(projeto);
     } catch(e) {

@@ -10,7 +10,7 @@ function Arquivados({ props, onDelete, onUpdate }) {
 
     function defineProjetosEncontrados(projetos) {
         setProjetosEncontrados(projetos);
-        console.log(projetosEncontrados);
+        //console.log(projetosEncontrados);
     }
 
     return(

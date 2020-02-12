@@ -3,21 +3,19 @@ import React, { useState } from 'react';
 import './CadastrarProjeto.css';
 
 function CadastrarProjeto({ onSubmit }) {
-    const [nomeEmpresa, setNomeEmpresa] = useState('');
+    const [cliente, setCliente] = useState('');
     const [nomeProjeto, setNomeProjeto] = useState('');
-    const [disciplina, setDisciplina] = useState('');
-    const [area, setArea] = useState('');
-    const [codigo, setCodigo] = useState('');
+    //const [disciplina, setDisciplina] = useState('');
     const [projetista, setProjetista] = useState('');
     const [verificador, setVerificador] = useState('');
     const [numPedido, setNumPedido] = useState('');
     const [responsavel, setResponsavel] = useState('');
-    const [revisao, setRevisao] = useState('');
-    const [numNosso, setNumNosso] = useState('');
-    const [numCliente, setNumCliente] = useState('');
-    const [formato, setFormato] = useState('');
-    const [descricao, setDescricao] = useState('');
-    const [objetivo, setObjetivo] = useState('');
+    //const [revisao, setRevisao] = useState('');
+    //const [numNosso, setNumNosso] = useState('');
+    //const [numCliente, setNumCliente] = useState('');
+    //const [formato, setFormato] = useState('');
+    //const [descricao, setDescricao] = useState('');
+    //const [objetivo, setObjetivo] = useState('');
     const [tipoEngenharia, setTipoEngenharia] = useState('');
     //const [fileToUpload_path, setFileToUpload_path] = useState('');
 
@@ -25,21 +23,12 @@ function CadastrarProjeto({ onSubmit }) {
         e.preventDefault();
 
         await onSubmit({
-            nomeEmpresa,
+            cliente,
             nomeProjeto,
-            disciplina,
-            area,
-            codigo,
             projetista,
             verificador,
             numPedido,
             responsavel,
-            revisao,
-            numNosso,
-            numCliente,
-            formato,
-            descricao,
-            objetivo,
             tipoEngenharia
         });
     }
@@ -53,16 +42,16 @@ function CadastrarProjeto({ onSubmit }) {
             <form onSubmit={handleSubmit}>
 
                 <div className="input-block">
-                    <label htmlFor="nomeEmpresa">
-                        Nome da empresa
+                    <label htmlFor="cliente">
+                        Cliente
                     </label>
                     <input 
                         type="text" 
-                        name="nomeEmpresa"
-                        id="nomeEmpresa"
+                        name="cliente"
+                        id="cliente"
                         required
-                        value={nomeEmpresa}
-                        onChange={e => setNomeEmpresa(e.target.value)}
+                        value={cliente}
+                        onChange={e => setCliente(e.target.value)}
                     />
                 </div>
                 
@@ -78,7 +67,7 @@ function CadastrarProjeto({ onSubmit }) {
                         onChange={e => setNomeProjeto(e.target.value)}
                     />
                 </div>
-                
+                {/*
                 <div className="input-block">
                     <label htmlFor="disciplina">
                         Disciplina
@@ -91,33 +80,7 @@ function CadastrarProjeto({ onSubmit }) {
                         onChange={e => setDisciplina(e.target.value)} 
                     />
                 </div>
-                
-                <div className="input-block">
-                    <label htmlFor="area">
-                        Área
-                    </label>
-                    <input 
-                        type="text" 
-                        name="area"
-                        id="area"
-                        value={area}
-                        onChange={e => setArea(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="codigo">
-                        Código
-                    </label>
-                    <input 
-                        type="text" 
-                        name="codigo"
-                        id="codigo"
-                        value={codigo}
-                        onChange={e => setCodigo(e.target.value)}
-                    />
-                </div>
-                
+                */}
                 <div className="input-block">
                     <label htmlFor="projetista">
                         Projetista
@@ -169,7 +132,21 @@ function CadastrarProjeto({ onSubmit }) {
                         onChange={e => setResponsavel(e.target.value)}
                     />
                 </div>
-                
+
+                <div className="input-block">
+                    <label htmlFor="tipoEngenharia">
+                        Tipo de engenharia
+                    </label>
+                    <input 
+                        type="text" 
+                        name="tipoEngenharia"
+                        id="tipoEngenharia"
+                        value={tipoEngenharia}
+                        onChange={e => setTipoEngenharia(e.target.value)}
+                    />
+                </div>
+
+                {/* 
                 <div className="input-block">
                     <label htmlFor="revisao">
                         Revisão
@@ -185,7 +162,7 @@ function CadastrarProjeto({ onSubmit }) {
                 
                 <div className="input-block">
                     <label htmlFor="numNosso">
-                        Número nosso
+                        Número FULL
                     </label>
                     <input 
                         type="text" 
@@ -247,19 +224,7 @@ function CadastrarProjeto({ onSubmit }) {
                         onChange={e => setObjetivo(e.target.value)}
                     />
                 </div>
-                
-                <div className="input-block">
-                    <label htmlFor="tipoEngenharia">
-                        Tipo de engenharia
-                    </label>
-                    <input 
-                        type="text" 
-                        name="tipoEngenharia"
-                        id="tipoEngenharia"
-                        value={tipoEngenharia}
-                        onChange={e => setTipoEngenharia(e.target.value)}
-                    />
-                </div>
+                */}
 
                 <button type="submit">
                     Cadastrar novo projeto

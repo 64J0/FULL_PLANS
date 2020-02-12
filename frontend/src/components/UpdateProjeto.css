@@ -2,9 +2,9 @@
     display: block;
     padding: 8px;
     margin: 5px;
-    border: 1px solid #cac7c6;
+    border: 1px solid #353839;
     border-radius: 5px;
-    background: #353839;
+    background: #cac7c6;
     width: 100%;
 }
 
@@ -18,18 +18,20 @@
     font-weight: bold;
     padding: 3px 3px 3px 6px;
     margin: 5px 0 0 5px;
-    color: #cac7c6;
-    border: 1px solid #cac7c6;
+    color: #353839;
+    background: #eee;
+    border: 1px solid #353839;
+    border-radius: 3px 0;
 }
 
 .update-item .input-block input {
     font-weight: bold;
     padding: 3px 3px 3px 6px;
     margin: 5px 0 0 5px;
-    color: #cac7c6;
-    border: 1px solid #cac7c6;
+    color: #353839;
+    border: 1px solid #353839;
     border-radius: 5px;
-    background: #353839;
+    background: #eee;
 }
 
 .update-item .div-buttons {
@@ -47,7 +49,7 @@
     border: none;
     border-radius: 8px;
     background-color: #800;
-    color: #cac7c6;
+    color: #fff;
 }
 
 .update-item .div-buttons button.btn-deletar[type=button]:hover {
@@ -64,7 +66,7 @@
     border: none;
     border-radius: 8px;
     background-color: #0f679a;
-    color: #cac7c6;
+    color: #fff;
 }
 
 .update-item .div-buttons button.btn-editar[type=submit]:hover {

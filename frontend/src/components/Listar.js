@@ -10,7 +10,6 @@ function Listar({ props, onDelete, onUpdate }) {
 
     function defineProjetosEncontrados(projetos) {
         setProjetosEncontrados(projetos);
-        console.log(projetosEncontrados);
     }
 
     return(

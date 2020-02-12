@@ -26,6 +26,7 @@
     "express-validator": "^6.3.1",
     "formidable": "^1.2.1",
     "gridfs-stream": "^1.1.1",
+    "helmet": "^3.21.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.7",
     "morgan": "^1.9.1",

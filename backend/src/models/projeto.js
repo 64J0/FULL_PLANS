@@ -9,28 +9,13 @@ const Schema = mongoose.Schema;
 */
 
 const projetoSchema = new Schema({
-    nomeEmpresa: {
+    cliente: {
         type: String,
         required: true,
         trim: true,
         uppercase: true
     },
     nomeProjeto: {
-        type: String,
-        trim: true,
-        uppercase: true
-    },
-    disciplina: {
-        type: String,
-        trim: true,
-        uppercase: true
-    },
-    area: {
-        type: String,
-        trim: true,
-        uppercase: true
-    },
-    codigo: {
         type: String,
         trim: true,
         uppercase: true
@@ -55,44 +40,55 @@ const projetoSchema = new Schema({
         trim: true,
         uppercase: true
     },
-    revisao: {
-        type: String,
-        trim: true,
-        uppercase: true
-    },
-    numNosso: {
-        type: String,
-        trim: true,
-        uppercase: true
-    },
-    numCliente: {
-        type: String,
-        trim: true,
-        uppercase: true
-    },
-    formato: {
-        type: String,
-        trim: true,
-        uppercase: true
-    },
-    descricao: {
-        type: String,
-        trim: true,
-        uppercase: true
-    },
-    objetivo: {
-        type: String,
-        trim: true,
-        uppercase: true
-    },
     tipoEngenharia: {
         type: String,
         trim: true,
         uppercase: true
     },
+
+    revisao: [{
+        type: String,
+        trim: true,
+        uppercase: true
+    }],
+    numNosso: [{
+        type: String,
+        trim: true,
+        uppercase: true
+    }],
+    numCliente: [{
+        type: String,
+        trim: true,
+        uppercase: true
+    }],
+    formato: [{
+        type: String,
+        trim: true,
+        uppercase: true
+    }],
+    descricao: [{
+        type: String,
+        trim: true,
+        uppercase: true
+    }],
+    disciplina: [{
+        type: String,
+        trim: true,
+        uppercase: true
+    }],
+    objetivo: [{
+        type: String,
+        trim: true,
+        uppercase: true                                            
+    }],
+    
     arquivado: {
         type: Boolean,
         default: false,
+    },
+    motivoArquivado: {
+        type: String,
+        uppercase: true
     },
     createdAt: {
         type: Date,

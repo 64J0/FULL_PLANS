@@ -13,16 +13,10 @@ function ListItemInfo({ projeto, onDelete, stringPagina }) {
         if (toggle) {
             card.innerHTML = (
                 `
-                <p>Empresa: </p>
-                <p>${projeto.nomeEmpresa}</p>
+                <p>Cliente: </p>
+                <p>${projeto.cliente}</p>
                 <p>Projeto: </p>
                 <p>${projeto.nomeProjeto}</p>
-                <p>Disciplina: </p>
-                <p>${projeto.disciplina}</p>
-                <p>Área: </p>
-                <p>${projeto.area}</p>
-                <p>Código: </p>
-                <p>${projeto.codigo}</p>
                 <p>Projetista: </p>
                 <p>${projeto.projetista}</p>
                 <p>Verificador: </p>
@@ -31,6 +25,10 @@ function ListItemInfo({ projeto, onDelete, stringPagina }) {
                 <p>${projeto.numPedido}</p>
                 <p>Responsável: </p>
                 <p>${projeto.responsavel}</p>
+                <p>Tipo da engenharia: </p>
+                <p>${projeto.tipoEngenharia}</p>
+                <p>Disciplina: </p>
+                <p>${projeto.disciplina}</p>
                 <p>Revisão: </p>
                 <p>${projeto.revisao}</p>
                 <p>Número nosso: </p>
@@ -43,9 +41,6 @@ function ListItemInfo({ projeto, onDelete, stringPagina }) {
                 <p>${projeto.descricao}</p>
                 <p>Objetivo: </p>
                 <p>${projeto.objetivo}</p>
-                <p>Tipo da engenharia: </p>
-                <p>${projeto.tipoEngenharia}</p>
-                
                 `
             );
             botao.innerHTML = '-';
@@ -54,7 +49,7 @@ function ListItemInfo({ projeto, onDelete, stringPagina }) {
             card.innerHTML = (
                 `
                 <p>Empresa: </p>
-                <p>${projeto.nomeEmpresa}</p>
+                <p>${projeto.cliente}</p>
                 <p>Projeto: </p>
                 <p>${projeto.nomeProjeto}</p>
                 
@@ -74,8 +69,8 @@ function ListItemInfo({ projeto, onDelete, stringPagina }) {
         <li>
             <div className="list-item">
                 <div id={projeto._id} className="grid-container">
-                    <p>Empresa: </p>
-                    <p>{projeto.nomeEmpresa}</p>
+                    <p>Cliente: </p>
+                    <p>{projeto.cliente}</p>
                     <p>Projeto: </p>
                     <p>{projeto.nomeProjeto}</p>
                 </div>

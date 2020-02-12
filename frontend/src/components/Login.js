@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-
 import './Login.css';
+import logoImage from '../assets/fullE_icon.png';
 
 function Login({ onSubmit }) {
 
@@ -19,7 +19,7 @@ function Login({ onSubmit }) {
 
     return(
         <div className="login">
-            <img src="../fullE_icon.png" alt="Logo da Full Engenharia"/>
+            <img src={logoImage} alt="Logo da Full Engenharia"/>
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <legend>Login</legend>

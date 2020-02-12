@@ -2,8 +2,20 @@ POST http://localhost:3333/projetos
 Content-Type: application/json
 
 {
-    "nomeEmpresa" : "  teste resposta",
-    "nomeProjeto" : "Linha de vida 1"
+    "cliente": "Gerdau",
+    "nomeProjeto": "Linha de vida 1",
+    "projetista": "Vinícius Gajo",
+    "verificador": "Trump",
+    "numPedido": "123123",
+    "responsavel": "Barack Obama",
+    "tipoEngenharia": "A melhor",
+    "revisao": ["a", "a"],
+    "numNosso": ["321", "7676"],
+    "numCliente": ["666", "777"],
+    "formato": ["A0", "A2"],
+    "descricao": ["Deu tudo certo", "Aguardando confirmação"],
+    "disciplina": ["Matemática", "Física"],
+    "motivoArquivado": "Já foi concluído"
 }
 
 ###
@@ -15,7 +27,7 @@ GET http://localhost:3333/projetos
 GET http://localhost:3333/projetos/arquivados
 
 ###
-PUT http://localhost:3333/projetos/5e32dc949987390a24c64880
+PUT http://localhost:3333/projetos/5e441c3c22ef330b384ea62d
 Content-Type: application/json
 
 {   

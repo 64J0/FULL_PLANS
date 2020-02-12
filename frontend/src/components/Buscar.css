@@ -14,7 +14,7 @@ div.buscar fieldset legend {
 
 div.buscar fieldset div.grid-container {
     display: grid;
-    grid-template-columns: 120px 50%;
+    grid-template-columns: 180px 50%;
     align-items: baseline;
     justify-content: center;
 }

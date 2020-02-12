@@ -4,24 +4,22 @@ import './Buscar.css';
 
 function Buscar({ projetos, onProjetosEncontrados }) {
 
-    const [codigo, setCodigo] = useState("");
+    const [numPedido, setNumPedido] = useState("");
     const [disciplina, setDisciplina] = useState("");
-    const [area, setArea] = useState("");
     const [projetosEncontrados, setProjetosEncontrados] = useState([]);
 
     useEffect(() => {
 
-        let codigoLength = codigo.length;
+        let numPedidoLength = numPedido.length;
         let disciplinaLength = disciplina.length;
-        let areaLength = area.length;
 
-        if (!((codigoLength) || (disciplinaLength) || (areaLength))) {
+        if (!((numPedidoLength) || (disciplinaLength))) {
             onProjetosEncontrados(projetos);
         } else {
             onProjetosEncontrados(projetosEncontrados);
         }
 
-    }, [codigo, disciplina, area, projetos, projetosEncontrados, onProjetosEncontrados]);
+    }, [numPedido, disciplina, projetos, projetosEncontrados, onProjetosEncontrados]);
 
     useEffect(() => {
 
@@ -30,20 +28,18 @@ function Buscar({ projetos, onProjetosEncontrados }) {
         // Transformar em async?
         function searchProjetos() {
 
-            let codigoLength = codigo.length;
+            let numPedidoLength = numPedido.length;
             let disciplinaLength = disciplina.length;
-            let areaLength = area.length;
-            let projetoCodigoTratado, 
-                projetoDisciplinaTratada, 
-                projetoAreaTratada;
+            let projetoNumPedidoTratado, 
+                projetoDisciplinaTratada;
 
             // Tratamento dos dados
 
             projetos.map(
                 (projeto) => {
-                    if (codigoLength && projeto.codigo) {
-                        projetoCodigoTratado = projeto.codigo.slice(0, codigoLength).trim().toUpperCase();
-                        if (projetoCodigoTratado === codigo) {
+                    if (numPedidoLength && projeto.numPedido) {
+                        projetoNumPedidoTratado = projeto.numPedido.slice(0, numPedidoLength).trim().toUpperCase();
+                        if (projetoNumPedidoTratado === numPedido) {
                             arrayProjetosEncontrados.push(projeto);
                         }
                     }
@@ -51,13 +47,6 @@ function Buscar({ projetos, onProjetosEncontrados }) {
                     if (disciplinaLength && projeto.disciplina) {
                         projetoDisciplinaTratada = projeto.disciplina.slice(0, disciplinaLength).trim().toUpperCase();
                         if (projetoDisciplinaTratada === disciplina) {
-                            arrayProjetosEncontrados.push(projeto);
-                        }
-                    }
-
-                    if (areaLength && projeto.area) {
-                        projetoAreaTratada = projeto.area.slice(0, areaLength).trim().toUpperCase();
-                        if (projetoAreaTratada === area) {
                             arrayProjetosEncontrados.push(projeto);
                         }
                     }
@@ -72,19 +61,19 @@ function Buscar({ projetos, onProjetosEncontrados }) {
         setProjetosEncontrados(arrayProjetosEncontrados);
         searchProjetos();
 
-    }, [codigo, disciplina, area, projetos]);
+    }, [numPedido, disciplina, projetos]);
 
     return(
         <div className="buscar">
             <fieldset>
                 <legend>Buscar</legend>
                 <div className="grid-container">
-                    <span>Código</span>
+                    <span>Número do pedido</span>
                     <input 
                         type="text" 
-                        onChange={(e) => setCodigo(e.target.value.toUpperCase())}
-                        value={codigo}
-                        id="searchCodigo"
+                        onChange={(e) => setNumPedido(e.target.value.toUpperCase())}
+                        value={numPedido}
+                        id="searchNumPedido"
                     />
                     <span>Disciplina</span>
                     <input 
@@ -92,13 +81,6 @@ function Buscar({ projetos, onProjetosEncontrados }) {
                         onChange={(e) => setDisciplina(e.target.value.toUpperCase())}
                         value={disciplina}
                         id="searchDisciplina"
-                    />
-                    <span>Área</span>
-                    <input 
-                        type="text" 
-                        onChange={(e) => setArea(e.target.value.toUpperCase())}
-                        value={area}
-                        id="searchArea"
                     />
                 </div>
             </fieldset>

@@ -4,11 +4,9 @@ import './UpdateProjeto.css';
 
 function UpdateProjeto({ projeto, onUpdate, onDelete, setStringPagina }) {
 
-    const [nomeEmpresa, setNomeEmpresa] = useState(projeto.nomeEmpresa);
+    const [cliente, setCliente] = useState(projeto.cliente);
     const [nomeProjeto, setNomeProjeto] = useState(projeto.nomeProjeto);
     const [disciplina, setDisciplina] = useState(projeto.disciplina);
-    const [area, setArea] = useState(projeto.area);
-    const [codigo, setCodigo] = useState(projeto.codigo);
     const [projetista, setProjetista] = useState(projeto.projetista);
     const [verificador, setVerificador] = useState(projeto.verificador);
     const [numPedido, setNumPedido] = useState(projeto.numPedido);
@@ -30,11 +28,9 @@ function UpdateProjeto({ projeto, onUpdate, onDelete, setStringPagina }) {
         
         await onUpdate(id, {
             arquivado,
-            nomeEmpresa,
+            cliente,
             nomeProjeto,
             disciplina,
-            area,
-            codigo,
             projetista,
             verificador,
             numPedido,
@@ -85,16 +81,16 @@ function UpdateProjeto({ projeto, onUpdate, onDelete, setStringPagina }) {
                 <div id={projeto._id} className="grid-container">
                 <form>
                     <div className="input-block">
-                        <label htmlFor="nomeEmpresa">
-                            Nome da empresa
+                        <label htmlFor="cliente">
+                            Cliente
                         </label>
                         <input 
                             type="text" 
-                            name="nomeEmpresa"
-                            id="nomeEmpresa"
+                            name="cliente"
+                            id="cliente"
                             required
-                            value={nomeEmpresa}
-                            onChange={e => setNomeEmpresa(e.target.value)}
+                            value={cliente}
+                            onChange={e => setCliente(e.target.value)}
                         />
                     </div>
 
@@ -121,32 +117,6 @@ function UpdateProjeto({ projeto, onUpdate, onDelete, setStringPagina }) {
                             id="disciplina"
                             value={disciplina}
                             onChange={e => setDisciplina(e.target.value)} 
-                        />
-                    </div>
-
-                    <div className="input-block">
-                        <label htmlFor="area">
-                            Área
-                        </label>
-                        <input 
-                            type="text" 
-                            name="area"
-                            id="area"
-                            value={area}
-                            onChange={e => setArea(e.target.value)}
-                        />
-                    </div>
-
-                    <div className="input-block">
-                        <label htmlFor="codigo">
-                            Código
-                        </label>
-                        <input 
-                            type="text" 
-                            name="codigo"
-                            id="codigo"
-                            value={codigo}
-                            onChange={e => setCodigo(e.target.value)}
                         />
                     </div>
 
