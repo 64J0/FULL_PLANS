@@ -5,19 +5,11 @@ import './CadastrarProjeto.css';
 function CadastrarProjeto({ onSubmit }) {
     const [cliente, setCliente] = useState('');
     const [nomeProjeto, setNomeProjeto] = useState('');
-    //const [disciplina, setDisciplina] = useState('');
     const [projetista, setProjetista] = useState('');
     const [verificador, setVerificador] = useState('');
     const [numPedido, setNumPedido] = useState('');
     const [responsavel, setResponsavel] = useState('');
-    //const [revisao, setRevisao] = useState('');
-    //const [numNosso, setNumNosso] = useState('');
-    //const [numCliente, setNumCliente] = useState('');
-    //const [formato, setFormato] = useState('');
-    //const [descricao, setDescricao] = useState('');
-    //const [objetivo, setObjetivo] = useState('');
     const [tipoEngenharia, setTipoEngenharia] = useState('');
-    //const [fileToUpload_path, setFileToUpload_path] = useState('');
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -67,20 +59,7 @@ function CadastrarProjeto({ onSubmit }) {
                         onChange={e => setNomeProjeto(e.target.value)}
                     />
                 </div>
-                {/*
-                <div className="input-block">
-                    <label htmlFor="disciplina">
-                        Disciplina
-                    </label>
-                    <input 
-                        type="text" 
-                        name="disciplina"
-                        id="disciplina"
-                        value={disciplina}
-                        onChange={e => setDisciplina(e.target.value)} 
-                    />
-                </div>
-                */}
+
                 <div className="input-block">
                     <label htmlFor="projetista">
                         Projetista
@@ -145,86 +124,6 @@ function CadastrarProjeto({ onSubmit }) {
                         onChange={e => setTipoEngenharia(e.target.value)}
                     />
                 </div>
-
-                {/* 
-                <div className="input-block">
-                    <label htmlFor="revisao">
-                        Revisão
-                    </label>
-                    <input 
-                        type="text" 
-                        name="revisao"
-                        id="revisao"
-                        value={revisao}
-                        onChange={e => setRevisao(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="numNosso">
-                        Número FULL
-                    </label>
-                    <input 
-                        type="text" 
-                        name="numNosso"
-                        id="numNosso"
-                        value={numNosso}
-                        onChange={e => setNumNosso(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="numCliente">
-                        Número do cliente
-                    </label>
-                    <input 
-                        type="text" 
-                        name="numCliente"
-                        id="numCliente"
-                        value={numCliente}
-                        onChange={e => setNumCliente(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="formato">
-                        Formato
-                    </label>
-                    <input 
-                        type="text" 
-                        name="formato"
-                        id="formato"
-                        value={formato}
-                        onChange={e => setFormato(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="descricao">
-                        Descrição
-                    </label>
-                    <input 
-                        type="text" 
-                        name="descricao"
-                        id="descricao"
-                        value={descricao}
-                        onChange={e => setDescricao(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="objetivo">
-                        Objetivo
-                    </label>
-                    <input 
-                        type="text" 
-                        name="objetivo"
-                        id="objetivo"
-                        value={objetivo}
-                        onChange={e => setObjetivo(e.target.value)}
-                    />
-                </div>
-                */}
 
                 <button type="submit">
                     Cadastrar novo projeto

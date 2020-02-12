@@ -4,13 +4,12 @@ import Buscar from './Buscar';
 
 import './Arquivados.css';
 
-function Arquivados({ props, onDelete, onUpdate }) {
+function Arquivados({ props, display, setProjeto }) {
 
     const [projetosEncontrados, setProjetosEncontrados] = useState([]);
 
     function defineProjetosEncontrados(projetos) {
         setProjetosEncontrados(projetos);
-        //console.log(projetosEncontrados);
     }
 
     return(
@@ -22,8 +21,8 @@ function Arquivados({ props, onDelete, onUpdate }) {
                     <ListItem 
                         key={String(projeto._id)}
                         projeto={projeto}
-                        onDelete={onDelete}
-                        onUpdate={onUpdate}
+                        display={display}
+                        setProjeto={setProjeto}
                     />
                 ))}
             </ul>

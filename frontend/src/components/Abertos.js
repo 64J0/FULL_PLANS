@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import ListItem from './ListItem';
 import Buscar from './Buscar';
 
-import './Listar.css';
+import './Abertos.css';
 
-function Listar({ props, onDelete, onUpdate }) {
+function Abertos({ props, display, setProjeto }) {
 
     const [projetosEncontrados, setProjetosEncontrados] = useState([]);
 
@@ -21,8 +21,8 @@ function Listar({ props, onDelete, onUpdate }) {
                     <ListItem 
                         key={String(projeto._id)}
                         projeto={projeto}
-                        onDelete={onDelete}
-                        onUpdate={onUpdate}
+                        display={display}
+                        setProjeto={setProjeto}
                     />
                 ))}
             </ul>
@@ -30,4 +30,4 @@ function Listar({ props, onDelete, onUpdate }) {
     );
 }
 
-export default Listar;
+export default Abertos;

@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react';
 import api from './services/api';
 import CadastrarProjeto from './components/CadastrarProjeto';
 import Cabecalho from './components/Cabecalho';
-import Listar from './components/Listar';
+import Abertos from './components/Abertos';
 import Arquivados from './components/Arquivados';
 import Home from './components/Home';
 import Footer from './components/Footer';
 import Login from './components/Login';
+import UpdateProjeto from './components/UpdateProjeto';
 
 import './App.css';
 import './global.css';
@@ -19,39 +20,7 @@ function App() {
   const [projetosArquivados, setProjetosArquivados] = useState([]);
   const [projetosAbertos, setProjetosAbertos] = useState([]);
   const [login, setLogin] = useState(false);
-
-  function displayLogin() {
-
-    if (!login) {
-
-      return (
-        <Login onSubmit={handleLogin} />
-      );
-
-    } else {
-
-      return (
-        <>
-          <header className="App-header cabecalho">
-            <Cabecalho stringPagina={setStringPagina} />
-          </header>
-
-          <main className="App-main">
-
-            {
-              decideWhatToDisplay()
-            }
-
-          </main>
-
-          <footer className="App-footer">
-            <Footer />
-          </footer>
-        </>
-      );
-
-    }
-  }
+  const [projetoUpdate, setProjetoUpdate] = useState('');
 
   useEffect(() => {
 
@@ -94,6 +63,41 @@ function App() {
 
   //=================================================================
 
+  function displayLogin() {
+
+    if (!login) {
+
+      return (
+        <Login onSubmit={handleLogin} />
+      );
+
+    } else {
+
+      return (
+        <>
+          <header className="App-header cabecalho">
+            <Cabecalho stringPagina={setStringPagina} />
+          </header>
+
+          <main className="App-main">
+
+            {
+              decideWhatToDisplay()
+            }
+
+          </main>
+
+          <footer className="App-footer">
+            <Footer />
+          </footer>
+        </>
+      );
+
+    }
+  }
+
+  //=================================================================
+
   async function handleLogin(data) {
 
     await api.post('/login', data)
@@ -118,7 +122,7 @@ function App() {
       setProjetos([...projetos, response.data]);
     })
     .then(() => {
-      setStringPagina('Listar');
+      setStringPagina('Abertos');
     })
     .catch(error => console.log(error));
 
@@ -154,6 +158,9 @@ function App() {
         ...projetos.slice(index+1)
       ]);
     })
+    .then(() => {
+      setStringPagina('Abertos');
+    })
     .catch((error) => {
       console.log(error);
     });
@@ -168,19 +175,35 @@ function App() {
 
     switch (stringPagina)  {
 
-      case 'Listar':
+      case 'Abertos':
         return (
-          <Listar props={projetosAbertos} onDelete={handleDeleteProjeto}  onUpdate={handleUpdateProjeto} />
+          <Abertos 
+            props={projetosAbertos} 
+            display={setStringPagina}
+            setProjeto={setProjetoUpdate} />
         );
 
       case 'Arquivados':
         return(
-          <Arquivados props={projetosArquivados} onDelete={handleDeleteProjeto}  onUpdate={handleUpdateProjeto} />
+          <Arquivados 
+            props={projetosArquivados} 
+            display={setStringPagina}
+            setProjeto={setProjetoUpdate} />
         );
 
       case 'Cadastrar': 
         return (
-          <CadastrarProjeto onSubmit={handleAddProjeto} />
+          <CadastrarProjeto 
+            onSubmit={handleAddProjeto} />
+        );
+
+      case 'UpdateProjeto':
+        return (
+          <UpdateProjeto 
+            projeto={projetoUpdate} 
+            display={setStringPagina}
+            onUpdateProjeto={handleUpdateProjeto}
+            onDeleteProjeto={handleDeleteProjeto} />
         );
 
       default:

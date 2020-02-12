@@ -36,12 +36,12 @@
 
 .update-item .div-buttons {
     display: grid;
-    grid-template-columns: 200px 200px;
-    grid-column-end: initial;
+    grid-template-columns: 200px;
+    justify-content: center;
     text-align: center;
 }
 
-.update-item .div-buttons button.btn-deletar[type=button] {
+.update-item .div-buttons button.btn-deletar[type=submit] {
     padding: 5px 0;
     margin: 10px;
     font-weight: bold;
@@ -52,13 +52,13 @@
     color: #fff;
 }
 
-.update-item .div-buttons button.btn-deletar[type=button]:hover {
+.update-item .div-buttons button.btn-deletar[type=submit]:hover {
     cursor: pointer;
     background-color: #74868f;
     color: black;
 }
 
-.update-item .div-buttons button.btn-editar[type=submit] {
+.update-item .div-buttons button.btn-salvar[type=submit] {
     padding: 5px 0;
     margin: 10px;
     font-weight: bold;
@@ -69,28 +69,25 @@
     color: #fff;
 }
 
-.update-item .div-buttons button.btn-editar[type=submit]:hover {
+.update-item .div-buttons button.btn-salvar[type=submit]:hover {
     cursor: pointer;
     background-color: #74868f;
     color: black;
 }
 
-
-
-
-.update-item .input-checkBox input {
-    display: block;
-    width: 80%;
-    height: 80%;
-    border-radius: 10px;
+.update-item .div-buttons button.btn-adicionarCampos[type=button] {
+    padding: 5px 0;
+    margin: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #0f679a;
+    color: #fff;
 }
 
-.update-item .input-checkBox input:hover {
-    background: #ccc;
+.update-item .div-buttons button.btn-adicionarCampos[type=button]:hover {
     cursor: pointer;
-}
-
-/* When the checkbox is checked, add a blue background */
-.update-item .input-checkBox input:checked {
-    background-color: #2196F3;
+    background-color: #74868f;
+    color: black;
 }

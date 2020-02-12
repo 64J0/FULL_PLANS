@@ -1,35 +1,44 @@
-import React, { useState } from 'react';
-import UpdateProjeto from './UpdateProjeto';
-import ListItemInfo from './ListItemInfo';
+import React from 'react';
 
 import './ListItem.css';
 
-function ListItem({ projeto, onDelete, onUpdate }) {
+function ListItem({ projeto, display, setProjeto }) {
 
-    const [stringPagina, setStringPagina] = useState('');
-
-    function decideWhatToDisplay() {
-        switch(stringPagina){
-            case 'Update':
-                return (
-                    <UpdateProjeto projeto={projeto} onUpdate={onUpdate} onDelete={onDelete} setStringPagina={setStringPagina} />
-                );
-
-            default :
-                return (
-                    <ListItemInfo projeto={projeto} onUpdate={onUpdate} onDelete={onDelete} stringPagina={setStringPagina} />
-                );
-        }
+    function redirecionar() {
+        display('UpdateProjeto');
+        setProjeto(projeto);
     }
 
-    // ==================================================================================================================
-
     return(
-        <>
-         {
-             decideWhatToDisplay()
-         }
-        </>
+        <li>
+            <div className="list-item">
+                <div id={projeto._id} className="grid-container">
+                    <p>Cliente: </p>
+                    <p>{projeto.cliente}</p>
+                    <p>Projeto: </p>
+                    <p>{projeto.nomeProjeto}</p>
+                    <p>Projetista</p>
+                    <p>{projeto.projetista}</p>
+                    <p>Verificador</p>
+                    <p>{projeto.verificador}</p>
+                    <p>Número do pedido</p>
+                    <p>{projeto.numPedido}</p>
+                    <p>Responsável</p>
+                    <p>{projeto.responsavel}</p>
+                    <p>Tipo de engenharia</p>
+                    <p>{projeto.tipoEngenharia}</p>
+                </div>
+                <div className="div-buttons">
+                    <button
+                        type="button"
+                        className="btn-editar"
+                        onClick={() => redirecionar()}
+                    >
+                        Mais informações
+                    </button>
+                </div>
+            </div>
+        </li>
     );
 }
 
