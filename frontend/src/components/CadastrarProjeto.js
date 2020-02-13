@@ -5,8 +5,7 @@ import './CadastrarProjeto.css';
 function CadastrarProjeto({ onSubmit }) {
     const [cliente, setCliente] = useState('');
     const [nomeProjeto, setNomeProjeto] = useState('');
-    const [projetista, setProjetista] = useState('');
-    const [verificador, setVerificador] = useState('');
+    const [disciplinaMestre, setDisciplinaMestre] = useState('');
     const [numPedido, setNumPedido] = useState('');
     const [responsavel, setResponsavel] = useState('');
     const [tipoEngenharia, setTipoEngenharia] = useState('');
@@ -17,8 +16,7 @@ function CadastrarProjeto({ onSubmit }) {
         await onSubmit({
             cliente,
             nomeProjeto,
-            projetista,
-            verificador,
+            disciplinaMestre,
             numPedido,
             responsavel,
             tipoEngenharia
@@ -61,28 +59,15 @@ function CadastrarProjeto({ onSubmit }) {
                 </div>
 
                 <div className="input-block">
-                    <label htmlFor="projetista">
-                        Projetista
+                    <label htmlFor="disciplinaMestre">
+                        Disciplina mestre
                     </label>
                     <input 
                         type="text" 
-                        name="projetista"
-                        id="projetista"
-                        value={projetista}
-                        onChange={e => setProjetista(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="verificador">
-                        Verificador
-                    </label>
-                    <input 
-                        type="text" 
-                        name="verificador"
-                        id="verificador"
-                        value={verificador}
-                        onChange={e => setVerificador(e.target.value)} 
+                        name="disciplinaMestre"
+                        id="disciplinaMestre"
+                        value={disciplinaMestre}
+                        onChange={e => setDisciplinaMestre(e.target.value)}
                     />
                 </div>
 

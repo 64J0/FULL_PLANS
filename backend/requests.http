@@ -4,18 +4,22 @@ Content-Type: application/json
 {
     "cliente": "Gerdau",
     "nomeProjeto": "Linha de vida 1",
-    "projetista": "Vinícius Gajo",
-    "verificador": "Trump",
+    "disciplinaMestre": "Engenharia Mecânica",
     "numPedido": "123123",
     "responsavel": "Barack Obama",
     "tipoEngenharia": "A melhor",
+    "status": "Aguardando aprovação",
+    "disciplinaDesenho": ["Simulação ANSYS", "Estruturas metálicas"],
     "revisao": ["a", "a"],
-    "numNosso": ["321", "7676"],
+    "numFull": ["321", "7676"],
     "numCliente": ["666", "777"],
-    "formato": ["A0", "A2"],
+    "formato": ["A0", "A0"],
     "descricao": ["Deu tudo certo", "Aguardando confirmação"],
-    "disciplina": ["Matemática", "Física"],
-    "motivoArquivado": "Já foi concluído"
+    "projetistaDesenho": ["Vinícius Gajo", "Vinícius Gajo"],
+    "verificadorDesenho": ["Donald Trump", "José Serra"],
+    "dataInicio": "1581602480037",
+    "dataFinal": "1582602480037",
+    "arquivado": false
 }
 
 ###
@@ -23,15 +27,11 @@ Content-Type: application/json
 GET http://localhost:3333/projetos
 
 ###
-// Rota para acessar os projetos arquivados
-GET http://localhost:3333/projetos/arquivados
-
-###
-PUT http://localhost:3333/projetos/5e441c3c22ef330b384ea62d
+PUT http://localhost:3333/projetos/5e4556c93e9a2a1208b57a0d
 Content-Type: application/json
 
 {   
-    "arquivado": true
+    "arquivado": false
 }
 
 ###

@@ -5,7 +5,7 @@ import './ListItem.css';
 function ListItem({ projeto, display, setProjeto }) {
 
     function redirecionar() {
-        display('UpdateProjeto');
+        display('Gerenciar');
         setProjeto(projeto);
     }
 
@@ -15,12 +15,10 @@ function ListItem({ projeto, display, setProjeto }) {
                 <div id={projeto._id} className="grid-container">
                     <p>Cliente: </p>
                     <p>{projeto.cliente}</p>
-                    <p>Projeto: </p>
+                    <p>Nome do projeto: </p>
                     <p>{projeto.nomeProjeto}</p>
-                    <p>Projetista</p>
-                    <p>{projeto.projetista}</p>
-                    <p>Verificador</p>
-                    <p>{projeto.verificador}</p>
+                    <p>Disciplina mestre</p>
+                    <p>{projeto.disciplinaMestre}</p>
                     <p>Número do pedido</p>
                     <p>{projeto.numPedido}</p>
                     <p>Responsável</p>
@@ -34,7 +32,7 @@ function ListItem({ projeto, display, setProjeto }) {
                         className="btn-editar"
                         onClick={() => redirecionar()}
                     >
-                        Mais informações
+                        Gerenciar
                     </button>
                 </div>
             </div>

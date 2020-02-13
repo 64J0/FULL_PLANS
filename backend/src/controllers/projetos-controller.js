@@ -17,20 +17,22 @@ exports.createProjeto = async (req, res) => {
         let projeto = await repository.createProjeto({
             cliente: req.body.cliente,
             nomeProjeto: req.body.nomeProjeto,
-            disciplina: req.body.disciplina,
-            projetista: req.body.projetista,
-            verificador: req.body.verificador,
+            disciplinaMestre: req.body.disciplinaMestre,
             numPedido: req.body.numPedido,
             responsavel: req.body.responsavel,
+            tipoEngenharia: req.body.tipoEngenharia,
+            status: req.body.status,
+            disciplinaDesenho: req.body.disciplinaDesenho,
             revisao: req.body.revisao,
-            numNosso: req.body.numNosso,
+            numFull: req.body.numFull,
             numCliente: req.body.numCliente,
             formato: req.body.formato,
             descricao: req.body.descricao,
-            objetivo: req.body.objetivo,
-            arquivado: req.body.arquivado,
-            tipoEngenharia: req.body.tipoEngenharia,
-            motivoArquivado: req.body.motivoArquivado
+            projetistaDesenho: req.body.projetistaDesenho,
+            verificadorDesenho: req.body.verificadorDesenho,
+            dataInicio: req.body.dataInicio,
+            dataFinal: req.body.dataFinal,
+            arquivado: req.body.arquivado
         });
         res.status(201).send(projeto);
     } catch(e) {

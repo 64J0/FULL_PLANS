@@ -6,6 +6,11 @@
     border-radius: 5px;
     background: #cac7c6;
     width: 100%;
+    color: #353839;
+}
+
+.update-item h2 {
+    margin: 15px;
 }
 
 .update-item .input-block {
@@ -36,23 +41,22 @@
 
 .update-item .div-buttons {
     display: grid;
-    grid-template-columns: 200px;
+    grid-template-columns: 25% 25% 25% 25%;
     justify-content: center;
     text-align: center;
 }
 
-.update-item .div-buttons button.btn-deletar[type=submit] {
+.update-item .div-buttons button.btn-adicionarCampos[type=button] {
     padding: 5px 0;
     margin: 10px;
-    font-weight: bold;
     font-size: 16px;
     border: none;
     border-radius: 8px;
-    background-color: #800;
+    background-color: #2e8b57;
     color: #fff;
 }
 
-.update-item .div-buttons button.btn-deletar[type=submit]:hover {
+.update-item .div-buttons button.btn-adicionarCampos[type=button]:hover {
     cursor: pointer;
     background-color: #74868f;
     color: black;
@@ -61,7 +65,6 @@
 .update-item .div-buttons button.btn-salvar[type=submit] {
     padding: 5px 0;
     margin: 10px;
-    font-weight: bold;
     font-size: 16px;
     border: none;
     border-radius: 8px;
@@ -75,19 +78,35 @@
     color: black;
 }
 
-.update-item .div-buttons button.btn-adicionarCampos[type=button] {
+.update-item .div-buttons button.btn-cancelar[type=button] {
     padding: 5px 0;
     margin: 10px;
-    font-weight: bold;
     font-size: 16px;
     border: none;
     border-radius: 8px;
-    background-color: #0f679a;
+    background-color: #800;
     color: #fff;
 }
 
-.update-item .div-buttons button.btn-adicionarCampos[type=button]:hover {
+.update-item .div-buttons button.btn-cancelar[type=button]:hover {
     cursor: pointer;
     background-color: #74868f;
     color: black;
 }
+
+.update-item .div-buttons button.btn-arquivar[type=submit] {
+    padding: 5px 0;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #705714;
+    color: #fff;
+}
+
+.update-item .div-buttons button.btn-arquivar[type=submit]:hover {
+    cursor: pointer;
+    background-color: #74868f;
+    color: black;
+}
+

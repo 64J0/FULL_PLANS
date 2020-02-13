@@ -8,7 +8,7 @@ import Arquivados from './components/Arquivados';
 import Home from './components/Home';
 import Footer from './components/Footer';
 import Login from './components/Login';
-import UpdateProjeto from './components/UpdateProjeto';
+import Gerenciar from './components/Gerenciar';
 
 import './App.css';
 import './global.css';
@@ -197,9 +197,9 @@ function App() {
             onSubmit={handleAddProjeto} />
         );
 
-      case 'UpdateProjeto':
+      case 'Gerenciar':
         return (
-          <UpdateProjeto 
+          <Gerenciar 
             projeto={projetoUpdate} 
             display={setStringPagina}
             onUpdateProjeto={handleUpdateProjeto}

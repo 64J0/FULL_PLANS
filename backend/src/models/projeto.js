@@ -12,87 +12,79 @@ const projetoSchema = new Schema({
     cliente: {
         type: String,
         required: true,
-        trim: true,
         uppercase: true
     },
     nomeProjeto: {
         type: String,
-        trim: true,
         uppercase: true
     },
-    projetista: {
+    disciplinaMestre: {
         type: String,
-        trim: true,
-        uppercase: true
-    },
-    verificador: {
-        type: String,
-        trim: true,
         uppercase: true
     },
     numPedido: {
         type: String,
-        trim: true,
         uppercase: true
     },
     responsavel: {
         type: String,
-        trim: true,
         uppercase: true
     },
     tipoEngenharia: {
         type: String,
-        trim: true,
+        uppercase: true
+    },
+    status: {
+        type: String,
         uppercase: true
     },
 
-    revisao: [{
+    disciplinaDesenho: [{
         type: String,
-        trim: true,
         uppercase: true
     }],
-    numNosso: [{
+    revisao: [{
         type: String,
-        trim: true,
+        uppercase: true
+    }],
+    numFull: [{
+        type: String,
         uppercase: true
     }],
     numCliente: [{
         type: String,
-        trim: true,
         uppercase: true
     }],
     formato: [{
         type: String,
-        trim: true,
         uppercase: true
     }],
     descricao: [{
         type: String,
-        trim: true,
         uppercase: true
     }],
-    disciplina: [{
+    projetistaDesenho: [{
         type: String,
-        trim: true,
         uppercase: true
     }],
-    objetivo: [{
+    verificadorDesenho: [{
         type: String,
-        trim: true,
-        uppercase: true                                            
+        uppercase: true
+    }],
+    dataInicio: [{
+        type: Date
+    }],
+    dataFinal: [{
+        type: Date
     }],
     
     arquivado: {
         type: Boolean,
         default: false,
     },
-    motivoArquivado: {
-        type: String,
-        uppercase: true
-    },
     createdAt: {
         type: Date,
-        default: Date.now,
+        default: Date.now
     }
 });
 
