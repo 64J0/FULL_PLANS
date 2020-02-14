@@ -1,36 +1,45 @@
-import React, { useState } from 'react';
-import UpdateProjeto from './UpdateProjeto';
-import ListItemInfo from './ListItemInfo';
+import React from 'react';
 
 import './ListItem.css';
 
-function ListItem({ projeto, onDelete, onUpdate }) {
+function ListItem({ projeto, display, setProjeto }) {
 
-    const [stringPagina, setStringPagina] = useState('');
+    // Redireciona para a página de gerenciamento de projetos, passando como parâmetro os dados do projeto que está sendo mostrado no card específico
+    function redirecionar() {
+        display('Gerenciar');
 
-    function decideWhatToDisplay() {
-        switch(stringPagina){
-            case 'Update':
-                return (
-                    <UpdateProjeto projeto={projeto} onUpdate={onUpdate} onDelete={onDelete} setStringPagina={setStringPagina} />
-                );
-
-            default :
-                return (
-                    <ListItemInfo projeto={projeto} onUpdate={onUpdate} onDelete={onDelete} stringPagina={setStringPagina} />
-                );
-        }
+        // setProjeto == setProjetoUpdate do App.js
+        setProjeto(projeto);
     }
 
-    // ==================================================================================================================
-
-
     return(
-        <>
-         {
-             decideWhatToDisplay()
-         }
-        </>
+        <li>
+            <div className="list-item">
+                <div id={projeto._id} className="grid-container">
+                    <p>Cliente: </p>
+                    <p>{projeto.cliente}</p>
+                    <p>Nome do projeto: </p>
+                    <p>{projeto.nomeProjeto}</p>
+                    <p>Disciplina mestre</p>
+                    <p>{projeto.disciplinaMestre}</p>
+                    <p>Número do pedido</p>
+                    <p>{projeto.numPedido}</p>
+                    <p>Responsável</p>
+                    <p>{projeto.responsavel}</p>
+                    <p>Tipo de engenharia</p>
+                    <p>{projeto.tipoEngenharia}</p>
+                </div>
+                <div className="div-buttons">
+                    <button
+                        type="button"
+                        className="btn-editar"
+                        onClick={() => redirecionar()}
+                    >
+                        Gerenciar
+                    </button>
+                </div>
+            </div>
+        </li>
     );
 }
 

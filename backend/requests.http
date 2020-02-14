@@ -2,8 +2,24 @@ POST http://localhost:3333/projetos
 Content-Type: application/json
 
 {
-    "nomeEmpresa" : "  teste resposta",
-    "nomeProjeto" : "Linha de vida 1",
+    "cliente": "Gerdau",
+    "nomeProjeto": "Linha de vida 1",
+    "disciplinaMestre": "Engenharia Mecânica",
+    "numPedido": "123123",
+    "responsavel": "Barack Obama",
+    "tipoEngenharia": "A melhor",
+    "status": "Aguardando aprovação",
+    "disciplinaDesenho": ["Simulação ANSYS", "Estruturas metálicas"],
+    "revisao": ["a", "a"],
+    "numFull": ["321", "7676"],
+    "numCliente": ["666", "777"],
+    "formato": ["A0", "A0"],
+    "descricao": ["Deu tudo certo", "Aguardando confirmação"],
+    "projetistaDesenho": ["Vinícius Gajo", "Vinícius Gajo"],
+    "verificadorDesenho": ["Donald Trump", "José Serra"],
+    "dataInicio": "1581602480037",
+    "dataFinal": "1582602480037",
+    "arquivado": false
 }
 
 ###
@@ -11,18 +27,12 @@ Content-Type: application/json
 GET http://localhost:3333/projetos
 
 ###
-
-GET http://localhost:3333/projetos/arquivados
-
-###
-//Não funciona quando é passado como parâmetro um valor boolean
-PUT http://localhost:3333/projetos/5e32dc949987390a24c64880
+PUT http://localhost:3333/projetos/5e4556c93e9a2a1208b57a0d
 Content-Type: application/json
 
 {   
-    "arquivado": true
+    "arquivado": false
 }
 
 ###
-
 DELETE http://localhost:3333/projetos/5e2342623f6fec1510006ff6

@@ -1,0 +1,19 @@
+POST http://localhost:3333/login
+Content-Type: application/json
+
+{
+    "email": "email@email.com",
+    "senha": "senha" 
+}
+
+###
+POST http://localhost:3333/login/create
+Content-Type: application/json
+
+{
+    "email": "email@email.com",
+    "senha": "senha"  
+}
+
+###
+GET http://localhost:3333/login

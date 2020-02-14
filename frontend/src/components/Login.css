@@ -1,0 +1,70 @@
+div.login {
+    margin: 30px auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 100%;
+    background-color: #fff;
+    width: 500px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px 0;
+    color: #333;
+}
+
+div.login img {
+    width: 100px;
+    margin: 0 auto;
+}
+
+div.login fieldset {
+    border: none;
+}
+
+div.login fieldset hr {
+    margin: 0px 10px 25px 10px;
+}
+
+div.login fieldset legend {
+    padding: 20px 0 10px 0;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+}
+
+div.login fieldset span, input {
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+    width: 100%;
+}
+
+div.login fieldset span {
+    justify-content: right;
+}
+
+div.login fieldset input {
+    padding: 3px;
+    margin: 10px 0;
+    border-radius: 3px;
+    border: 1px solid #a9a9a9;
+}
+
+div.login fieldset button {
+    margin: 25px 0;
+    padding: 10px 0;
+    display: block;
+    justify-content: center;
+    width: 100%;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    background: rgb(23, 23, 160);
+    border-radius: 4px;
+    color: #ffffff;
+    transition: background 0.5s;
+    cursor: pointer;
+}
+
+div.login fieldset button:hover {
+    background: #4d44d8;
+}

@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react';
 import api from './services/api';
 import CadastrarProjeto from './components/CadastrarProjeto';
 import Cabecalho from './components/Cabecalho';
-import Listar from './components/Listar';
+import Abertos from './components/Abertos';
 import Arquivados from './components/Arquivados';
 import Home from './components/Home';
 import Footer from './components/Footer';
-//import Logo from './fullE_icon.png';
+import Login from './components/Login';
+import Gerenciar from './components/Gerenciar';
 
 import './App.css';
 import './global.css';
@@ -18,6 +19,8 @@ function App() {
   const [projetos, setProjetos] = useState([]);
   const [projetosArquivados, setProjetosArquivados] = useState([]);
   const [projetosAbertos, setProjetosAbertos] = useState([]);
+  const [login, setLogin] = useState(false);
+  const [projetoUpdate, setProjetoUpdate] = useState('');
 
   useEffect(() => {
 
@@ -38,6 +41,7 @@ function App() {
     let arrayProjetosAbertos = [];
 
     function asignTheCorrectState() {
+
       projetos.map(projeto => {
 
         if (projeto.arquivado === true) {
@@ -45,14 +49,12 @@ function App() {
         } else {
           arrayProjetosAbertos.push(projeto);
         }
-
         return null;
+        
       });
 
       setProjetosArquivados(arrayProjetosArquivados);
-      console.log(arrayProjetosArquivados);
       setProjetosAbertos(arrayProjetosAbertos);
-      console.log(arrayProjetosAbertos);
     }
 
     asignTheCorrectState();
@@ -61,31 +63,55 @@ function App() {
 
   //=================================================================
 
-  /*
-  function asignTheCorrectState(data, caseString) {
+  function displayLogin() {
 
-    switch (caseString) {
+    if (!login) {
 
-      case 'Add':
-        if (data.arquivado === true) {
-          setProjetosArquivados([...projetosArquivados, data]);
-        } else {
-          setProjetosAbertos([...projetosAbertos, data]);
-        }
-        return null;
+      return (
+        <Login onSubmit={handleLogin} />
+      );
 
-      case 'Remove':
-        if (data.arquivado === true) {
-          setProjetosArquivados(projetosArquivados.filter(projetoArquivado => projetoArquivado !== data));
-        }
-        return null;
+    } else {
 
-      default:
-        return null;
+      return (
+        <>
+          <header className="App-header cabecalho">
+            <Cabecalho stringPagina={setStringPagina} />
+          </header>
+
+          <main className="App-main">
+
+            {
+              decideWhatToDisplay()
+            }
+
+          </main>
+
+          <footer className="App-footer">
+            <Footer />
+          </footer>
+        </>
+      );
+
     }
+  }
+
+  //=================================================================
+
+  async function handleLogin(data) {
+
+    await api.post('/login', data)
+    .then(response => {
+      //console.log(response.data.auth);
+      if (!response.data.auth) {
+        alert('Falha no login');
+      } else {
+        setLogin(response.data.auth);
+      }
+    })
+    .catch(error => console.log(error));
 
   }
-  */
 
   //=================================================================
 
@@ -94,10 +120,9 @@ function App() {
     await api.post('/projetos', data)
     .then(response => {
       setProjetos([...projetos, response.data]);
-      //asignTheCorrectState(response.data, 'Add');
     })
     .then(() => {
-      setStringPagina('Listar');
+      setStringPagina('Abertos');
     })
     .catch(error => console.log(error));
 
@@ -123,6 +148,8 @@ function App() {
 
     var index = projetos.findIndex(x => x._id === id);
 
+    //console.log(body);
+
     const config = { headers: {'Content-Type': 'application/json'} };
     await api.put(`/projetos/${id}`, body, config)
     .then(() => {
@@ -132,6 +159,9 @@ function App() {
         body,
         ...projetos.slice(index+1)
       ]);
+    })
+    .then(() => {
+      setStringPagina('Abertos');
     })
     .catch((error) => {
       console.log(error);
@@ -147,19 +177,35 @@ function App() {
 
     switch (stringPagina)  {
 
-      case 'Listar':
+      case 'Abertos':
         return (
-          <Listar props={projetosAbertos} onDelete={handleDeleteProjeto}  onUpdate={handleUpdateProjeto} />
+          <Abertos 
+            props={projetosAbertos} 
+            display={setStringPagina}
+            setProjeto={setProjetoUpdate} />
         );
 
       case 'Arquivados':
         return(
-          <Arquivados props={projetosArquivados} onDelete={handleDeleteProjeto}  onUpdate={handleUpdateProjeto} />
+          <Arquivados 
+            props={projetosArquivados} 
+            display={setStringPagina}
+            setProjeto={setProjetoUpdate} />
         );
 
       case 'Cadastrar': 
         return (
-          <CadastrarProjeto onSubmit={handleAddProjeto} />
+          <CadastrarProjeto 
+            onSubmit={handleAddProjeto} />
+        );
+
+      case 'Gerenciar':
+        return (
+          <Gerenciar 
+            projeto={projetoUpdate} 
+            display={setStringPagina}
+            onUpdateProjeto={handleUpdateProjeto}
+            onDeleteProjeto={handleDeleteProjeto} />
         );
 
       default:
@@ -175,21 +221,10 @@ function App() {
   return (
     <div id="App">
 
-      <header className="App-header cabecalho">
-        <Cabecalho stringPagina={setStringPagina} />
-      </header>
-
-      <main className="App-main">
-
-        {
-          decideWhatToDisplay()
-        }
-
-      </main>
-
-      <footer className="App-footer">
-        <Footer />
-      </footer>
+      {
+        displayLogin()
+      }
+      
     </div>
   );
 }
