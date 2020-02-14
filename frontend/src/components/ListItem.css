@@ -1,10 +1,10 @@
 .list-item {
     display: block;
     padding: 8px;
-    margin: 5px;
-    border: 1px solid #cac7c6;
+    margin: 10px;
+    border: 1px solid #353839;
     border-radius: 5px;
-    background: #353839;
+    background: #cac7c6;
     width: 100%;
 }
 
@@ -21,49 +21,18 @@
     height: 25px;
     padding: 3px 3px 3px 6px;
     margin: 10px 0 0 5px;
-    color: #cac7c6;
-    border: 1px solid #cac7c6;
+    color: #353839;
+    background: #eee;
+    border: 1px solid #353839;
+    border-radius: 3px 0;
 }
 
 .list-item .div-buttons {
     display: grid;
-    grid-template-columns: auto 150px 150px;
+    grid-template-columns: 250px;
+    align-items: center;
     text-align: center;
-}
-
-.list-item .div-buttons button.btn[type=button] {
-    padding: 5px 0;
-    margin: 10px;
-    width: 50px;
-    font-weight: bold;
-    font-size: 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: #b07939;
-    color: #000;
-}
-
-.list-item .div-buttons button.btn[type=button]:hover {
-    cursor: pointer;
-    background-color: #74868f;
-    color: black;
-}
-
-.list-item .div-buttons button.btn-deletar[type=button] {
-    padding: 5px 0;
-    margin: 10px;
-    font-weight: bold;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    background-color: #800;
-    color: #cac7c6;
-}
-
-.list-item .div-buttons button.btn-deletar[type=button]:hover {
-    cursor: pointer;
-    background-color: #74868f;
-    color: black;
+    justify-content: center;
 }
 
 .list-item .div-buttons button.btn-editar[type=button] {
@@ -74,7 +43,7 @@
     border: none;
     border-radius: 8px;
     background-color: #0f679a;
-    color: #cac7c6;
+    color: #fff;
 }
 
 .list-item .div-buttons button.btn-editar[type=button]:hover {

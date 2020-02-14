@@ -1,0 +1,112 @@
+.update-item {
+    display: block;
+    padding: 8px;
+    margin: 5px;
+    border: 1px solid #353839;
+    border-radius: 5px;
+    background: #cac7c6;
+    width: 100%;
+    color: #353839;
+}
+
+.update-item h2 {
+    margin: 15px;
+}
+
+.update-item .input-block {
+    display: grid;
+    grid-template-columns: 180px auto;
+    width: 100%;
+}
+
+.update-item .input-block label {
+    font-weight: bold;
+    padding: 3px 3px 3px 6px;
+    margin: 5px 0 0 5px;
+    color: #353839;
+    background: #eee;
+    border: 1px solid #353839;
+    border-radius: 3px 0;
+}
+
+.update-item .input-block input {
+    font-weight: bold;
+    padding: 3px 3px 3px 6px;
+    margin: 5px 0 0 5px;
+    color: #353839;
+    border: 1px solid #353839;
+    border-radius: 5px;
+    background: #eee;
+}
+
+.update-item .div-buttons {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    justify-content: center;
+    text-align: center;
+}
+
+.update-item .div-buttons button.btn-adicionarCampos[type=button] {
+    padding: 5px 0;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2e8b57;
+    color: #fff;
+}
+
+.update-item .div-buttons button.btn-adicionarCampos[type=button]:hover {
+    cursor: pointer;
+    background-color: #74868f;
+    color: black;
+}
+
+.update-item .div-buttons button.btn-salvar[type=button] {
+    padding: 5px 0;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #0f679a;
+    color: #fff;
+}
+
+.update-item .div-buttons button.btn-salvar[type=button]:hover {
+    cursor: pointer;
+    background-color: #74868f;
+    color: black;
+}
+
+.update-item .div-buttons button.btn-cancelar[type=button] {
+    padding: 5px 0;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #800;
+    color: #fff;
+}
+
+.update-item .div-buttons button.btn-cancelar[type=button]:hover {
+    cursor: pointer;
+    background-color: #74868f;
+    color: black;
+}
+
+.update-item .div-buttons button.btn-arquivar[type=button] {
+    padding: 5px 0;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #705714;
+    color: #fff;
+}
+
+.update-item .div-buttons button.btn-arquivar[type=button]:hover {
+    cursor: pointer;
+    background-color: #74868f;
+    color: black;
+}
+

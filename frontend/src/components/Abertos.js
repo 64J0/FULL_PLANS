@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import ListItem from './ListItem';
 import Buscar from './Buscar';
 
-import './Arquivados.css';
+import './Abertos.css';
 
-function Arquivados({ props, display, setProjeto }) {
+function Abertos({ props, display, setProjeto }) {
 
     const [projetosEncontrados, setProjetosEncontrados] = useState([]);
 
@@ -13,8 +13,8 @@ function Arquivados({ props, display, setProjeto }) {
     }
 
     return(
-        <div className="projetos-arquivados">
-            <h2>Projetos Arquivados</h2>
+        <div className="listar">
+            <h2>Projetos Abertos</h2>
             <Buscar projetos={props} onProjetosEncontrados={defineProjetosEncontrados} />
             <ul>
                 {projetosEncontrados.map(projeto => (
@@ -30,4 +30,4 @@ function Arquivados({ props, display, setProjeto }) {
     );
 }
 
-export default Arquivados;
+export default Abertos;

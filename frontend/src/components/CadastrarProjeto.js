@@ -3,43 +3,22 @@ import React, { useState } from 'react';
 import './CadastrarProjeto.css';
 
 function CadastrarProjeto({ onSubmit }) {
-    const [nomeEmpresa, setNomeEmpresa] = useState('');
+    const [cliente, setCliente] = useState('');
     const [nomeProjeto, setNomeProjeto] = useState('');
-    const [disciplina, setDisciplina] = useState('');
-    const [area, setArea] = useState('');
-    const [codigo, setCodigo] = useState('');
-    const [projetista, setProjetista] = useState('');
-    const [verificador, setVerificador] = useState('');
+    const [disciplinaMestre, setDisciplinaMestre] = useState('');
     const [numPedido, setNumPedido] = useState('');
     const [responsavel, setResponsavel] = useState('');
-    const [revisao, setRevisao] = useState('');
-    const [numNosso, setNumNosso] = useState('');
-    const [numCliente, setNumCliente] = useState('');
-    const [formato, setFormato] = useState('');
-    const [descricao, setDescricao] = useState('');
-    const [objetivo, setObjetivo] = useState('');
     const [tipoEngenharia, setTipoEngenharia] = useState('');
-    //const [fileToUpload_path, setFileToUpload_path] = useState('');
 
     async function handleSubmit(e) {
         e.preventDefault();
 
         await onSubmit({
-            nomeEmpresa,
+            cliente,
             nomeProjeto,
-            disciplina,
-            area,
-            codigo,
-            projetista,
-            verificador,
+            disciplinaMestre,
             numPedido,
             responsavel,
-            revisao,
-            numNosso,
-            numCliente,
-            formato,
-            descricao,
-            objetivo,
             tipoEngenharia
         });
     }
@@ -53,16 +32,16 @@ function CadastrarProjeto({ onSubmit }) {
             <form onSubmit={handleSubmit}>
 
                 <div className="input-block">
-                    <label htmlFor="nomeEmpresa">
-                        Nome da empresa
+                    <label htmlFor="cliente">
+                        Cliente
                     </label>
                     <input 
                         type="text" 
-                        name="nomeEmpresa"
-                        id="nomeEmpresa"
+                        name="cliente"
+                        id="cliente"
                         required
-                        value={nomeEmpresa}
-                        onChange={e => setNomeEmpresa(e.target.value)}
+                        value={cliente}
+                        onChange={e => setCliente(e.target.value)}
                     />
                 </div>
                 
@@ -78,69 +57,17 @@ function CadastrarProjeto({ onSubmit }) {
                         onChange={e => setNomeProjeto(e.target.value)}
                     />
                 </div>
-                
+
                 <div className="input-block">
-                    <label htmlFor="disciplina">
-                        Disciplina
+                    <label htmlFor="disciplinaMestre">
+                        Disciplina mestre
                     </label>
                     <input 
                         type="text" 
-                        name="disciplina"
-                        id="disciplina"
-                        value={disciplina}
-                        onChange={e => setDisciplina(e.target.value)} 
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="area">
-                        Área
-                    </label>
-                    <input 
-                        type="text" 
-                        name="area"
-                        id="area"
-                        value={area}
-                        onChange={e => setArea(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="codigo">
-                        Código
-                    </label>
-                    <input 
-                        type="text" 
-                        name="codigo"
-                        id="codigo"
-                        value={codigo}
-                        onChange={e => setCodigo(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="projetista">
-                        Projetista
-                    </label>
-                    <input 
-                        type="text" 
-                        name="projetista"
-                        id="projetista"
-                        value={projetista}
-                        onChange={e => setProjetista(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="verificador">
-                        Verificador
-                    </label>
-                    <input 
-                        type="text" 
-                        name="verificador"
-                        id="verificador"
-                        value={verificador}
-                        onChange={e => setVerificador(e.target.value)} 
+                        name="disciplinaMestre"
+                        id="disciplinaMestre"
+                        value={disciplinaMestre}
+                        onChange={e => setDisciplinaMestre(e.target.value)}
                     />
                 </div>
 
@@ -169,85 +96,7 @@ function CadastrarProjeto({ onSubmit }) {
                         onChange={e => setResponsavel(e.target.value)}
                     />
                 </div>
-                
-                <div className="input-block">
-                    <label htmlFor="revisao">
-                        Revisão
-                    </label>
-                    <input 
-                        type="text" 
-                        name="revisao"
-                        id="revisao"
-                        value={revisao}
-                        onChange={e => setRevisao(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="numNosso">
-                        Número nosso
-                    </label>
-                    <input 
-                        type="text" 
-                        name="numNosso"
-                        id="numNosso"
-                        value={numNosso}
-                        onChange={e => setNumNosso(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="numCliente">
-                        Número do cliente
-                    </label>
-                    <input 
-                        type="text" 
-                        name="numCliente"
-                        id="numCliente"
-                        value={numCliente}
-                        onChange={e => setNumCliente(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="formato">
-                        Formato
-                    </label>
-                    <input 
-                        type="text" 
-                        name="formato"
-                        id="formato"
-                        value={formato}
-                        onChange={e => setFormato(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="descricao">
-                        Descrição
-                    </label>
-                    <input 
-                        type="text" 
-                        name="descricao"
-                        id="descricao"
-                        value={descricao}
-                        onChange={e => setDescricao(e.target.value)}
-                    />
-                </div>
-                
-                <div className="input-block">
-                    <label htmlFor="objetivo">
-                        Objetivo
-                    </label>
-                    <input 
-                        type="text" 
-                        name="objetivo"
-                        id="objetivo"
-                        value={objetivo}
-                        onChange={e => setObjetivo(e.target.value)}
-                    />
-                </div>
-                
+
                 <div className="input-block">
                     <label htmlFor="tipoEngenharia">
                         Tipo de engenharia
@@ -260,21 +109,6 @@ function CadastrarProjeto({ onSubmit }) {
                         onChange={e => setTipoEngenharia(e.target.value)}
                     />
                 </div>
-
-                {/* 
-                    <div className="input-block">
-                        <label htmlFor="tipoEngenharia">
-                            Tipo de engenharia
-                        </label>
-                        <input 
-                            type="file" 
-                            name="fileToUpload"
-                            id="fileToUpload"
-                            value={fileToUpload_path}
-                            onChange={e => setFileToUpload_path(e.target.value)}
-                        />
-                    </div>
-                */}
 
                 <button type="submit">
                     Cadastrar novo projeto
