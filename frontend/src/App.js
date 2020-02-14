@@ -148,6 +148,8 @@ function App() {
 
     var index = projetos.findIndex(x => x._id === id);
 
+    //console.log(body);
+
     const config = { headers: {'Content-Type': 'application/json'} };
     await api.put(`/projetos/${id}`, body, config)
     .then(() => {

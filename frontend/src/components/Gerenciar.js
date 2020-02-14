@@ -14,6 +14,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     const [status, setStatus] = useState(projeto.status);
 
     const [disciplinaDesenho, setDisciplinaDesenho] = useState(projeto.disciplinaDesenho);
+    /*
     const [revisao, setRevisao] = useState(projeto.revisao);
     const [numFull, setNumFull] = useState(projeto.numFull);
     const [numCliente, setNumCliente] = useState(projeto.numCliente);
@@ -23,6 +24,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     const [verificadorDesenho, setVerificadorDesenho] = useState(projeto.verificadorDesenho);
     const [dataInicio, setDataInicio] = useState(projeto.dataInicio);
     const [dataFinal, setDataFinal] = useState(projeto.dataFinal);
+    */
 
     const [arquivado, setArquivado] = useState(projeto.arquivado);
 
@@ -30,53 +32,27 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     //===========================================================================
 
-    async function handleUpdate(id) {
-
-        await onUpdateProjeto(id, {
-            cliente: cliente,
-            nomeProjeto: nomeProjeto,
-            disciplinaMestre: disciplinaMestre,
-            numPedido: numPedido,
-            responsavel: responsavel,
-            tipoEngenharia: tipoEngenharia,
-            status: status,
-            disciplinaDesenho: disciplinaDesenho,
-            revisao: revisao,
-            numFull: numFull,
-            numCliente: numCliente,
-            formato: formato,
-            descricao: descricao,
-            projetistaDesenho: projetistaDesenho,
-            verificadorDesenho: verificadorDesenho,
-            dataInicio: dataInicio,
-            dataFinal: dataFinal,
-            arquivado: arquivado
-        });
-
-    }
-
-    function handleStatus() {
-        const texto = 'Descrição do status:';
-        let result = window.prompt(texto, "");
-
-        setStatus(result);
-    }
-
+    // Os estados das variáveis status e arquivado não são atualizados, e os dados passados no body são os mesmos que já estavam armazenados no banco de dados
     async function arquivar(id) {
 
-        new Promise((resolve, reject) => {
-            handleStatus();
+        const texto = 'Descrição do status:';
+        setStatus(window.prompt(texto, ""));
+        setArquivado(!projeto.arquivado);
+        console.log(status, arquivado);
 
-            resolve();
-        })
-        .then(() => {
-            setArquivado(!arquivado);
-        })
-        .then(() => {
-            handleUpdate(id);
-        });
+        let body = {
+            cliente,
+            nomeProjeto,
+            disciplinaMestre,
+            numPedido,
+            responsavel,
+            tipoEngenharia,
+            status,
+            disciplinaDesenho,
+            arquivado: arquivado
+        };
 
-        console.log(arquivado, status);
+        await onUpdateProjeto(id, body);
 
     }
 
@@ -93,7 +69,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     //===========================================================================
 
     function renderInfo() {
-        let count = projeto.verificadorDesenho.length;
+        let count = projeto.disciplinaDesenho.length;
         let x = 0;
         var aux = '';
 
@@ -228,28 +204,41 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <button
                         type="button"
                         className="btn-adicionarCampos"
-                        onClick={() => {console.log(projeto)}}
+                        onClick={() => {
+                            // Mostrar os campos de input para adicionar novas informações ao projeto que está aberto
+                            console.log(projeto)
+                        }}
                     >
                         Adicionar
                     </button>
                     <button
-                        type="submit"
+                        type="button"
                         className="btn-salvar"
-                        onClick={(e) => {handleUpdate(projeto._id); e.preventDefault();}}
+                        onClick={(e) => {
+                            arquivar(projeto._id);
+                        }}
                     >
                         Salvar
                     </button>
                     <button 
                         type="button"
                         className="btn-cancelar"
-                        onClick={() => {display('Abertos')}}
+                        onClick={() => {
+                            if (arquivado) {
+                                display('Arquivados');
+                            } else {
+                                display('Abertos');
+                            }
+                        }}
                     >
                         Cancelar
                     </button>
                     <button
-                        type="submit"
+                        type="button"
                         className="btn-arquivar"
-                        onClick={(e) => {arquivar(projeto._id); e.preventDefault();}}
+                        onClick={() => {
+                            arquivar(projeto._id);
+                        }}
                     >
                         {
                             defineTextoBotaoArquivar()

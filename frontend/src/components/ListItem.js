@@ -4,8 +4,11 @@ import './ListItem.css';
 
 function ListItem({ projeto, display, setProjeto }) {
 
+    // Redireciona para a página de gerenciamento de projetos, passando como parâmetro os dados do projeto que está sendo mostrado no card específico
     function redirecionar() {
         display('Gerenciar');
+
+        // setProjeto == setProjetoUpdate do App.js
         setProjeto(projeto);
     }
 
