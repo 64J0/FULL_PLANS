@@ -22,16 +22,7 @@ exports.createProjeto = async (req, res) => {
             responsavel: req.body.responsavel,
             tipoEngenharia: req.body.tipoEngenharia,
             status: req.body.status,
-            disciplinaDesenho: req.body.disciplinaDesenho,
-            revisao: req.body.revisao,
-            numFull: req.body.numFull,
-            numCliente: req.body.numCliente,
-            formato: req.body.formato,
-            descricao: req.body.descricao,
-            projetistaDesenho: req.body.projetistaDesenho,
-            verificadorDesenho: req.body.verificadorDesenho,
-            dataInicio: req.body.dataInicio,
-            dataFinal: req.body.dataFinal,
+            infoProjetos: req.body.infoProjetos,
             arquivado: req.body.arquivado
         });
         res.status(201).send(projeto);

@@ -54,6 +54,7 @@
     border-radius: 8px;
     background-color: #2e8b57;
     color: #fff;
+    font-weight: 600;
 }
 
 .update-item .div-buttons button.btn-adicionarCampos[type=button]:hover {
@@ -70,6 +71,7 @@
     border-radius: 8px;
     background-color: #0f679a;
     color: #fff;
+    font-weight: 600;
 }
 
 .update-item .div-buttons button.btn-salvar[type=button]:hover {
@@ -86,6 +88,7 @@
     border-radius: 8px;
     background-color: #800;
     color: #fff;
+    font-weight: 600;
 }
 
 .update-item .div-buttons button.btn-cancelar[type=button]:hover {
@@ -102,6 +105,7 @@
     border-radius: 8px;
     background-color: #705714;
     color: #fff;
+    font-weight: 600;
 }
 
 .update-item .div-buttons button.btn-arquivar[type=button]:hover {
@@ -110,3 +114,23 @@
     color: black;
 }
 
+
+
+.update-form hr {
+    margin: 20px 0;
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+}
+
+.update-form hr:after {
+    content: "//";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+}

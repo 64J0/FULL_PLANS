@@ -38,46 +38,46 @@ const projetoSchema = new Schema({
         type: String,
         uppercase: true
     },
-
-    disciplinaDesenho: [{
-        type: String,
-        uppercase: true
+    infoProjetos: [{
+        disciplinaDesenho: {
+            type: String,
+            uppercase: true
+        },
+        revisao: {
+            type: String,
+            uppercase: true
+        },
+        numFull: {
+            type: String,
+            uppercase: true
+        },
+        numCliente: {
+            type: String,
+            uppercase: true
+        },
+        formato: {
+            type: String,
+            uppercase: true
+        },
+        descricao: {
+            type: String,
+            uppercase: true
+        },
+        projetistaDesenho: {
+            type: String,
+            uppercase: true
+        },
+        verificadorDesenho: {
+            type: String,
+            uppercase: true
+        },
+        dataInicio: {
+            type: Date
+        },
+        dataFinal: {
+            type: Date
+        }
     }],
-    revisao: [{
-        type: String,
-        uppercase: true
-    }],
-    numFull: [{
-        type: String,
-        uppercase: true
-    }],
-    numCliente: [{
-        type: String,
-        uppercase: true
-    }],
-    formato: [{
-        type: String,
-        uppercase: true
-    }],
-    descricao: [{
-        type: String,
-        uppercase: true
-    }],
-    projetistaDesenho: [{
-        type: String,
-        uppercase: true
-    }],
-    verificadorDesenho: [{
-        type: String,
-        uppercase: true
-    }],
-    dataInicio: [{
-        type: Date
-    }],
-    dataFinal: [{
-        type: Date
-    }],
-    
     arquivado: {
         type: Boolean,
         default: false,

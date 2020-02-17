@@ -1,0 +1,34 @@
+.liGerenciarInfo {
+    margin-top: 20px;
+    border: 1px solid black;
+    border-radius: 5px 0;
+    padding: 10px;
+}
+
+.liGerenciarInfo p {
+    margin: 5px 0;
+    font-weight: bold;
+    color: #353839;
+}
+
+.liGerenciarInfo input {
+    padding: 5px;
+}
+
+.liGerenciarInfo button.deletarInfoProjeto[type=button] {
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    background-color: #A50000;
+    color: #ddd;
+}
+
+.liGerenciarInfo button.deletarInfoProjeto[type=button]:hover {
+    background-color: #900;
+    color: #FFF;
+}

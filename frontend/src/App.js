@@ -161,7 +161,7 @@ function App() {
       ]);
     })
     .then(() => {
-      setStringPagina('Abertos');
+      //setStringPagina('Abertos');
     })
     .catch((error) => {
       console.log(error);
