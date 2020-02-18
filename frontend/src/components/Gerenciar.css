@@ -24,9 +24,7 @@
     padding: 3px 3px 3px 6px;
     margin: 5px 0 0 5px;
     color: #353839;
-    background: #eee;
-    border: 1px solid #353839;
-    border-radius: 3px 0;
+    background: none;
 }
 
 .update-item .input-block input {
@@ -36,10 +34,11 @@
     color: #353839;
     border: 1px solid #353839;
     border-radius: 5px;
-    background: #eee;
+    background: rgb(245, 245, 245);
 }
 
 .update-item .div-buttons {
+    margin: 20px 0;
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
     justify-content: center;
@@ -112,25 +111,4 @@
     cursor: pointer;
     background-color: #74868f;
     color: black;
-}
-
-
-
-.update-form hr {
-    margin: 20px 0;
-    overflow: visible; /* For IE */
-    padding: 0;
-    border: none;
-    border-top: medium double #333;
-    color: #333;
-    text-align: center;
-}
-
-.update-form hr:after {
-    content: "//";
-    display: inline-block;
-    position: relative;
-    top: -0.7em;
-    font-size: 1.5em;
-    padding: 0 0.25em;
 }

@@ -22,7 +22,7 @@
     padding: 3px 3px 3px 6px;
     margin: 10px 0 0 5px;
     color: #353839;
-    background: #eee;
+    background: #fff;
     border: 1px solid #353839;
     border-radius: 3px 0;
 }
@@ -36,7 +36,7 @@
 }
 
 .list-item .div-buttons button.btn-editar[type=button] {
-    padding: 5px 0;
+    padding: 8px 0;
     margin: 10px;
     font-weight: bold;
     font-size: 16px;

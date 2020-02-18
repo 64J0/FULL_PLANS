@@ -94,11 +94,15 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     async function arquivar(id) {
 
         new Promise((resolve, reject) => {
+            setArquivado(!arquivado);
+            resolve();
+        })
+        .then(() => {
             const texto = 'Descrição do status:';
             let novoStatus = window.prompt(texto, "");
+            novoStatus = novoStatus.toUpperCase();
             setStatus(novoStatus);
-            setArquivado(!arquivado);
-            resolve(novoStatus);
+            return(novoStatus);
         })
         .then((novoStatus) => {
             var body = {
@@ -113,13 +117,15 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                 arquivado: !projeto.arquivado
             };
 
-            console.log(novoStatus, projeto.arquivado, body);
+            console.log('Log 1', status, arquivado);
             return(body);
         })
         .then((body) => {
+            // O problema não está na chamada desta função
             onUpdateProjeto(id, body);
         })
         .then(() => {
+            console.log('Log 2', status, arquivado);
             decideWhatToDisplay();
         })
         .catch(() => {
@@ -145,11 +151,20 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
         <div className="update-item">
             <div id={projeto._id} className="grid-container">
 
-                <div className="status">
-                    <h2>Status: {projeto.status}</h2>
+            <form className="update-form">
+                <div className="input-block">
+                    <label htmlFor="status">
+                        Status
+                    </label>
+                    <input 
+                        type="text" 
+                        name="status"
+                        required
+                        value={status}
+                        onChange={e => setStatus(e.target.value)}
+                    />
                 </div>
 
-            <form className="update-form">
                 <div className="input-block">
                     <label htmlFor="cliente">
                         Cliente
@@ -157,7 +172,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <input 
                         type="text" 
                         name="cliente"
-                        id="cliente"
                         required
                         value={cliente}
                         onChange={e => setCliente(e.target.value)}
@@ -171,7 +185,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <input 
                         type="text" 
                         name="nomeProjeto"
-                        id="nomeProjeto"
                         value={nomeProjeto}
                         onChange={e => setNomeProjeto(e.target.value)}
                     />
@@ -184,7 +197,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <input 
                         type="text" 
                         name="disciplinaMestre"
-                        id="disciplinaMestre"
                         value={disciplinaMestre}
                         onChange={e => setDisciplinaMestre(e.target.value)}
                     />
@@ -197,7 +209,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <input 
                         type="text" 
                         name="numPedido"
-                        id="numPedido"
                         value={numPedido}
                         onChange={e => setNumPedido(e.target.value)} 
                     />
@@ -210,7 +221,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <input 
                         type="text" 
                         name="responsavel"
-                        id="responsavel"
                         value={responsavel}
                         onChange={e => setResponsavel(e.target.value)}
                     />
@@ -223,13 +233,10 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <input 
                         type="text" 
                         name="tipoEngenharia"
-                        id="tipoEngenharia"
                         value={tipoEngenharia}
                         onChange={e => setTipoEngenharia(e.target.value)}
                     />
                 </div>
-
-                <hr/>
 
                 <ol>
                     {infoProjetos.map(informacao => (
@@ -293,7 +300,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                         onClick={() => {
                             arquivar(projeto._id)
                         }}
-                    >
+                    > 
                         {
                             defineTextoBotaoArquivar()
                         }

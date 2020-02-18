@@ -32,7 +32,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
             dataFinal
         });
 
-        console.log(informacao);
+        
     }
 
     async function handleApagar() {
@@ -51,137 +51,148 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
         <>
             <li className="liGerenciarInfo">
 
-                <p>
-                    Link do desenho
-                </p>
-                <input type="text"
-                    name="linkDesenho"
-                    value={linkDesenho}
-                    onChange={e => {
-                        setLinkDesenho(e.target.value)
-                        updateInfo()
-                    }}
-                />
+                <div className="descricaoElinkDesenho">
+                    <p>
+                        Descrição:
+                    </p>
+                    <input type="text" 
+                        name="descricao"
+                        value={descricao}
+                        onChange={e => {
+                            setDescricao(e.target.value)
+                            updateInfo()
+                        }}
+                    />
 
-                <p>
-                    Disciplina do desenho
-                </p>
-                <input type="text" 
-                    name="disciplinaDesenho"
-                    value={disciplinaDesenho}
-                    onChange={e => {
-                        setDisciplinaDesenho(e.target.value)
-                        updateInfo()
-                    }}
-                />
+                    <p>
+                        Link do desenho:
+                    </p>
+                    <input type="text"
+                        name="linkDesenho"
+                        value={linkDesenho}
+                        onChange={e => {
+                            setLinkDesenho(e.target.value)
+                            updateInfo()
+                        }}
+                    />  
+                </div>
+                
+                <div className="disciplinaErevisaoEformato">
+                    <p>
+                        Disciplina:
+                    </p>
+                    <input type="text" 
+                        name="disciplinaDesenho"
+                        value={disciplinaDesenho}
+                        onChange={e => {
+                            setDisciplinaDesenho(e.target.value)
+                            updateInfo()
+                        }}
+                    />
 
-                <p>
-                    Revisão
-                </p>
-                <input type="text" 
-                    name="revisao"
-                    value={revisao}
-                    onChange={e => {
-                        setRevisao(e.target.value)
-                        updateInfo()
-                    }}
-                />
+                    <p>
+                        Revisão:
+                    </p>
+                    <input type="text" 
+                        name="revisao"
+                        value={revisao}
+                        onChange={e => {
+                            setRevisao(e.target.value)
+                            updateInfo()
+                        }}
+                    />
 
-                <p>
-                    Número FULL
-                </p>
-                <input type="text" 
-                    name="numFull"
-                    value={numFull}
-                    onChange={e => {
-                        setNumFull(e.target.value)
-                        updateInfo()
-                    }}
-                />
+                    <p>
+                        Formato:
+                    </p>
+                    <input type="text" 
+                        name="formato"
+                        value={formato}
+                        onChange={e => {
+                            setFormato(e.target.value)
+                            updateInfo()
+                        }}
+                    />
+                </div>
+                
+                <div className="numFullEnumCliente">
+                    <p>
+                        Número FULL:
+                    </p>
+                    <input type="text" 
+                        name="numFull"
+                        value={numFull}
+                        onChange={e => {
+                            setNumFull(e.target.value)
+                            updateInfo()
+                        }}
+                    />
 
-                <p>
-                    Número do cliente
-                </p>
-                <input type="text" 
-                    name="numCliente"
-                    value={numCliente}
-                    onChange={e => {
-                        setNumCliente(e.target.value)
-                        updateInfo()
-                    }}
-                />
+                    <p>
+                        Número do cliente:
+                    </p>
+                    <input type="text" 
+                        name="numCliente"
+                        value={numCliente}
+                        onChange={e => {
+                            setNumCliente(e.target.value)
+                            updateInfo()
+                        }}
+                    />
+                </div>
+                
+                <div className="projetistaDesenhoEverificadorDesenho">
+                    <p>
+                        Projetista:
+                    </p>
+                    <input type="text" 
+                        name="projetistaDesenho"
+                        value={projetistaDesenho}
+                        onChange={e => {
+                            setProjetistaDesenho(e.target.value)
+                            updateInfo()
+                        }}
+                    />
 
-                <p>
-                    Formato
-                </p>
-                <input type="text" 
-                    name="formato"
-                    value={formato}
-                    onChange={e => {
-                        setFormato(e.target.value)
-                        updateInfo()
-                    }}
-                />
+                    <p>
+                        Verificador:
+                    </p>
+                    <input type="text" 
+                        name="verificadorDesenho"
+                        value={verificadorDesenho}
+                        onChange={e => {
+                            setVerificadorDesenho(e.target.value)
+                            updateInfo()
+                        }}
+                    />
+                </div>
 
-                <p>
-                    Descrição
-                </p>
-                <input type="text" 
-                    name="descricao"
-                    value={descricao}
-                    onChange={e => {
-                        setDescricao(e.target.value)
-                        updateInfo()
-                    }}
-                />
+                <div className="dataInicioEdataFinal">
+                    <p>
+                        Data de início:
+                    </p>
+                    <input type="date" 
+                        name="dataInicio"
+                        value={dataInicio}
+                        onChange={e => {
+                            setDataInicio(e.target.value)
+                            updateInfo()
+                        }}
+                    />
 
-                <p>
-                    Projetista do desenho
-                </p>
-                <input type="text" 
-                    name="projetistaDesenho"
-                    value={projetistaDesenho}
-                    onChange={e => {
-                        setProjetistaDesenho(e.target.value)
-                        updateInfo()
-                    }}
-                />
-
-                <p>
-                    Verificador do desenho
-                </p>
-                <input type="text" 
-                    name="verificadorDesenho"
-                    value={verificadorDesenho}
-                    onChange={e => {
-                        setVerificadorDesenho(e.target.value)
-                        updateInfo()
-                    }}
-                />
-
-                <p>
-                    Data de início
-                </p>
-                <input type="date" 
-                    name="dataInicio"
-                    value={dataInicio}
-                    onChange={e => {
-                        setDataInicio(e.target.value)
-                        updateInfo()
-                    }}
-                />
-
-                <p>
-                    Data do término
-                </p>
-                <input type="date" 
-                    name="dataFinal"
-                    value={dataFinal}
-                    onChange={e => {
-                        setDataFinal(e.target.value)
-                        updateInfo()
-                    }}
-                />
+                    <p>
+                        Data do término:
+                    </p>
+                    <input type="date" 
+                        name="dataFinal"
+                        value={dataFinal}
+                        onChange={e => {
+                            setDataFinal(e.target.value)
+                            console.log(dataFinal)
+                            updateInfo()
+                        }}
+                    />
+                </div>
 
                 <button
                     className="deletarInfoProjeto"
@@ -192,8 +203,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                 </button>
 
             </li>
-
-            <hr/>
         </>
     );
 };

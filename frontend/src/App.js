@@ -117,6 +117,7 @@ function App() {
 
   async function handleAddProjeto(data) {
 
+    data.status = 'Novo projeto';
     await api.post('/projetos', data)
     .then(response => {
       setProjetos([...projetos, response.data]);
@@ -130,6 +131,7 @@ function App() {
 
   //=================================================================
 
+  /*
   async function handleDeleteProjeto(id) {
 
     await api.delete(`/projetos/${id}`)
@@ -141,14 +143,13 @@ function App() {
     });
 
   }
+  */
 
   //=================================================================
 
   async function handleUpdateProjeto(id, body) {
 
     var index = projetos.findIndex(x => x._id === id);
-
-    //console.log(body);
 
     const config = { headers: {'Content-Type': 'application/json'} };
     await api.put(`/projetos/${id}`, body, config)
@@ -159,9 +160,6 @@ function App() {
         body,
         ...projetos.slice(index+1)
       ]);
-    })
-    .then(() => {
-      //setStringPagina('Abertos');
     })
     .catch((error) => {
       console.log(error);
@@ -204,8 +202,7 @@ function App() {
           <Gerenciar 
             projeto={projetoUpdate} 
             display={setStringPagina}
-            onUpdateProjeto={handleUpdateProjeto}
-            onDeleteProjeto={handleDeleteProjeto} />
+            onUpdateProjeto={handleUpdateProjeto} />
         );
 
       default:
