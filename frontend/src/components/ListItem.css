@@ -14,6 +14,7 @@
     grid-template-rows: 40px;
     align-items: center;
     width: 100%;
+    cursor: default;
 }
 
 .list-item .grid-container p {

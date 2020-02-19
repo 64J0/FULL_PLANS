@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './GerenciarInfo.css';
 
@@ -15,37 +15,108 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
     const [verificadorDesenho, setVerificadorDesenho] = useState(informacao.verificadorDesenho || '');
     const [dataInicio, setDataInicio] = useState(informacao.dataInicio || '');
     const [dataFinal, setDataFinal] = useState(informacao.dataFinal || '');
-
-    function updateInfo() {
-
-        updateInfoProjeto(informacao._id, {
-            linkDesenho,
-            disciplinaDesenho,
-            revisao,
-            numFull,
-            numCliente,
-            formato,
-            descricao,
-            projetistaDesenho,
-            verificadorDesenho,
-            dataInicio,
-            dataFinal
-        });
-
-        
-    }
-
-    async function handleApagar() {
-        var confirmacao = window.confirm('Deseja realmente apagar?');
-        if (confirmacao) {
-            // Apagar essa infoProjeto
-            await apagarProjeto(informacao._id);
-        } else {
-            // Faz nada
-            return null;
-        }
-    }
     
+    useEffect(() => {
+
+        function updateInfo() {
+
+            updateInfoProjeto(informacao._id, {
+                linkDesenho,
+                disciplinaDesenho,
+                revisao,
+                numFull,
+                numCliente,
+                formato,
+                descricao,
+                projetistaDesenho,
+                verificadorDesenho,
+                dataInicio: dataInicio,
+                dataFinal: dataFinal
+            });
+    
+        }
+
+        if ((disciplinaDesenho !== informacao.disciplinaDesenho) || 
+            (revisao !== informacao.revisao) ||
+            (numFull !== informacao.numFull) ||
+            (numCliente !== informacao.numCliente) ||
+            (formato !== informacao.formato) ||
+            (descricao !== informacao.descricao) ||
+            (projetistaDesenho !== informacao.projetistaDesenho) ||
+            (verificadorDesenho !== informacao.verificadorDesenho) ||
+            (dataInicio !== informacao.dataInicio) ||
+            (dataFinal !== informacao.dataFinal)) {
+            updateInfo();
+        }
+
+    });
+
+    const [boolApagar, setBoolApagar] = useState(false);
+
+    useEffect(() => {
+
+        if (boolApagar) {
+            async function handleApagar() {
+                var confirmacao = window.confirm('Deseja realmente apagar?');
+                if (confirmacao) {
+                    // Apagar essa infoProjeto
+                    setBoolApagar(false);
+                    await apagarProjeto(informacao._id);
+                } else {
+                    // Faz nada
+                    return undefined;
+                }
+            }
+    
+            handleApagar();
+        }
+        
+    });
+
+    // ====================================================================
+
+    // Tratamento da data que será apresentada ao usuário
+    function tratarDataMostrar(data) {
+        let dataSaida = new Date(data),
+            ano = dataSaida.getFullYear(),
+            anoSaida,
+            mes = parseInt(dataSaida.getUTCMonth()) + 1,
+            mesSaida,
+            dia = dataSaida.getUTCDay(),
+            diaSaida;
+
+        console.log('dataSaida', dataSaida, '\n');
+        console.log('ano', ano, '\n');
+        console.log('anoSaida', anoSaida, '\n');
+        console.log('mes', mes, '\n');
+        console.log('mesSaida', mesSaida, '\n');
+        console.log('dia', dia, '\n');
+        console.log('diaSaida', diaSaida, '\n');
+
+        // Verificação da existência dos parâmetros no banco de dados
+        String(ano) ? anoSaida = ano : anoSaida = '2020';
+        String(mes) ? mesSaida = mes : mesSaida = '01';
+        String(dia) ? diaSaida = dia : diaSaida = '01';
+
+        // Verificação da quantidade de characteres nos valores dos anos
+        if (String(ano).length === 1) {
+            anoSaida = '000' + ano;
+        } else if (String(ano).length === 2) {
+            anoSaida = '00' + ano;
+        } else if (String(ano).length === 3) {
+            anoSaida = '0' + ano;
+        } else {
+            anoSaida = ano;
+        }
+        String(mes).length < 2 ? mesSaida = '0' + mes : mesSaida = mes;
+        String(dia).length < 2 ? diaSaida = '0' + dia : diaSaida = dia;
+
+        dataSaida = anoSaida + '-' + mesSaida + '-' + diaSaida;
+        return(String(dataSaida));
+        // retorno esperado: '1965-02-11'
+    }
+
+    // ====================================================================
 
     return(
         <>
@@ -60,7 +131,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         value={descricao}
                         onChange={e => {
                             setDescricao(e.target.value)
-                            updateInfo()
                         }}
                     />
 
@@ -72,7 +142,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         value={linkDesenho}
                         onChange={e => {
                             setLinkDesenho(e.target.value)
-                            updateInfo()
                         }}
                     />  
                 </div>
@@ -86,7 +155,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         value={disciplinaDesenho}
                         onChange={e => {
                             setDisciplinaDesenho(e.target.value)
-                            updateInfo()
                         }}
                     />
 
@@ -98,7 +166,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         value={revisao}
                         onChange={e => {
                             setRevisao(e.target.value)
-                            updateInfo()
                         }}
                     />
 
@@ -110,7 +177,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         value={formato}
                         onChange={e => {
                             setFormato(e.target.value)
-                            updateInfo()
                         }}
                     />
                 </div>
@@ -124,7 +190,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         value={numFull}
                         onChange={e => {
                             setNumFull(e.target.value)
-                            updateInfo()
                         }}
                     />
 
@@ -136,7 +201,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         value={numCliente}
                         onChange={e => {
                             setNumCliente(e.target.value)
-                            updateInfo()
                         }}
                     />
                 </div>
@@ -150,7 +214,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         value={projetistaDesenho}
                         onChange={e => {
                             setProjetistaDesenho(e.target.value)
-                            updateInfo()
                         }}
                     />
 
@@ -162,7 +225,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         value={verificadorDesenho}
                         onChange={e => {
                             setVerificadorDesenho(e.target.value)
-                            updateInfo()
                         }}
                     />
                 </div>
@@ -173,10 +235,9 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                     </p>
                     <input type="date" 
                         name="dataInicio"
-                        value={dataInicio}
+                        value={tratarDataMostrar(dataInicio)}
                         onChange={e => {
                             setDataInicio(e.target.value)
-                            updateInfo()
                         }}
                     />
 
@@ -185,19 +246,23 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                     </p>
                     <input type="date" 
                         name="dataFinal"
-                        value={dataFinal}
+                        value={tratarDataMostrar(dataFinal)}
                         onChange={e => {
                             setDataFinal(e.target.value)
-                            console.log(dataFinal)
-                            updateInfo()
                         }}
                     />
                 </div>
+                
+                {/*
+                    Funcionando
 
+                Quando o usuário clicar neste botão deve retirar o card com o id definido neste campo, mas isso deve se suceder apenas localmente, sem que o banco de dados seja atualizado.
+                A atalização do banco de dados só deve ser realizada no momento que o usuário clicar em salvar.
+                */}
                 <button
                     className="deletarInfoProjeto"
                     type="button"
-                    onClick={() => handleApagar()}
+                    onClick={() => setBoolApagar(true)}
                 >
                     Apagar
                 </button>

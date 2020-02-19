@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GerenciarInfo from './GerenciarInfo';
 
 import './Gerenciar.css';
@@ -17,6 +17,52 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     const [infoProjetos, setInfoProjetos] = useState(projeto.infoProjetos);
 
+    useEffect(() => {
+
+        async function arquivar(id) {
+
+            // Verifica se a propriedade de arquivado mudou em relação à propriedade original
+            if (arquivado !== projeto.arquivado) {
+                new Promise((resolve, reject) => {
+                    const texto = 'Descrição do status:';
+                    let novoStatus = window.prompt(texto, "");
+                    novoStatus = novoStatus.toUpperCase();
+                    resolve(novoStatus);
+                })
+                .then((novoStatus) => {
+                    var body = {
+                        cliente,
+                        nomeProjeto,
+                        disciplinaMestre,
+                        numPedido,
+                        responsavel,
+                        tipoEngenharia,
+                        status: novoStatus,
+                        infoProjetos,
+                        arquivado
+                    };
+
+                    return(body);
+                })
+                .then((body) => {
+                    // O problema não está na chamada desta função
+                    onUpdateProjeto(id, body);
+                })
+                .then(() => {
+                    decideWhatToDisplay();
+                })
+                .catch((err) => {
+                    console.log('Ocorreu um erro :(');
+                    return(err);
+                });
+            }
+            
+        }
+
+        arquivar(projeto._id);
+
+    });
+
     //===========================================================================
 
     function decideWhatToDisplay() {
@@ -32,7 +78,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     async function apagarProjeto(id) {
 
         setInfoProjetos(infoProjetos.filter(infoProjeto => infoProjeto._id !== id));
-        await salvar(projeto._id);
 
     }
 
@@ -69,7 +114,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     //===========================================================================
 
-    function novosCampos() {
+    async function novosCampos() {
 
         let novaInfoProjeto = { 
             'disciplinaDesenho': '',
@@ -85,53 +130,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
         }
 
         setInfoProjetos([...infoProjetos, novaInfoProjeto]);
-        salvar(projeto._id);
-        console.log(infoProjetos);
-    }
-
-    //===========================================================================
-
-    async function arquivar(id) {
-
-        new Promise((resolve, reject) => {
-            setArquivado(!arquivado);
-            resolve();
-        })
-        .then(() => {
-            const texto = 'Descrição do status:';
-            let novoStatus = window.prompt(texto, "");
-            novoStatus = novoStatus.toUpperCase();
-            setStatus(novoStatus);
-            return(novoStatus);
-        })
-        .then((novoStatus) => {
-            var body = {
-                cliente,
-                nomeProjeto,
-                disciplinaMestre,
-                numPedido,
-                responsavel,
-                tipoEngenharia,
-                status: novoStatus,
-                infoProjetos,
-                arquivado: !projeto.arquivado
-            };
-
-            console.log('Log 1', status, arquivado);
-            return(body);
-        })
-        .then((body) => {
-            // O problema não está na chamada desta função
-            onUpdateProjeto(id, body);
-        })
-        .then(() => {
-            console.log('Log 2', status, arquivado);
-            decideWhatToDisplay();
-        })
-        .catch(() => {
-            console.log('Ocorreu um erro :(');
-        });
-
+        await salvar(projeto._id);
     }
 
     //===========================================================================
@@ -238,6 +237,9 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     />
                 </div>
 
+                {/*
+                 * InfoProjetos
+                 */}
                 <ol>
                     {infoProjetos.map(informacao => (
                         <GerenciarInfo 
@@ -256,12 +258,14 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
                 <div className="div-buttons">
 
-                    {/* Não funcionando */}
+                    {/*
+                        Funcionando 
+                    Adiciona os campos de input para adicionar novas informações ao projeto que está aberto
+                    */}
                     <button
                         type="button"
                         className="btn-adicionarCampos"
                         onClick={() => {
-                            // Mostrar os campos de input para adicionar novas informações ao projeto que está aberto
                             novosCampos();
                         }}
                     >
@@ -269,8 +273,8 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     </button>
 
                     {/* 
-                        Não funcionando (parcialmente)
-                        Falta salvar os conteúdos dos cards abaixo da 
+                        Funcionando
+                    Quando o usuário clicar neste botão
                     */}
                     <button
                         type="button"
@@ -282,7 +286,10 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                         Salvar
                     </button>
 
-                    {/* Funcionando */}
+                    {/* 
+                        Funcionando 
+                    Quando o usuário clicar neste botão ele deve ser redirecionado para a página que estava anteriormente, que pode ser definida com base no valor do estado arquivado.
+                    */}
                     <button 
                         type="button"
                         className="btn-cancelar"
@@ -293,12 +300,15 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                         Cancelar
                     </button>
 
-                    {/* Funcionando */}
+                    {/*
+                        Funcionando
+                    Quando este botão for clicado, deve abrir uma janela pop-up para que o usuário possa atualizar o valor do estado de status. 
+                     */}
                     <button
                         type="button"
                         className="btn-arquivar"
                         onClick={() => {
-                            arquivar(projeto._id)
+                            setArquivado(!projeto.arquivado)
                         }}
                     > 
                         {
