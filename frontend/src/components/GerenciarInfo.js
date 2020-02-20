@@ -30,9 +30,10 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                 descricao,
                 projetistaDesenho,
                 verificadorDesenho,
-                dataInicio: dataInicio,
-                dataFinal: dataFinal
+                dataInicio,
+                dataFinal
             });
+            
     
         }
 
@@ -77,43 +78,23 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
 
     // Tratamento da data que será apresentada ao usuário
     function tratarDataMostrar(data) {
-        let dataSaida = new Date(data),
-            ano = dataSaida.getFullYear(),
+
+        var dataSaida = new Date(String(data)),
+            ano = String(dataSaida.getFullYear()),
             anoSaida,
-            mes = parseInt(dataSaida.getUTCMonth()) + 1,
+            mes = String(parseInt(dataSaida.getUTCMonth()) + 1),
             mesSaida,
-            dia = dataSaida.getUTCDay(),
+            dia = String(parseInt(dataSaida.getDate()) + 1),
             diaSaida;
 
-        console.log('dataSaida', dataSaida, '\n');
-        console.log('ano', ano, '\n');
-        console.log('anoSaida', anoSaida, '\n');
-        console.log('mes', mes, '\n');
-        console.log('mesSaida', mesSaida, '\n');
-        console.log('dia', dia, '\n');
-        console.log('diaSaida', diaSaida, '\n');
+        anoSaida = ano;
 
-        // Verificação da existência dos parâmetros no banco de dados
-        String(ano) ? anoSaida = ano : anoSaida = '2020';
-        String(mes) ? mesSaida = mes : mesSaida = '01';
-        String(dia) ? diaSaida = dia : diaSaida = '01';
-
-        // Verificação da quantidade de characteres nos valores dos anos
-        if (String(ano).length === 1) {
-            anoSaida = '000' + ano;
-        } else if (String(ano).length === 2) {
-            anoSaida = '00' + ano;
-        } else if (String(ano).length === 3) {
-            anoSaida = '0' + ano;
-        } else {
-            anoSaida = ano;
-        }
         String(mes).length < 2 ? mesSaida = '0' + mes : mesSaida = mes;
         String(dia).length < 2 ? diaSaida = '0' + dia : diaSaida = dia;
 
-        dataSaida = anoSaida + '-' + mesSaida + '-' + diaSaida;
+        dataSaida = String(anoSaida) + '-' + String(mesSaida) + '-' + String(diaSaida);
         return(String(dataSaida));
-        // retorno esperado: '1965-02-11'
+
     }
 
     // ====================================================================
