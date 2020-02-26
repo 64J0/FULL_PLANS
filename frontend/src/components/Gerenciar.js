@@ -3,6 +3,7 @@ import GerenciarInfo from './GerenciarInfo';
 
 import './Gerenciar.css';
 
+// projeto === projetoUpdate
 function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     const [cliente, setCliente] = useState(projeto.cliente);
@@ -16,6 +17,8 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     const [status, setStatus] = useState(projeto.status);
 
     const [infoProjetos, setInfoProjetos] = useState(projeto.infoProjetos);
+
+    const [botaoAddCampo, setBotaoAddCampo] = useState(false);
 
     useEffect(() => {
 
@@ -83,6 +86,21 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     //===========================================================================
 
+    function updateInfoProjeto(id, data) {
+
+        var index = infoProjetos.findIndex(x => x._id === id);
+
+        data._id = id;
+        setInfoProjetos([
+        ...infoProjetos.slice(0, index),
+        data,
+        ...infoProjetos.slice(index+1)
+        ]);
+    
+    }
+
+    //===========================================================================
+
     async function salvar(id) {
         await onUpdateProjeto(id, {
             cliente,
@@ -99,39 +117,55 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     //===========================================================================
 
-    function updateInfoProjeto(id, data) {
+    useEffect(() => {
 
-        var index = infoProjetos.findIndex(x => x._id === id);
-
-        data._id = id;
-        setInfoProjetos([
-        ...infoProjetos.slice(0, index),
-        data,
-        ...infoProjetos.slice(index+1)
-        ]);
-    
-    }
-
-    //===========================================================================
-
-    async function novosCampos() {
-
-        let novaInfoProjeto = { 
-            'disciplinaDesenho': '',
-            'revisao': '',
-            'numFull': '',
-            'numCliente': '',
-            'formato': '',
-            'descricao': '',
-            'projetistaDesenho': '',
-            'verificadorDesenho': '',
-            'dataInicio': '',
-            'dataFinal': ''
+        async function salvar(id) {
+            await onUpdateProjeto(id, {
+                cliente,
+                nomeProjeto,
+                disciplinaMestre,
+                numPedido,
+                responsavel,
+                tipoEngenharia,
+                status,
+                infoProjetos,
+                arquivado
+            });
         }
 
-        setInfoProjetos([...infoProjetos, novaInfoProjeto]);
-        await salvar(projeto._id);
-    }
+        async function novosCampos() {
+
+            let novaInfoProjeto = { 
+                'disciplinaDesenho': '',
+                'revisao': '',
+                'numFull': '',
+                'numCliente': '',
+                'formato': '',
+                'descricao': '',
+                'projetistaDesenho': '',
+                'verificadorDesenho': '',
+                'dataInicio': '01-01-2020',
+                'dataFinal': '02-01-2020'
+            }
+    
+            setInfoProjetos([...infoProjetos, novaInfoProjeto]);
+            await salvar(projeto._id);
+            
+        }
+
+        async function adicionaCampo() {
+            if (botaoAddCampo) {
+                await novosCampos();
+            }
+
+            setBotaoAddCampo(false);
+        }
+
+        adicionaCampo();
+        console.log(infoProjetos);
+        
+    });
+    
 
     //===========================================================================
 
@@ -266,7 +300,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                         type="button"
                         className="btn-adicionarCampos"
                         onClick={() => {
-                            novosCampos();
+                            setBotaoAddCampo(true);
                         }}
                     >
                         Adicionar

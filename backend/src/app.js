@@ -99,4 +99,7 @@ app.use('/projetos', projetosRoutes);
 const loginRoutes = require('./routes/login-routes');
 app.use('/login', loginRoutes);
 
+const excelGenRoutes = require('./routes/excelGen-routes');
+app.use('/excel', excelGenRoutes);
+
 module.exports = app;

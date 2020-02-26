@@ -13,14 +13,14 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
     const [descricao, setDescricao] = useState(informacao.descricao || '');
     const [projetistaDesenho, setProjetistaDesenho] = useState(informacao.projetistaDesenho || '');
     const [verificadorDesenho, setVerificadorDesenho] = useState(informacao.verificadorDesenho || '');
-    const [dataInicio, setDataInicio] = useState(informacao.dataInicio || '');
-    const [dataFinal, setDataFinal] = useState(informacao.dataFinal || '');
+    const [dataInicio, setDataInicio] = useState(informacao.dataInicio);
+    const [dataFinal, setDataFinal] = useState(informacao.dataFinal);
     
     useEffect(() => {
 
-        function updateInfo() {
+        async function updateInfo() {
 
-            updateInfoProjeto(informacao._id, {
+            await updateInfoProjeto(informacao._id, {
                 linkDesenho,
                 disciplinaDesenho,
                 revisao,
@@ -34,7 +34,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                 dataFinal
             });
             
-    
         }
 
         if ((disciplinaDesenho !== informacao.disciplinaDesenho) || 
@@ -56,20 +55,18 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
 
     useEffect(() => {
 
+        function handleApagar() {
+            // Apagar essa infoProjeto
+            apagarProjeto(informacao._id);
+            setBoolApagar(false);
+        }
+
         if (boolApagar) {
-            async function handleApagar() {
-                var confirmacao = window.confirm('Deseja realmente apagar?');
-                if (confirmacao) {
-                    // Apagar essa infoProjeto
-                    setBoolApagar(false);
-                    await apagarProjeto(informacao._id);
-                } else {
-                    // Faz nada
-                    return undefined;
-                }
+            var confirmacao = window.confirm('Deseja realmente apagar?');
+            if (confirmacao) {
+                handleApagar();
             }
-    
-            handleApagar();
+            
         }
         
     });

@@ -153,6 +153,11 @@ function App() {
 
     const config = { headers: {'Content-Type': 'application/json'} };
     await api.put(`/projetos/${id}`, body, config)
+    .then((response) => {
+      if (id === projetoUpdate._id) {
+        setProjetoUpdate(response.data);
+      }
+    })
     .then(() => {
       body._id = id;
       setProjetos([

@@ -35,10 +35,8 @@ exports.createProjeto = async (req, res) => {
 //update
 exports.updateProjeto = async (req, res) => {
     try {
-        await repository.updateProjeto(req.params.id, req.body);
-        res.status(200).send({
-            message: 'Projeto atualizado com sucesso!'
-        });
+        let projeto = await repository.updateProjeto(req.params.id, req.body);
+        res.status(201).send(projeto);
     } catch(e) {
         res.status(500).send({
             message: 'Falha ao atualizar o projeto!'
