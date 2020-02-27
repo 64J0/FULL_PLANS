@@ -18,9 +18,13 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
     
     useEffect(() => {
 
-        async function updateInfo() {
+        function updateInfo() {
 
-            await updateInfoProjeto(informacao._id, {
+            if (!informacao._id) {
+                informacao._id = Math.round(Math.random()*10e8);
+            }
+            
+            updateInfoProjeto(informacao._id, {
                 linkDesenho,
                 disciplinaDesenho,
                 revisao,
@@ -56,9 +60,15 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
     useEffect(() => {
 
         function handleApagar() {
-            // Apagar essa infoProjeto
-            apagarProjeto(informacao._id);
-            setBoolApagar(false);
+            new Promise((resolve, reject) => {
+                apagarProjeto(informacao._id);
+            })
+            .then(() => {
+                setBoolApagar(false);
+            })
+            .catch(err => {
+                console.log('error: ', err);
+            });
         }
 
         if (boolApagar) {

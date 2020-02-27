@@ -18,13 +18,13 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     const [infoProjetos, setInfoProjetos] = useState(projeto.infoProjetos);
 
-    const [botaoAddCampo, setBotaoAddCampo] = useState(false);
-
+    /*
+     * FUNCIONANDO -> esta função seta o estado da propriedade arquivado do projeto e muda a tela de visualização que é exibida para o usuário, com base no estado atual que foi alterado
+     */
     useEffect(() => {
 
         async function arquivar(id) {
 
-            // Verifica se a propriedade de arquivado mudou em relação à propriedade original
             if (arquivado !== projeto.arquivado) {
                 new Promise((resolve, reject) => {
                     const texto = 'Descrição do status:';
@@ -48,14 +48,13 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     return(body);
                 })
                 .then((body) => {
-                    // O problema não está na chamada desta função
                     onUpdateProjeto(id, body);
                 })
                 .then(() => {
                     decideWhatToDisplay();
                 })
                 .catch((err) => {
-                    console.log('Ocorreu um erro :(');
+                    console.log('Ocorreu um erro :(', err);
                     return(err);
                 });
             }
@@ -68,6 +67,10 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     //===========================================================================
 
+    /*
+     * FUNCIONANDO -> Esta função troca a tela que é exibida para o usuário
+     */
+
     function decideWhatToDisplay() {
         if (arquivado) {
             display('Arquivados');
@@ -78,7 +81,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     //===========================================================================
 
-    async function apagarProjeto(id) {
+    function apagarProjeto(id) {
 
         setInfoProjetos(infoProjetos.filter(infoProjeto => infoProjeto._id !== id));
 
@@ -102,7 +105,8 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     //===========================================================================
 
     async function salvar(id) {
-        await onUpdateProjeto(id, {
+
+        var body = {
             cliente,
             nomeProjeto,
             disciplinaMestre,
@@ -112,59 +116,49 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
             status,
             infoProjetos,
             arquivado
-        });
+        };
+
+        console.log('body: ', body);
+        await onUpdateProjeto(id, body);
+
     }
 
     //===========================================================================
 
+
+    async function novosCampos() {
+
+        let novaInfoProjeto = { 
+            'disciplinaDesenho': '',
+            'revisao': '',
+            'numFull': '',
+            'numCliente': '',
+            'formato': '',
+            'descricao': '',
+            'projetistaDesenho': '',
+            'verificadorDesenho': '',
+            'dataInicio': '01-01-2020',
+            'dataFinal': '02-01-2020'
+        }
+        
+        setInfoProjetos([...infoProjetos, novaInfoProjeto]);
+        
+    }
+
     useEffect(() => {
 
-        async function salvar(id) {
-            await onUpdateProjeto(id, {
-                cliente,
-                nomeProjeto,
-                disciplinaMestre,
-                numPedido,
-                responsavel,
-                tipoEngenharia,
-                status,
-                infoProjetos,
-                arquivado
-            });
-        }
-
-        async function novosCampos() {
-
-            let novaInfoProjeto = { 
-                'disciplinaDesenho': '',
-                'revisao': '',
-                'numFull': '',
-                'numCliente': '',
-                'formato': '',
-                'descricao': '',
-                'projetistaDesenho': '',
-                'verificadorDesenho': '',
-                'dataInicio': '01-01-2020',
-                'dataFinal': '02-01-2020'
-            }
-    
-            setInfoProjetos([...infoProjetos, novaInfoProjeto]);
-            await salvar(projeto._id);
-            
-        }
-
+        
         async function adicionaCampo() {
-            if (botaoAddCampo) {
-                await novosCampos();
+
+            if (infoProjetos !== projeto.infoProjetos) {
+                salvar(projeto._id);
             }
 
-            setBotaoAddCampo(false);
         }
 
         adicionaCampo();
-        console.log(infoProjetos);
         
-    });
+    })
     
 
     //===========================================================================
@@ -299,9 +293,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <button
                         type="button"
                         className="btn-adicionarCampos"
-                        onClick={() => {
-                            setBotaoAddCampo(true);
-                        }}
+                        onClick={() => { novosCampos() }}
                     >
                         Adicionar
                     </button>
@@ -313,9 +305,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <button
                         type="button"
                         className="btn-salvar"
-                        onClick={() => {
-                            salvar(projeto._id);
-                        }}
+                        onClick={() => { salvar(projeto._id) }}
                     >
                         Salvar
                     </button>
@@ -327,9 +317,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <button 
                         type="button"
                         className="btn-cancelar"
-                        onClick={() => {
-                            decideWhatToDisplay()
-                        }}
+                        onClick={() => { decideWhatToDisplay() }}
                     >
                         Cancelar
                     </button>
@@ -341,9 +329,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <button
                         type="button"
                         className="btn-arquivar"
-                        onClick={() => {
-                            setArquivado(!projeto.arquivado)
-                        }}
+                        onClick={() => { setArquivado(!projeto.arquivado) }}
                     > 
                         {
                             defineTextoBotaoArquivar()

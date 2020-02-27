@@ -22,6 +22,9 @@ function App() {
   const [login, setLogin] = useState(false);
   const [projetoUpdate, setProjetoUpdate] = useState('');
 
+  /*
+  * CARREGA OS DADOS DO BANCO DE DADOS NA RENDERIZAÇÃO INICIAL
+  */
   useEffect(() => {
 
     async function loadProjetos() {
@@ -35,6 +38,9 @@ function App() {
 
   }, []);
 
+  /*
+  * FAZ A ALOCAÇÃO DOS DADOS EM ESTADOS DIFERENTES BASEADO NA PROPRIEDADE ARQUIVADO PARA MOSTRAR NAS PÁGINAS CORRETAS
+  */
   useEffect(() => {
 
     let arrayProjetosArquivados = [];
@@ -147,6 +153,9 @@ function App() {
 
   //=================================================================
 
+  /*
+  * NÃO FUNCIONA -> Os estados não são atualizados após a requisição PUT na API
+  */
   async function handleUpdateProjeto(id, body) {
 
     var index = projetos.findIndex(x => x._id === id);
@@ -154,17 +163,22 @@ function App() {
     const config = { headers: {'Content-Type': 'application/json'} };
     await api.put(`/projetos/${id}`, body, config)
     .then((response) => {
-      if (id === projetoUpdate._id) {
-        setProjetoUpdate(response.data);
-      }
+      setProjetoUpdate(response.data);
+      console.log('response.data: ', response.data);
+      console.log('projetoUpdate: ', projetoUpdate);
     })
     .then(() => {
       body._id = id;
-      setProjetos([
+
+      const projetosAtualizados = [
         ...projetos.slice(0, index),
         body,
         ...projetos.slice(index+1)
-      ]);
+      ];
+      
+      setProjetos(projetosAtualizados);
+      console.log('projetosAtualizados: ', projetosAtualizados)
+      console.log('projetos: ', projetos);
     })
     .catch((error) => {
       console.log(error);
