@@ -4,6 +4,10 @@ import './GerenciarInfo.css';
 
 function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
 
+    useEffect(() => {
+        //console.log('informacao dentro de GerenciarInfo: ', informacao)
+    })
+
     const [linkDesenho, setLinkDesenho] = useState('https://github.com/gajomon/FULL_PLANS/tree/master' || '');
     const [disciplinaDesenho, setDisciplinaDesenho] = useState(informacao.disciplinaDesenho || '');
     const [revisao, setRevisao] = useState(informacao.revisao || '');
@@ -19,10 +23,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
     useEffect(() => {
 
         function updateInfo() {
-
-            if (!informacao._id) {
-                informacao._id = Math.round(Math.random()*10e8);
-            }
             
             updateInfoProjeto(informacao._id, {
                 linkDesenho,

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GerenciarInfo from './GerenciarInfo';
 
 import './Gerenciar.css';
+import api from '../services/api';
 
 // projeto === projetoUpdate
 function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
@@ -18,6 +19,13 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     const [infoProjetos, setInfoProjetos] = useState(projeto.infoProjetos);
 
+    useEffect(() => {
+        //console.log('projetoUpdate dentro de Gerenciar: ', projeto)
+        setInfoProjetos(projeto.infoProjetos);
+    }, [projeto]);
+
+
+    //const [toggleSalvar, setToggleSalvar] = useState(false);
     /*
      * FUNCIONANDO -> esta função seta o estado da propriedade arquivado do projeto e muda a tela de visualização que é exibida para o usuário, com base no estado atual que foi alterado
      */
@@ -118,8 +126,15 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
             arquivado
         };
 
-        console.log('body: ', body);
-        await onUpdateProjeto(id, body);
+        //console.log('projeto dentro de gerenciar: ', projeto);
+        //console.log('infoProjetos em gerenciar: ', infoProjetos);
+        //console.log('body: ', body);
+        await onUpdateProjeto(id, body)
+        .then(() => {
+            if (infoProjetos !== projeto.infoProjetos) {
+                setInfoProjetos(projeto.infoProjetos);
+            }
+        });
 
     }
 
@@ -144,23 +159,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
         setInfoProjetos([...infoProjetos, novaInfoProjeto]);
         
     }
-
-    useEffect(() => {
-
-        
-        async function adicionaCampo() {
-
-            if (infoProjetos !== projeto.infoProjetos) {
-                salvar(projeto._id);
-            }
-
-        }
-
-        adicionaCampo();
-        
-    })
     
-
     //===========================================================================
 
     function defineTextoBotaoArquivar() {
@@ -169,6 +168,14 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
         } else {
             return 'Arquivar';
         }
+    }
+
+    //===========================================================================
+
+    async function gerarPlanilha() {
+
+        await api.get(`/excel/${projeto._id}`);
+
     }
 
     //===========================================================================
@@ -265,9 +272,11 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     />
                 </div>
 
-                {/*
-                 * InfoProjetos
-                 */}
+                {
+                /*
+                 * InfoProjetos -> Não atualiza o _id quando o infoProjetos é atualizado
+                 */
+                }
                 <ol>
                     {infoProjetos.map(informacao => (
                         <GerenciarInfo 
@@ -278,7 +287,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                         />
                     ))}
                 </ol>
-
             </form>
                 
                 
@@ -334,6 +342,16 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                         {
                             defineTextoBotaoArquivar()
                         }
+                    </button>
+                </div>
+
+                <div className="btn-planilha">
+                    <button
+                        type="button"
+                        className="btn-criar-planilha"
+                        onClick={() => { gerarPlanilha() }}
+                    >
+                        Gerar planilha!
                     </button>
                 </div>
             </div>

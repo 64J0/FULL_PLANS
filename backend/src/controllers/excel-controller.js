@@ -2,10 +2,8 @@ const repository = require('../repositories/excel-repository');
 
 exports.genExcelFile = async (req, res) => {
     try {
-        await repository.genExcelFile(req.params.id);
-        res.status(200).send({
-            message: 'Excel gerado!'
-        });
+        const resposta = await repository.genExcelFile(req.params.id);
+        res.status(200).send(resposta);
     } catch(e) {
         res.status(500).send({
             message: 'Falha ao gerar o Excel!'
