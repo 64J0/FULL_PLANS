@@ -174,7 +174,13 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     async function gerarPlanilha() {
 
-        await api.get(`/excel/${projeto._id}`);
+        await api.get(`/excel/${projeto._id}`, { responseType: 'arraybuffer' })
+        .then((response) => {
+            //var blob = new Blob([response.data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+            window.location.replace(response.request.responseURL);
+            console.log(response)
+        })
+        .catch(err => console.log(err));
 
     }
 
@@ -303,7 +309,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                         className="btn-adicionarCampos"
                         onClick={() => { novosCampos() }}
                     >
-                        Adicionar
+                        Add Campos
                     </button>
 
                     {/* 

@@ -24,14 +24,17 @@
     "exceljs": "^3.8.0",
     "express": "^4.17.1",
     "express-acl": "^2.0.8",
+    "express-rate-limit": "^5.1.1",
     "express-validator": "^6.3.1",
     "fs": "0.0.1-security",
     "helmet": "^3.21.2",
+    "hpp": "^0.2.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.7",
     "morgan": "^1.9.1",
     "package.json": "^2.0.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "rate-limiter-flexible": "^2.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

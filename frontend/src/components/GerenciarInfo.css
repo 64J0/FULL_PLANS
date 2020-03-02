@@ -26,7 +26,7 @@
     border: none;
     border-radius: 5px;
     background-color: #A50000;
-    color: #ddd;
+    color: #eee;
 }
 
 .liGerenciarInfo button.deletarInfoProjeto[type=button]:hover {
@@ -61,7 +61,7 @@
 .liGerenciarInfo div.disciplinaErevisaoEformato {
     margin: 10px 0;
     display: grid;
-    grid-template-columns: 150px 1.5fr 0.3fr 0.5fr 0.4fr 0.2fr;
+    grid-template-columns: 150px 1.5fr 0.3fr 0.4fr 0.3fr 0.4fr;
     grid-gap: 10px;
     text-align: start;
 }
