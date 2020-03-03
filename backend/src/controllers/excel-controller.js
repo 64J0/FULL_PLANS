@@ -9,8 +9,10 @@ exports.genExcelFile = async (req, res) => {
             res.setHeader('Content-Description', 'File Transfer');
             res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             res.setHeader('Content-Disposition', 'attachment;', 'filename=' + '"Report.xlsx"');
-            var fileName = String('GRD_' + Date.now() + '.xlsx');
-            res.attachment(fileName)
+            //var fileName = String('GRD_' + Date.now() + '.xlsx');
+            var fileName = 'Report.xlsx';
+            res.attachment(fileName);
+            //workBook.xlsx.writeFile(fileName); // Salva localmente no backend
             workBook.xlsx.write(res)
             .then(() => {
                 res.end();

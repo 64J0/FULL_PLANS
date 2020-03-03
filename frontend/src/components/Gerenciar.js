@@ -25,7 +25,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     }, [projeto]);
 
 
-    //const [toggleSalvar, setToggleSalvar] = useState(false);
     /*
      * FUNCIONANDO -> esta função seta o estado da propriedade arquivado do projeto e muda a tela de visualização que é exibida para o usuário, com base no estado atual que foi alterado
      */
@@ -126,9 +125,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
             arquivado
         };
 
-        //console.log('projeto dentro de gerenciar: ', projeto);
-        //console.log('infoProjetos em gerenciar: ', infoProjetos);
-        //console.log('body: ', body);
         await onUpdateProjeto(id, body)
         .then(() => {
             if (infoProjetos !== projeto.infoProjetos) {
@@ -141,8 +137,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     //===========================================================================
 
 
-    async function novosCampos() {
-
+    function novosCampos() {
         let novaInfoProjeto = { 
             'disciplinaDesenho': '',
             'revisao': '',
@@ -154,11 +149,17 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
             'verificadorDesenho': '',
             'dataInicio': '01-01-2020',
             'dataFinal': '02-01-2020'
-        }
-        
+        };
         setInfoProjetos([...infoProjetos, novaInfoProjeto]);
-        
     }
+
+    /*
+    useEffect(() => {
+        if (infoProjetos !== projeto.infoProjetos) {
+            salvar(projeto._id);
+        }
+    });
+    */
     
     //===========================================================================
 
@@ -174,6 +175,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     async function gerarPlanilha() {
 
+        /*
         await api.get(`/excel/${projeto._id}`, { responseType: 'arraybuffer' })
         .then((response) => {
             //var blob = new Blob([response.data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
@@ -181,6 +183,51 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
             console.log(response)
         })
         .catch(err => console.log(err));
+        */
+
+
+        // js-file-download Package:
+        var jsFileDownload = function(data, filename, mime, bom) {
+            var blobData = (typeof bom !== 'undefined') ? [bom, data] : [data];
+            var blob = new Blob(blobData, {type: mime || 'application/octet-stream'});
+            if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                // IE workaround for "HTML7007: One or more blob URLs were
+                // revoked by closing the blob for which they were created.
+                // These URLs will no longer resolve as the data backing
+                // the URL has been freed."
+                window.navigator.msSaveBlob(blob, filename);
+            } else {
+                var blobURL = (window.URL ? window.URL : window.webkitURL).createObjectURL(blob);
+                var tempLink = document.createElement('a');
+                tempLink.style.display = 'none';
+                tempLink.href = blobURL;
+                tempLink.setAttribute('download', filename);
+        
+                // Safari thinks _blank anchor are pop ups. We only want to set _blank
+                // target if the browser does not support the HTML5 download attribute.
+                // This allows you to download files in desktop safari if pop up blocking
+                // is enabled.
+                if (typeof tempLink.download === 'undefined') {
+                    tempLink.setAttribute('target', '_blank');
+                }
+        
+                document.body.appendChild(tempLink);
+                tempLink.click();
+        
+                // Fixes "webkit blob resource error 1"
+                setTimeout(function() {
+                    document.body.removeChild(tempLink);
+                    window.URL.revokeObjectURL(blobURL);
+                }, 0);
+            }
+        }
+
+        await api.get(`/excel/${projeto._id}`, { responseType: 'arraybuffer' })
+        .then((response) => {
+            var fileName = String('GRD_' + Date.now() + '.xlsx');
+            jsFileDownload(response.data, fileName);
+        })
+        
 
     }
 
