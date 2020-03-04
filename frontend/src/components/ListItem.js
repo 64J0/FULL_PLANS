@@ -27,8 +27,6 @@ function ListItem({ projeto, display, setProjeto }) {
                     <p>{projeto.numPedido}</p>
                     <p>Responsável</p>
                     <p>{projeto.responsavel}</p>
-                    <p>Tipo de engenharia</p>
-                    <p>{projeto.tipoEngenharia}</p>
                 </div>
                 <div className="div-buttons">
                     <button

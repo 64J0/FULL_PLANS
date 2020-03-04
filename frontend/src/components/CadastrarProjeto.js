@@ -8,7 +8,6 @@ function CadastrarProjeto({ onSubmit }) {
     const [disciplinaMestre, setDisciplinaMestre] = useState('');
     const [numPedido, setNumPedido] = useState('');
     const [responsavel, setResponsavel] = useState('');
-    const [tipoEngenharia, setTipoEngenharia] = useState('');
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -18,8 +17,7 @@ function CadastrarProjeto({ onSubmit }) {
             nomeProjeto,
             disciplinaMestre,
             numPedido,
-            responsavel,
-            tipoEngenharia
+            responsavel
         });
     }
 
@@ -94,19 +92,6 @@ function CadastrarProjeto({ onSubmit }) {
                         id="responsavel"
                         value={responsavel}
                         onChange={e => setResponsavel(e.target.value)}
-                    />
-                </div>
-
-                <div className="input-block">
-                    <label htmlFor="tipoEngenharia">
-                        Tipo de engenharia
-                    </label>
-                    <input 
-                        type="text" 
-                        name="tipoEngenharia"
-                        id="tipoEngenharia"
-                        value={tipoEngenharia}
-                        onChange={e => setTipoEngenharia(e.target.value)}
                     />
                 </div>
 

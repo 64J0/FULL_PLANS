@@ -47,13 +47,24 @@
     border-radius: 5px 0;
 }
 
-.liGerenciarInfo div.descricaoElinkDesenho {
+.liGerenciarInfo div.descricaoEtipoEngenharia {
+    display: grid;
+    grid-template-columns: 150px auto 100px 100px;
+    grid-gap: 10px;
+}
+
+.liGerenciarInfo div.descricaoEtipoEngenharia p, input {
+    justify-content: center;
+    text-align: start;
+}
+
+.liGerenciarInfo div.linkDesenho {
     display: grid;
     grid-template-columns: 150px auto;
     grid-gap: 10px;
 }
 
-.liGerenciarInfo div.descricaoElinkDesenho p, input {
+.liGerenciarInfo div.linkDesenho p, input {
     justify-content: center;
     text-align: start;
 }
@@ -61,7 +72,7 @@
 .liGerenciarInfo div.disciplinaErevisaoEformato {
     margin: 10px 0;
     display: grid;
-    grid-template-columns: 150px 1.5fr 0.3fr 0.4fr 0.3fr 0.4fr;
+    grid-template-columns: 150px 1.5fr 0.3fr 0.4fr 0.3fr 100px;
     grid-gap: 10px;
     text-align: start;
 }

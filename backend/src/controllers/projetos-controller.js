@@ -20,7 +20,6 @@ exports.createProjeto = async (req, res) => {
             disciplinaMestre: req.body.disciplinaMestre,
             numPedido: req.body.numPedido,
             responsavel: req.body.responsavel,
-            tipoEngenharia: req.body.tipoEngenharia,
             status: req.body.status,
             infoProjetos: req.body.infoProjetos,
             arquivado: req.body.arquivado

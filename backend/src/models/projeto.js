@@ -30,15 +30,18 @@ const projetoSchema = new Schema({
         type: String,
         uppercase: true
     },
-    tipoEngenharia: {
-        type: String,
-        uppercase: true
-    },
     status: {
         type: String,
         uppercase: true
     },
     infoProjetos: [{
+        linkDesenho: {
+            type: String
+        },
+        tipoEngenharia: {
+            type: String,
+            uppercase: true
+        },
         disciplinaDesenho: {
             type: String,
             uppercase: true

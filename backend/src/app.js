@@ -110,4 +110,7 @@ app.use('/login', loginRoutes);
 const excelGenRoutes = require('./routes/excelGen-routes');
 app.use('/excel', excelGenRoutes);
 
+const email = require('./routes/email');
+app.use('/email', email);
+
 module.exports = app;

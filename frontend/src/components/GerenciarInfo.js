@@ -4,11 +4,8 @@ import './GerenciarInfo.css';
 
 function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
 
-    useEffect(() => {
-        //console.log('informacao dentro de GerenciarInfo: ', informacao)
-    })
-
-    const [linkDesenho, setLinkDesenho] = useState('https://github.com/gajomon/FULL_PLANS/tree/master' || '');
+    const [linkDesenho, setLinkDesenho] = useState(informacao.linkDesenho || 'https://github.com/gajomon/FULL_PLANS/tree/master');
+    const [tipoEngenharia, setTipoEngenharia] = useState(informacao.tipoEngenharia || '');
     const [disciplinaDesenho, setDisciplinaDesenho] = useState(informacao.disciplinaDesenho || '');
     const [revisao, setRevisao] = useState(informacao.revisao || '');
     const [numFull, setNumFull] = useState(informacao.numFull || '');
@@ -26,6 +23,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
             
             updateInfoProjeto(informacao._id, {
                 linkDesenho,
+                tipoEngenharia,
                 disciplinaDesenho,
                 revisao,
                 numFull,
@@ -40,7 +38,9 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
             
         }
 
-        if ((disciplinaDesenho !== informacao.disciplinaDesenho) || 
+        if ((linkDesenho !== informacao.linkDesenho) ||
+            (tipoEngenharia !== informacao.tipoEngenharia) ||
+            (disciplinaDesenho !== informacao.disciplinaDesenho) || 
             (revisao !== informacao.revisao) ||
             (numFull !== informacao.numFull) ||
             (numCliente !== informacao.numCliente) ||
@@ -110,7 +110,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
         <>
             <li className="liGerenciarInfo">
 
-                <div className="descricaoElinkDesenho">
+                <div className="descricaoEtipoEngenharia">
                     <p>
                         Descrição:
                     </p>
@@ -122,6 +122,19 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         }}
                     />
 
+                    <p>
+                        Engenharia:
+                    </p>
+                    <input type="text" 
+                        name="tipoEngenharia"
+                        value={tipoEngenharia}
+                        onChange={e => {
+                            setTipoEngenharia(e.target.value)
+                        }}
+                    />
+                </div>
+
+                <div className="linkDesenho">
                     <p>
                         Link do desenho:
                     </p>

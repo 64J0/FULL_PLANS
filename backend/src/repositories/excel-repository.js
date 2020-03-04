@@ -90,6 +90,10 @@ exports.genExcelFile = async (id) => {
             workBook.worksheets[0].getCell(`F${aux + 34}`).value = 
                 res.infoProjetos[aux].formato;
 
+            // Célula com o valor do tipo de engenharia
+            workBook.worksheets[0].getCell(`K${aux + 34}`).value = 
+                res.infoProjetos[aux].tipoEngenharia;
+
             // Estilização da planilha
             for(var aux2 = 0; aux2 <= limiteAux2; aux2++) {
                 varColNum = varAscii + aux2;

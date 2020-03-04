@@ -12,17 +12,25 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     const [disciplinaMestre, setDisciplinaMestre] = useState(projeto.disciplinaMestre);
     const [numPedido, setNumPedido] = useState(projeto.numPedido);
     const [responsavel, setResponsavel] = useState(projeto.responsavel);
-    const [tipoEngenharia, setTipoEngenharia] = useState(projeto.tipoEngenharia);
 
     const [arquivado, setArquivado] = useState(projeto.arquivado);
     const [status, setStatus] = useState(projeto.status);
 
     const [infoProjetos, setInfoProjetos] = useState(projeto.infoProjetos);
 
+    const [toggleNovoCampo, setToggleNovoCampo] = useState(false);
+
     useEffect(() => {
-        //console.log('projetoUpdate dentro de Gerenciar: ', projeto)
+        console.log('projeto', projeto);
         setInfoProjetos(projeto.infoProjetos);
     }, [projeto]);
+
+    useEffect(() => {
+        if (toggleNovoCampo) {
+            setToggleNovoCampo(false);
+            salvar(projeto._id);
+        }
+    });
 
 
     /*
@@ -46,7 +54,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                         disciplinaMestre,
                         numPedido,
                         responsavel,
-                        tipoEngenharia,
                         status: novoStatus,
                         infoProjetos,
                         arquivado
@@ -119,7 +126,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
             disciplinaMestre,
             numPedido,
             responsavel,
-            tipoEngenharia,
             status,
             infoProjetos,
             arquivado
@@ -139,6 +145,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     function novosCampos() {
         let novaInfoProjeto = { 
+            'linkDesenho': '',
             'disciplinaDesenho': '',
             'revisao': '',
             'numFull': '',
@@ -151,16 +158,10 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
             'dataFinal': '02-01-2020'
         };
         setInfoProjetos([...infoProjetos, novaInfoProjeto]);
+        setToggleNovoCampo(true);
     }
 
-    /*
-    useEffect(() => {
-        if (infoProjetos !== projeto.infoProjetos) {
-            salvar(projeto._id);
-        }
-    });
-    */
-    
+
     //===========================================================================
 
     function defineTextoBotaoArquivar() {
@@ -310,18 +311,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                         name="responsavel"
                         value={responsavel}
                         onChange={e => setResponsavel(e.target.value)}
-                    />
-                </div>
-
-                <div className="input-block">
-                    <label htmlFor="tipoEngenharia">
-                        Tipo de engenharia
-                    </label>
-                    <input 
-                        type="text" 
-                        name="tipoEngenharia"
-                        value={tipoEngenharia}
-                        onChange={e => setTipoEngenharia(e.target.value)}
                     />
                 </div>
 

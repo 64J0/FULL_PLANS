@@ -5,7 +5,8 @@
   "main": "backend/bin/server.js",
   "private": true,
   "scripts": {
-    "dev": "node node_modules/nodemon/bin/nodemon bin/server"
+    "dev": "node node_modules/nodemon/bin/nodemon bin/server",
+    "start": "node bin/server.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.7",
     "morgan": "^1.9.1",
+    "nodemailer": "^6.4.4",
     "package.json": "^2.0.1",
     "path": "^0.12.7",
     "rate-limiter-flexible": "^2.0.0"
