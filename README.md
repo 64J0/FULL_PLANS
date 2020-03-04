@@ -20,6 +20,7 @@ Os códigos da API foram baseados, principalmente, nessa sequência de posts do 
 
 ### O que ainda será desenvolvido :memo::
 
+* Desenvolver um sistema de envio de e-mails automático
 * Implementar um sistema de autenticação e autorização;
 * Layout precisa ser ajustado para ficar mais user friendly:
   * Uma tela de confirmação quando o usuário quiser deletar um determinado arquivo;
