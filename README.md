@@ -22,6 +22,7 @@ Os códigos da API foram baseados, principalmente, nessa sequência de posts do 
 ### O que ainda será desenvolvido :memo::
 
 * Estudar sobre a hospedagem no GCP e no Netlify;
+* Estudar a possibilidade de implementação do Redux para trabalhar em conjunto com o React;
 * Desenvolver um sistema de envio de e-mails automático, em que o projetista do desenho receberá um e-mail contendo valores para atualização das informações do desenho, como por exemplo, o número FULL;
 * Implementar um sistema de autenticação e autorização;
 * Layout precisa ser ajustado para ficar mais user friendly:
