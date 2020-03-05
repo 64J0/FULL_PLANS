@@ -75,10 +75,12 @@ const projetoSchema = new Schema({
             uppercase: true
         },
         dataInicio: {
-            type: Date
+            type: Date,
+            default: Date.now
         },
         dataFinal: {
-            type: Date
+            type: Date,
+            default: Date.now
         }
     }],
     arquivado: {

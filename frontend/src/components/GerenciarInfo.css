@@ -1,8 +1,9 @@
 .liGerenciarInfo {
     margin-top: 20px;
-    border: 1px groove black;
+    border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
+    background-color: #cac7c6;
 }
 
 .liGerenciarInfo p {

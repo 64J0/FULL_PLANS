@@ -2,9 +2,8 @@
     display: block;
     padding: 8px;
     margin: 5px;
-    border: 1px solid #353839;
     border-radius: 5px;
-    background: #cac7c6;
+    background-color: #cac7c6;
     width: 100%;
     color: #353839;
 }
