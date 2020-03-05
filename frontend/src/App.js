@@ -22,6 +22,14 @@ function App() {
   const [login, setLogin] = useState(false);
   const [projetoUpdate, setProjetoUpdate] = useState('');
 
+
+  const [auxProjetoUpdate, setAuxProjetoUpdate] = useState();
+  const [auxProjetos, setAuxProjetos] = useState();
+  const [toggleUpdate, setToggleUpdate] = useState(false);
+
+  /*
+  * CARREGA OS DADOS DO BANCO DE DADOS NA RENDERIZAÇÃO INICIAL
+  */
   useEffect(() => {
 
     async function loadProjetos() {
@@ -35,6 +43,9 @@ function App() {
 
   }, []);
 
+  /*
+  * FAZ A ALOCAÇÃO DOS DADOS EM ESTADOS DIFERENTES BASEADO NA PROPRIEDADE ARQUIVADO PARA MOSTRAR NAS PÁGINAS CORRETAS
+  */
   useEffect(() => {
 
     let arrayProjetosArquivados = [];
@@ -117,6 +128,7 @@ function App() {
 
   async function handleAddProjeto(data) {
 
+    data.status = 'Novo projeto';
     await api.post('/projetos', data)
     .then(response => {
       setProjetos([...projetos, response.data]);
@@ -130,6 +142,7 @@ function App() {
 
   //=================================================================
 
+  /*
   async function handleDeleteProjeto(id) {
 
     await api.delete(`/projetos/${id}`)
@@ -141,27 +154,42 @@ function App() {
     });
 
   }
+  */
 
   //=================================================================
 
+  /*
+  * NÃO FUNCIONA -> Os estados não são atualizados após a requisição PUT na API, só depois que alguma outra ação é feita, por exemplo, clicar novamente no botão salvar
+  */
   async function handleUpdateProjeto(id, body) {
 
     var index = projetos.findIndex(x => x._id === id);
 
-    //console.log(body);
-
     const config = { headers: {'Content-Type': 'application/json'} };
     await api.put(`/projetos/${id}`, body, config)
+    .then((response) => {
+      //setProjetoUpdate(response.data);
+      setAuxProjetoUpdate(response.data);
+
+      //console.log('response.data: ', response.data);
+      //console.log('auxProjetoUpdate: ', auxProjetoUpdate);
+    })
     .then(() => {
       body._id = id;
-      setProjetos([
+
+      const projetosAtualizados = [
         ...projetos.slice(0, index),
         body,
         ...projetos.slice(index+1)
-      ]);
+      ];
+      //setProjetos(projetosAtualizados);
+      setAuxProjetos(projetosAtualizados);
+
+      //console.log('auxProjetos: ', auxProjetos);
+      //console.log('projetos: ', projetos);
     })
     .then(() => {
-      setStringPagina('Abertos');
+      setToggleUpdate(true);
     })
     .catch((error) => {
       console.log(error);
@@ -169,6 +197,31 @@ function App() {
 
   }
 
+  useEffect(() => {
+
+    function atualizaTudo() {
+      new Promise((resolve, reject) => {
+        setProjetos(auxProjetos);
+        //console.log('cheguei aqui 1, auxProjetos: ', auxProjetos)
+        //console.log('projetos dentro do useEffect: ', projetos);
+        resolve(true);
+      })
+      .then(() => {
+        setProjetoUpdate(auxProjetoUpdate);
+        //console.log('cheguei aqui 2, auxProjetoUpdate: ', auxProjetoUpdate)
+        //console.log('projetoUpdate dentro do useEffect: ', projetoUpdate);
+      })
+      .then(() => {
+        setToggleUpdate(false);
+        //console.log('cheguei aqui 3, toggleUpdate: ', toggleUpdate)
+      })
+    }
+
+    if (toggleUpdate) {
+      atualizaTudo();
+    }
+
+  }, [toggleUpdate, auxProjetos, auxProjetoUpdate]);
   //=================================================================
 
   const [stringPagina, setStringPagina] = useState('');
@@ -204,8 +257,7 @@ function App() {
           <Gerenciar 
             projeto={projetoUpdate} 
             display={setStringPagina}
-            onUpdateProjeto={handleUpdateProjeto}
-            onDeleteProjeto={handleDeleteProjeto} />
+            onUpdateProjeto={handleUpdateProjeto} />
         );
 
       default:

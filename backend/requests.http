@@ -9,16 +9,25 @@ Content-Type: application/json
     "responsavel": "Barack Obama",
     "tipoEngenharia": "A melhor",
     "status": "Aguardando aprovação",
-    "disciplinaDesenho": ["Simulação ANSYS", "Estruturas metálicas"],
-    "revisao": ["a", "a"],
-    "numFull": ["321", "7676"],
-    "numCliente": ["666", "777"],
-    "formato": ["A0", "A0"],
-    "descricao": ["Deu tudo certo", "Aguardando confirmação"],
-    "projetistaDesenho": ["Vinícius Gajo", "Vinícius Gajo"],
-    "verificadorDesenho": ["Donald Trump", "José Serra"],
-    "dataInicio": "1581602480037",
-    "dataFinal": "1582602480037",
+    "infoProjetos": [{
+        "disciplinaDesenho": "Simulação ANSYS",
+        "revisao": "a",
+        "numFull": "321",
+        "numCliente": "666",
+        "formato": "A0",
+        "descricao": "Deu tudo certo",
+        "projetistaDesenho": "Vinícius Gajo",
+        "verificadorDesenho": "Donald Trump"
+    },{
+        "disciplinaDesenho": "inventor",
+        "revisao": "a",
+        "numFull": "3333",
+        "numCliente": "5555",
+        "formato": "A0",
+        "descricao": "Aguardando aprovação",
+        "projetistaDesenho": "Vinícius Gajo",
+        "verificadorDesenho": "Aécio neves"
+    }],
     "arquivado": false
 }
 
@@ -27,12 +36,25 @@ Content-Type: application/json
 GET http://localhost:3333/projetos
 
 ###
-PUT http://localhost:3333/projetos/5e4556c93e9a2a1208b57a0d
+PUT http://localhost:3333/projetos/5e4a7bea08a0571120595b54
 Content-Type: application/json
 
 {   
-    "arquivado": false
+    "infoProjetos": [{
+        "disciplinaDesenho": "autocad",
+        "revisao": "a",
+        "numFull": "7777",
+        "numCliente": "88888",
+        "formato": "A0",
+        "descricao": "Aguardando aprovação",
+        "projetistaDesenho": "Vinícius Gajo",
+        "verificadorDesenho": "José Serra"
+    }],
+    "arquivado": true
 }
 
 ###
-DELETE http://localhost:3333/projetos/5e2342623f6fec1510006ff6
+DELETE http://localhost:3333/projetos/5e4a7617419bab111857c19b
+
+###
+GET http://localhost:3333/excel/5e56a35a6a5f940facdeb9cd

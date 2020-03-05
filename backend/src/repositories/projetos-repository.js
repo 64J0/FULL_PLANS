@@ -3,7 +3,7 @@
 */
 
 const mongoose = require('mongoose');
-const Projetos = mongoose.model('Projetos')
+const Projetos = mongoose.model('Projetos');
 
 exports.listProjeto = async () => {
     const res = await Projetos.find({});
@@ -20,6 +20,8 @@ exports.updateProjeto = async (id, data) => {
     await Projetos.findByIdAndUpdate(id, {
         $set: data
     });
+    // Retorna o projeto atualizado
+    return Projetos.findById(id);
 };
 
 exports.deleteProjeto = async id => {

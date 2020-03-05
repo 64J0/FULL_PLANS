@@ -1,0 +1,94 @@
+.liGerenciarInfo {
+    margin-top: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #cac7c6;
+}
+
+.liGerenciarInfo p {
+    margin: 5px 0;
+    font-weight: bold;
+    color: #353839;
+}
+
+.liGerenciarInfo input {
+    padding: 3px;
+    border: 1px solid #353839;
+}
+
+.liGerenciarInfo button.deletarInfoProjeto[type=button] {
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    background-color: #A50000;
+    color: #eee;
+}
+
+.liGerenciarInfo button.deletarInfoProjeto[type=button]:hover {
+    background-color: #900;
+    color: #FFF;
+}
+
+.liGerenciarInfo div {
+    margin: 8px 0;
+}
+
+.liGerenciarInfo div input {
+    background-color: rgb(245, 245, 245);
+}
+
+.liGerenciarInfo div p, input {
+    display: inline-block;
+    border-radius: 5px 0;
+}
+
+.liGerenciarInfo div.descricaoEtipoEngenharia {
+    display: grid;
+    grid-template-columns: 150px auto 100px 100px;
+    grid-gap: 10px;
+}
+
+.liGerenciarInfo div.descricaoEtipoEngenharia p, input {
+    justify-content: center;
+    text-align: start;
+}
+
+.liGerenciarInfo div.linkDesenho {
+    display: grid;
+    grid-template-columns: 150px auto;
+    grid-gap: 10px;
+}
+
+.liGerenciarInfo div.linkDesenho p, input {
+    justify-content: center;
+    text-align: start;
+}
+
+.liGerenciarInfo div.disciplinaErevisaoEformato {
+    margin: 10px 0;
+    display: grid;
+    grid-template-columns: 150px 1.5fr 0.3fr 0.4fr 0.3fr 100px;
+    grid-gap: 10px;
+    text-align: start;
+}
+
+.liGerenciarInfo div.numFullEnumCliente, div.projetistaDesenhoEverificadorDesenho, div.dataInicioEdataFinal {
+    display: grid;
+    grid-template-columns: 150px auto 150px auto;
+    grid-gap: 10px;
+    text-align: start;
+}
+
+@media(max-width: 960px) {
+    .liGerenciarInfo div.disciplinaErevisaoEformato,  div.numFullEnumCliente, div.projetistaDesenhoEverificadorDesenho, div.dataInicioEdataFinal {
+        display: grid;
+        grid-template-columns: 150px auto;
+        grid-gap: 10px;
+    }
+}

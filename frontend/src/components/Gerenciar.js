@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-//import GerenciarInfo from './GerenciarInfo';
+import React, { useState, useEffect } from 'react';
+import GerenciarInfo from './GerenciarInfo';
 
 import './Gerenciar.css';
+import api from '../services/api';
 
+// projeto === projetoUpdate
 function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     const [cliente, setCliente] = useState(projeto.cliente);
@@ -10,51 +12,155 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     const [disciplinaMestre, setDisciplinaMestre] = useState(projeto.disciplinaMestre);
     const [numPedido, setNumPedido] = useState(projeto.numPedido);
     const [responsavel, setResponsavel] = useState(projeto.responsavel);
-    const [tipoEngenharia, setTipoEngenharia] = useState(projeto.tipoEngenharia);
-    const [status, setStatus] = useState(projeto.status);
-
-    const [disciplinaDesenho, setDisciplinaDesenho] = useState(projeto.disciplinaDesenho);
-    /*
-    const [revisao, setRevisao] = useState(projeto.revisao);
-    const [numFull, setNumFull] = useState(projeto.numFull);
-    const [numCliente, setNumCliente] = useState(projeto.numCliente);
-    const [formato, setFormato] = useState(projeto.formato);
-    const [descricao, setDescricao] = useState(projeto.descricao);
-    const [projetistaDesenho, setProjetistaDesenho] = useState(projeto.projetistaDesenho);
-    const [verificadorDesenho, setVerificadorDesenho] = useState(projeto.verificadorDesenho);
-    const [dataInicio, setDataInicio] = useState(projeto.dataInicio);
-    const [dataFinal, setDataFinal] = useState(projeto.dataFinal);
-    */
 
     const [arquivado, setArquivado] = useState(projeto.arquivado);
+    const [status, setStatus] = useState(projeto.status);
 
-    //const [linkDesenho, setLinkDesenho] = useState('');
+    const [infoProjetos, setInfoProjetos] = useState(projeto.infoProjetos);
+
+    const [toggleNovoCampo, setToggleNovoCampo] = useState(false);
+
+    useEffect(() => {
+        console.log('projeto', projeto);
+        setInfoProjetos(projeto.infoProjetos);
+    }, [projeto]);
+
+    useEffect(() => {
+        if (toggleNovoCampo) {
+            setToggleNovoCampo(false);
+            salvar(projeto._id);
+        }
+    });
+
+
+    /*
+     * FUNCIONANDO -> esta função seta o estado da propriedade arquivado do projeto e muda a tela de visualização que é exibida para o usuário, com base no estado atual que foi alterado
+     */
+    useEffect(() => {
+
+        async function arquivar(id) {
+
+            if (arquivado !== projeto.arquivado) {
+                new Promise((resolve, reject) => {
+                    const texto = 'Descrição do status:';
+                    let novoStatus = window.prompt(texto, "");
+                    novoStatus = novoStatus.toUpperCase();
+                    resolve(novoStatus);
+                })
+                .then((novoStatus) => {
+                    var body = {
+                        cliente,
+                        nomeProjeto,
+                        disciplinaMestre,
+                        numPedido,
+                        responsavel,
+                        status: novoStatus,
+                        infoProjetos,
+                        arquivado
+                    };
+
+                    return(body);
+                })
+                .then((body) => {
+                    onUpdateProjeto(id, body);
+                })
+                .then(() => {
+                    decideWhatToDisplay();
+                })
+                .catch((err) => {
+                    console.log('Ocorreu um erro :(', err);
+                    return(err);
+                });
+            }
+            
+        }
+
+        arquivar(projeto._id);
+
+    });
 
     //===========================================================================
 
-    // Os estados das variáveis status e arquivado não são atualizados, e os dados passados no body são os mesmos que já estavam armazenados no banco de dados
-    async function arquivar(id) {
+    /*
+     * FUNCIONANDO -> Esta função troca a tela que é exibida para o usuário
+     */
 
-        const texto = 'Descrição do status:';
-        setStatus(window.prompt(texto, ""));
-        setArquivado(!projeto.arquivado);
-        console.log(status, arquivado);
+    function decideWhatToDisplay() {
+        if (arquivado) {
+            display('Arquivados');
+        } else {
+            display('Abertos');
+        }
+    }
 
-        let body = {
+    //===========================================================================
+
+    function apagarProjeto(id) {
+
+        setInfoProjetos(infoProjetos.filter(infoProjeto => infoProjeto._id !== id));
+
+    }
+
+    //===========================================================================
+
+    function updateInfoProjeto(id, data) {
+
+        var index = infoProjetos.findIndex(x => x._id === id);
+
+        data._id = id;
+        setInfoProjetos([
+        ...infoProjetos.slice(0, index),
+        data,
+        ...infoProjetos.slice(index+1)
+        ]);
+    
+    }
+
+    //===========================================================================
+
+    async function salvar(id) {
+
+        var body = {
             cliente,
             nomeProjeto,
             disciplinaMestre,
             numPedido,
             responsavel,
-            tipoEngenharia,
             status,
-            disciplinaDesenho,
-            arquivado: arquivado
+            infoProjetos,
+            arquivado
         };
 
-        await onUpdateProjeto(id, body);
+        await onUpdateProjeto(id, body)
+        .then(() => {
+            if (infoProjetos !== projeto.infoProjetos) {
+                setInfoProjetos(projeto.infoProjetos);
+            }
+        });
 
     }
+
+    //===========================================================================
+
+
+    function novosCampos() {
+        let novaInfoProjeto = { 
+            'linkDesenho': '',
+            'disciplinaDesenho': '',
+            'revisao': '',
+            'numFull': '',
+            'numCliente': '',
+            'formato': '',
+            'descricao': '',
+            'projetistaDesenho': '',
+            'verificadorDesenho': '',
+            'dataInicio': '01-01-2020',
+            'dataFinal': '02-01-2020'
+        };
+        setInfoProjetos([...infoProjetos, novaInfoProjeto]);
+        setToggleNovoCampo(true);
+    }
+
 
     //===========================================================================
 
@@ -68,48 +174,85 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     //===========================================================================
 
-    function renderInfo() {
-        let count = projeto.disciplinaDesenho.length;
-        let x = 0;
-        var aux = '';
+    async function gerarPlanilha() {
 
-        do {
+        /*
+        await api.get(`/excel/${projeto._id}`, { responseType: 'arraybuffer' })
+        .then((response) => {
+            //var blob = new Blob([response.data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+            window.location.replace(response.request.responseURL);
+            console.log(response)
+        })
+        .catch(err => console.log(err));
+        */
 
-            aux += (` 
-                <div className="info-area">
 
-                    <div className="input-block">
-                        <label htmlFor="disciplinaDesenho">
-                            Disciplina do desenho
-                        </label>
-                        <input 
-                            type="text" 
-                            name="disciplinaDesenho"
-                            required
-                            value=${disciplinaDesenho[x]}
-                            onChange=${e => setDisciplinaDesenho(e.target.value)}
-                        />
-                    </div>
+        // js-file-download Package:
+        var jsFileDownload = function(data, filename, mime, bom) {
+            var blobData = (typeof bom !== 'undefined') ? [bom, data] : [data];
+            var blob = new Blob(blobData, {type: mime || 'application/octet-stream'});
+            if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                // IE workaround for "HTML7007: One or more blob URLs were
+                // revoked by closing the blob for which they were created.
+                // These URLs will no longer resolve as the data backing
+                // the URL has been freed."
+                window.navigator.msSaveBlob(blob, filename);
+            } else {
+                var blobURL = (window.URL ? window.URL : window.webkitURL).createObjectURL(blob);
+                var tempLink = document.createElement('a');
+                tempLink.style.display = 'none';
+                tempLink.href = blobURL;
+                tempLink.setAttribute('download', filename);
+        
+                // Safari thinks _blank anchor are pop ups. We only want to set _blank
+                // target if the browser does not support the HTML5 download attribute.
+                // This allows you to download files in desktop safari if pop up blocking
+                // is enabled.
+                if (typeof tempLink.download === 'undefined') {
+                    tempLink.setAttribute('target', '_blank');
+                }
+        
+                document.body.appendChild(tempLink);
+                tempLink.click();
+        
+                // Fixes "webkit blob resource error 1"
+                setTimeout(function() {
+                    document.body.removeChild(tempLink);
+                    window.URL.revokeObjectURL(blobURL);
+                }, 0);
+            }
+        }
 
-                </div>
-                `
-            );
+        await api.get(`/excel/${projeto._id}`, { responseType: 'arraybuffer' })
+        .then((response) => {
+            var fileName = String('GRD_' + Date.now() + '.xlsx');
+            jsFileDownload(response.data, fileName);
+        })
+        
 
-            x++;
-
-        } while(x < count);
-
-        return aux;
     }
+
+    //===========================================================================
 
     return(
         <>
         <div className="update-item">
             <div id={projeto._id} className="grid-container">
-                <div className="status">
-                <h2>Status: {projeto.status}</h2>
-                </div>
+
             <form className="update-form">
+                <div className="input-block">
+                    <label htmlFor="status">
+                        Status
+                    </label>
+                    <input 
+                        type="text" 
+                        name="status"
+                        required
+                        value={status}
+                        onChange={e => setStatus(e.target.value)}
+                    />
+                </div>
+
                 <div className="input-block">
                     <label htmlFor="cliente">
                         Cliente
@@ -117,7 +260,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <input 
                         type="text" 
                         name="cliente"
-                        id="cliente"
                         required
                         value={cliente}
                         onChange={e => setCliente(e.target.value)}
@@ -131,7 +273,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <input 
                         type="text" 
                         name="nomeProjeto"
-                        id="nomeProjeto"
                         value={nomeProjeto}
                         onChange={e => setNomeProjeto(e.target.value)}
                     />
@@ -144,7 +285,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <input 
                         type="text" 
                         name="disciplinaMestre"
-                        id="disciplinaMestre"
                         value={disciplinaMestre}
                         onChange={e => setDisciplinaMestre(e.target.value)}
                     />
@@ -157,7 +297,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <input 
                         type="text" 
                         name="numPedido"
-                        id="numPedido"
                         value={numPedido}
                         onChange={e => setNumPedido(e.target.value)} 
                     />
@@ -170,79 +309,91 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     <input 
                         type="text" 
                         name="responsavel"
-                        id="responsavel"
                         value={responsavel}
                         onChange={e => setResponsavel(e.target.value)}
                     />
                 </div>
 
-                <div className="input-block">
-                    <label htmlFor="tipoEngenharia">
-                        Tipo de engenharia
-                    </label>
-                    <input 
-                        type="text" 
-                        name="tipoEngenharia"
-                        id="tipoEngenharia"
-                        value={tipoEngenharia}
-                        onChange={e => setTipoEngenharia(e.target.value)}
-                    />
-                </div>
-
-                <hr/>
-
                 {
-                    renderInfo()
+                /*
+                 * InfoProjetos -> Não atualiza o _id quando o infoProjetos é atualizado
+                 */
                 }
-
-                </form>
+                <ol>
+                    {infoProjetos.map(informacao => (
+                        <GerenciarInfo 
+                            key={String(informacao._id)}
+                            informacao={informacao}
+                            updateInfoProjeto={updateInfoProjeto}
+                            apagarProjeto={apagarProjeto}
+                        />
+                    ))}
+                </ol>
+            </form>
                 
                 
-
 { /* ================================================================================================ */ }
+
                 <div className="div-buttons">
+
+                    {/*
+                        Funcionando 
+                    Adiciona os campos de input para adicionar novas informações ao projeto que está aberto
+                    */}
                     <button
                         type="button"
                         className="btn-adicionarCampos"
-                        onClick={() => {
-                            // Mostrar os campos de input para adicionar novas informações ao projeto que está aberto
-                            console.log(projeto)
-                        }}
+                        onClick={() => { novosCampos() }}
                     >
-                        Adicionar
+                        Add Campos
                     </button>
+
+                    {/* 
+                        Funcionando
+                    Quando o usuário clicar neste botão
+                    */}
                     <button
                         type="button"
                         className="btn-salvar"
-                        onClick={(e) => {
-                            arquivar(projeto._id);
-                        }}
+                        onClick={() => { salvar(projeto._id) }}
                     >
                         Salvar
                     </button>
+
+                    {/* 
+                        Funcionando 
+                    Quando o usuário clicar neste botão ele deve ser redirecionado para a página que estava anteriormente, que pode ser definida com base no valor do estado arquivado.
+                    */}
                     <button 
                         type="button"
                         className="btn-cancelar"
-                        onClick={() => {
-                            if (arquivado) {
-                                display('Arquivados');
-                            } else {
-                                display('Abertos');
-                            }
-                        }}
+                        onClick={() => { decideWhatToDisplay() }}
                     >
                         Cancelar
                     </button>
+
+                    {/*
+                        Funcionando
+                    Quando este botão for clicado, deve abrir uma janela pop-up para que o usuário possa atualizar o valor do estado de status. 
+                     */}
                     <button
                         type="button"
                         className="btn-arquivar"
-                        onClick={() => {
-                            arquivar(projeto._id);
-                        }}
-                    >
+                        onClick={() => { setArquivado(!projeto.arquivado) }}
+                    > 
                         {
                             defineTextoBotaoArquivar()
                         }
+                    </button>
+                </div>
+
+                <div className="btn-planilha">
+                    <button
+                        type="button"
+                        className="btn-criar-planilha"
+                        onClick={() => { gerarPlanilha() }}
+                    >
+                        Gerar planilha!
                     </button>
                 </div>
             </div>
