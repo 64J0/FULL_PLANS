@@ -16,6 +16,7 @@ Os códigos da API foram baseados, principalmente, nessa sequência de posts do 
 * Sistema de login para acessar as funcionalidades do resto da aplicação;
 * ~~Implementar um sistema de upload de arquivos para armazenar detalhes de projetos já finalizados. Para isso está sendo estudada uma implementação usando o GridFS do MongoDB, pois este é o banco de dados escolhido para se utilizar no projeto. *O GridFS deve ser usado quando for necessário guardar no banco de dados MongoDB um arquivo de tamanho superior a 16 MB~~. Esta funcionalidade foi alterada, agora os arquivos do projeto serão salvos em um servidor provido pelo Google, e no banco de dados será armazenado apenas o link para aquele projeto;
 * Desenvolver uma funcionalidade que preencha uma planilha do Excel automaticamente com os dados armazenados no banco de dados referentes ao projeto que estiver aberto;
+* Implementar um sistema de autenticação e autorização usando JWT;
 * Estudar sobre a hospedagem no GCP e no Netlify;
 * Deploy da API no GCP (Google Cloud Platform);
 * O Frontend foi hospedado no Netlify;
@@ -24,7 +25,6 @@ Os códigos da API foram baseados, principalmente, nessa sequência de posts do 
 
 * Estudar a possibilidade de implementação do Redux para trabalhar em conjunto com o React;
 * Desenvolver um sistema de envio de e-mails automático, em que o projetista do desenho receberá um e-mail contendo valores para atualização das informações do desenho, como por exemplo, o número FULL;
-* Implementar um sistema de autenticação e autorização;
 * Layout precisa ser ajustado para ficar mais user friendly:
   * Uma tela de confirmação quando o usuário quiser deletar um determinado arquivo;
   * Uma tela de loading para quando os projetos estiverem sendo carregados do banco de dados;
