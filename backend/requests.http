@@ -34,6 +34,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3333/projetos
+Authorization: Bearer eyJhb1231OiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNDJmMjasdaDM3YWNlMGI3NDdhZjc3NyIsImlhdCI6MTU4Mzc3MjM3NSwiZXhwIjoxNTgzODA4Mzc1fQ.P5doTX3wbBDqRvWgWn61fqMqBtCxdsadE4527mJjwE
 
 ###
 PUT http://localhost:3333/projetos/5e4a7bea08a0571120595b54

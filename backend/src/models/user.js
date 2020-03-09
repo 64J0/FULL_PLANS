@@ -27,7 +27,9 @@ const UserSchema = new Schema({
     },
 });
 
-// Funcionalidade do Mongoose chamada middlewares (também conhecido como pre e post hooks). Neste trecho de código usamos o pre save, ou seja, esse código será automaticamente executado sempre antes da função save do Model.
+// Funcionalidade do Mongoose chamada middlewares (também conhecido como pre e post hooks). 
+// Neste trecho de código usamos o pre save, ou seja, esse código será automaticamente 
+// executado sempre antes da função save do Model.
 UserSchema.pre('save', async function(next) {
 
     try {

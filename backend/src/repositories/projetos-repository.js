@@ -11,9 +11,14 @@ exports.listProjeto = async () => {
 };
 
 exports.createProjeto = async data => {
-    const projeto = new Projetos(data);
-    await projeto.save();
-    return projeto;
+    try {
+        const projeto = new Projetos(data);
+        await projeto.save();
+        return projeto;
+    } catch (err) {
+        console.log({ error: err });
+    }
+    
 };
 
 exports.updateProjeto = async (id, data) => {

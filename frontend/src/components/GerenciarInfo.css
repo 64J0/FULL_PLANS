@@ -1,9 +1,9 @@
 .liGerenciarInfo {
     margin-top: 20px;
-    border: 1px solid black;
-    border-radius: 5px;
+    border: 2px solid black;
+    border-radius: 10px;
     padding: 5px;
-    background-color: #cac7c6;
+    background-color: #eee;
 }
 
 .liGerenciarInfo p {
@@ -40,12 +40,12 @@
 }
 
 .liGerenciarInfo div input {
-    background-color: rgb(245, 245, 245);
+    background-color: #cfcfcf;
 }
 
 .liGerenciarInfo div p, input {
     display: inline-block;
-    border-radius: 5px 0;
+    border-radius: 5px;
 }
 
 .liGerenciarInfo div.descricaoEtipoEngenharia {

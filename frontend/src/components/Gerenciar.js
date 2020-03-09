@@ -25,6 +25,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
         setInfoProjetos(projeto.infoProjetos);
     }, [projeto]);
 
+    // eslint-disable-next-line
     useEffect(() => {
         if (toggleNovoCampo) {
             setToggleNovoCampo(false);
@@ -240,6 +241,8 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
             <div id={projeto._id} className="grid-container">
 
             <form className="update-form">
+                <div className="inputFields">
+
                 <div className="input-block">
                     <label htmlFor="status">
                         Status
@@ -312,6 +315,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                         value={responsavel}
                         onChange={e => setResponsavel(e.target.value)}
                     />
+                </div>
                 </div>
 
                 {

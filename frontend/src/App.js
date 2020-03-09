@@ -27,6 +27,12 @@ function App() {
   const [auxProjetos, setAuxProjetos] = useState();
   const [toggleUpdate, setToggleUpdate] = useState(false);
 
+  const configAuth = {
+    headers: {
+      Authorization: 'Bearer ' + String(login.token)
+    }
+  };
+
   /*
   * CARREGA OS DADOS DO BANCO DE DADOS NA RENDERIZAÇÃO INICIAL
   */
@@ -34,17 +40,21 @@ function App() {
 
     async function loadProjetos() {
 
-      const response = await api.get('/projetos');
+      const response = await api.get('/projetos', configAuth);
       setProjetos(response.data);
       
     }
 
-    loadProjetos();
-
-  }, []);
+    if (login.auth === true) {
+      loadProjetos();
+    }
+  
+  // eslint-disable-next-line
+  }, [login.auth]);
 
   /*
-  * FAZ A ALOCAÇÃO DOS DADOS EM ESTADOS DIFERENTES BASEADO NA PROPRIEDADE ARQUIVADO PARA MOSTRAR NAS PÁGINAS CORRETAS
+  * FAZ A ALOCAÇÃO DOS DADOS EM ESTADOS DIFERENTES BASEADO NA PROPRIEDADE ARQUIVADO 
+  * PARA MOSTRAR NAS PÁGINAS CORRETAS
   */
   useEffect(() => {
 
@@ -76,7 +86,7 @@ function App() {
 
   function displayLogin() {
 
-    if (!login) {
+    if (!login.auth) {
 
       return (
         <Login onSubmit={handleLogin} />
@@ -113,12 +123,14 @@ function App() {
 
     await api.post('/login', data)
     .then(response => {
-      //console.log(response.data.auth);
+
       if (!response.data.auth) {
         alert('Falha no login');
+        throw new Error();
       } else {
-        setLogin(response.data.auth);
+        setLogin(response.data);
       }
+
     })
     .catch(error => console.log(error));
 
@@ -129,7 +141,7 @@ function App() {
   async function handleAddProjeto(data) {
 
     data.status = 'Novo projeto';
-    await api.post('/projetos', data)
+    await api.post('/projetos', data, configAuth)
     .then(response => {
       setProjetos([...projetos, response.data]);
     })
@@ -159,20 +171,15 @@ function App() {
   //=================================================================
 
   /*
-  * NÃO FUNCIONA -> Os estados não são atualizados após a requisição PUT na API, só depois que alguma outra ação é feita, por exemplo, clicar novamente no botão salvar
+  * ATUALIZA OS ESTADOS
   */
   async function handleUpdateProjeto(id, body) {
 
     var index = projetos.findIndex(x => x._id === id);
 
-    const config = { headers: {'Content-Type': 'application/json'} };
-    await api.put(`/projetos/${id}`, body, config)
+    await api.put(`/projetos/${id}`, body, configAuth)
     .then((response) => {
-      //setProjetoUpdate(response.data);
       setAuxProjetoUpdate(response.data);
-
-      //console.log('response.data: ', response.data);
-      //console.log('auxProjetoUpdate: ', auxProjetoUpdate);
     })
     .then(() => {
       body._id = id;
@@ -182,11 +189,7 @@ function App() {
         body,
         ...projetos.slice(index+1)
       ];
-      //setProjetos(projetosAtualizados);
       setAuxProjetos(projetosAtualizados);
-
-      //console.log('auxProjetos: ', auxProjetos);
-      //console.log('projetos: ', projetos);
     })
     .then(() => {
       setToggleUpdate(true);
@@ -202,18 +205,13 @@ function App() {
     function atualizaTudo() {
       new Promise((resolve, reject) => {
         setProjetos(auxProjetos);
-        //console.log('cheguei aqui 1, auxProjetos: ', auxProjetos)
-        //console.log('projetos dentro do useEffect: ', projetos);
         resolve(true);
       })
       .then(() => {
         setProjetoUpdate(auxProjetoUpdate);
-        //console.log('cheguei aqui 2, auxProjetoUpdate: ', auxProjetoUpdate)
-        //console.log('projetoUpdate dentro do useEffect: ', projetoUpdate);
       })
       .then(() => {
         setToggleUpdate(false);
-        //console.log('cheguei aqui 3, toggleUpdate: ', toggleUpdate)
       })
     }
 
@@ -222,6 +220,7 @@ function App() {
     }
 
   }, [toggleUpdate, auxProjetos, auxProjetoUpdate]);
+
   //=================================================================
 
   const [stringPagina, setStringPagina] = useState('');
