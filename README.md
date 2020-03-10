@@ -32,6 +32,7 @@ Os códigos da API foram baseados, principalmente, nessa sequência de posts do 
   * Implementar um layout responsivo;
 * Ajustar o número da GRD que é gerado;
 * Corrigir a estilização da planilha;
+* Escrever testes automatizados;
 * Refatorar o código.
 
 ### Como executar o projeto
