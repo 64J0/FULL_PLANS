@@ -30,6 +30,8 @@ Os códigos da API foram baseados, principalmente, nessa sequência de posts do 
   * Uma tela de loading para quando os projetos estiverem sendo carregados do banco de dados;
   * Uma mensagem de sucesso para caso o projeto tenha sido cadastrado corretamente;
   * Implementar um layout responsivo;
+* Ajustar o número da GRD que é gerado;
+* Corrigir a estilização da planilha;
 * Refatorar o código.
 
 ### Como executar o projeto
