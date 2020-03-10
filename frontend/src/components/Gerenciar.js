@@ -21,7 +21,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     const [toggleNovoCampo, setToggleNovoCampo] = useState(false);
 
     useEffect(() => {
-        console.log('projeto', projeto);
+        //console.log('projeto', projeto);
         setInfoProjetos(projeto.infoProjetos);
     }, [projeto]);
 
@@ -77,8 +77,9 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
         }
 
         arquivar(projeto._id);
-
-    });
+    
+    // eslint-disable-next-line
+    }, [arquivado]);
 
     //===========================================================================
 

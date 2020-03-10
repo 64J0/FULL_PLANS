@@ -1,0 +1,5 @@
+﻿cd ...até a pasta do arquivo...
+gcloud auth login
+gcloud config set project PROJECT_ID
+gcloud app deploy
+gcloud app browse
