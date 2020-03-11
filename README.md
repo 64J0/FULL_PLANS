@@ -16,6 +16,7 @@ Os códigos da API foram baseados, principalmente, nessa sequência de posts do 
 * Sistema de login para acessar as funcionalidades do resto da aplicação;
 * ~~Implementar um sistema de upload de arquivos para armazenar detalhes de projetos já finalizados. Para isso está sendo estudada uma implementação usando o GridFS do MongoDB, pois este é o banco de dados escolhido para se utilizar no projeto. *O GridFS deve ser usado quando for necessário guardar no banco de dados MongoDB um arquivo de tamanho superior a 16 MB~~. Esta funcionalidade foi alterada, agora os arquivos do projeto serão salvos em um servidor provido pelo Google, e no banco de dados será armazenado apenas o link para aquele projeto;
 * Desenvolver uma funcionalidade que preencha uma planilha do Excel automaticamente com os dados armazenados no banco de dados referentes ao projeto que estiver aberto;
+* Corrigir a estilização da planilha;
 * Implementar um sistema de autenticação e autorização usando JWT;
 * Estudar sobre a hospedagem no GCP e no Netlify;
 * Deploy da API no GCP (Google Cloud Platform);
@@ -31,7 +32,6 @@ Os códigos da API foram baseados, principalmente, nessa sequência de posts do 
   * Uma mensagem de sucesso para caso o projeto tenha sido cadastrado corretamente;
   * Implementar um layout responsivo;
 * Ajustar o número da GRD que é gerado;
-* Corrigir a estilização da planilha;
 * Escrever testes automatizados;
 * Refatorar o código.
 
