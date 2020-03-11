@@ -17,10 +17,15 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
     const [dataInicio, setDataInicio] = useState(informacao.dataInicio);
     const [dataFinal, setDataFinal] = useState(informacao.dataFinal);
     
-    useEffect(() => {
 
+    // updateInfo()
+    //
+    // Esse trecho de código é responsável por atualizar o estado da propriedades infoProjetos
+    // do projeto que está sendo trabalhado. Essa função, basicamente, fica escutando as alterações
+    // dos estados dos componentes dos formulários. Quando ela percebe alguma alteração já
+    // chama uma função de setState passando os dados atualizados.
+    useEffect(() => {
         function updateInfo() {
-            
             updateInfoProjeto(informacao._id, {
                 linkDesenho,
                 tipoEngenharia,
@@ -35,7 +40,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                 dataInicio,
                 dataFinal
             });
-            
         }
 
         if ((linkDesenho !== informacao.linkDesenho) ||
@@ -52,13 +56,15 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
             (dataFinal !== informacao.dataFinal)) {
             updateInfo();
         }
-
     });
 
+
+    // handleApagar()
+    //
+    // Esse trecho de código é responsável por apagar uma infoProjeto específica
     const [boolApagar, setBoolApagar] = useState(false);
 
     useEffect(() => {
-
         function handleApagar() {
             new Promise((resolve, reject) => {
                 apagarProjeto(informacao._id);
@@ -76,16 +82,15 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
             if (confirmacao) {
                 handleApagar();
             }
-            
         }
-        
     });
 
-    // ====================================================================
 
-    // Tratamento da data que será apresentada ao usuário
+    // tratarDataMostrar
+    //
+    // Essa função faz o tratamento da data que será apresentada ao usuário, para
+    // deixá-la de acordo com a convenção brasileira.
     function tratarDataMostrar(data) {
-
         var dataSaida = new Date(String(data)),
             ano = String(dataSaida.getFullYear()),
             anoSaida,
@@ -101,15 +106,12 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
 
         dataSaida = String(anoSaida) + '-' + String(mesSaida) + '-' + String(diaSaida);
         return(String(dataSaida));
-
     }
 
-    // ====================================================================
 
     return(
         <>
             <li className="liGerenciarInfo">
-
                 <div className="descricaoEtipoEngenharia">
                     <p>
                         Descrição:
@@ -267,7 +269,6 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                 >
                     Apagar
                 </button>
-
             </li>
         </>
     );

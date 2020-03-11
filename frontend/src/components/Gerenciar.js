@@ -20,11 +20,20 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
     const [toggleNovoCampo, setToggleNovoCampo] = useState(false);
 
+
+    // Este hook useEffect é responsável por setar o valor da propriedade infoProjetos
+    // toda vez que o valor de projeto mudar.
     useEffect(() => {
-        //console.log('projeto', projeto);
         setInfoProjetos(projeto.infoProjetos);
     }, [projeto]);
 
+
+    // Este trecho de código é sempre executado quando algum estado é alterado, porém
+    // sua função só é executada quando o botão para criar um novo campo é apertado,
+    // pois isso muda o estado de toggleNovoCampo. Essa implementação foi necessária para
+    // garantir que quando um novo campo for inserido ele terá um id e portanto será
+    // possível fazer operações neste.
+    //
     // eslint-disable-next-line
     useEffect(() => {
         if (toggleNovoCampo) {
@@ -34,13 +43,11 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     });
 
 
-    /*
-     * FUNCIONANDO -> esta função seta o estado da propriedade arquivado do projeto e muda a tela de visualização que é exibida para o usuário, com base no estado atual que foi alterado
-     */
+    // Esse trecho de código é responsável por arquivar um projeto quando o usuário clicar no botão
+    // de arquivar. Além disso, após setar o novo estado o usuário é redirecionado para outra aba 
+    // da aplicação, onde são mostrados todos os projetos arquivados.
     useEffect(() => {
-
         async function arquivar(id) {
-
             if (arquivado !== projeto.arquivado) {
                 new Promise((resolve, reject) => {
                     const texto = 'Descrição do status:';
@@ -72,21 +79,18 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                     console.log('Ocorreu um erro :(', err);
                     return(err);
                 });
-            }
-            
+            }   
         }
 
         arquivar(projeto._id);
-    
     // eslint-disable-next-line
     }, [arquivado]);
 
-    //===========================================================================
-
-    /*
-     * FUNCIONANDO -> Esta função troca a tela que é exibida para o usuário
-     */
-
+    
+    // decideWhatToDisplay()
+    //
+    // Essa função é responsável por mudar a aba do usuário no sistema, dependendo do valor
+    // armazenado na propriedade arquivado do projeto.
     function decideWhatToDisplay() {
         if (arquivado) {
             display('Arquivados');
@@ -95,33 +99,38 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
         }
     }
 
-    //===========================================================================
 
+    // apagarProjeto()
+    //
+    // Essa função é responsável por editar os valores de infoProjetos, mais especificamente,
+    // ela irá retirar do conjunto de valores de infoProjetos o valor cujo id foi passado na
+    // chamada da função.
     function apagarProjeto(id) {
-
-        setInfoProjetos(infoProjetos.filter(infoProjeto => infoProjeto._id !== id));
-
+        return setInfoProjetos(infoProjetos.filter(infoProjeto => infoProjeto._id !== id));
     }
 
-    //===========================================================================
-
+    
+    // updateInfoProjeto()
+    //
+    // Essa função é responsável por atualizar os valores de infoProjetos com os dados passados
+    // no body da função.
     function updateInfoProjeto(id, data) {
-
         var index = infoProjetos.findIndex(x => x._id === id);
 
         data._id = id;
-        setInfoProjetos([
+        return setInfoProjetos([
         ...infoProjetos.slice(0, index),
         data,
         ...infoProjetos.slice(index+1)
         ]);
-    
     }
 
-    //===========================================================================
 
+    // salvar()
+    //
+    // Essa função assíncrona é responsável por salvar os dados de um infoProjetos no banco de dados
+    // com os valores salvos nos estados desse componente.
     async function salvar(id) {
-
         var body = {
             cliente,
             nomeProjeto,
@@ -139,12 +148,12 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                 setInfoProjetos(projeto.infoProjetos);
             }
         });
-
     }
 
-    //===========================================================================
 
-
+    // novosCampos()
+    //
+    // Essa função é responsável por criar os novos campos de um infoProjeto novo.
     function novosCampos() {
         let novaInfoProjeto = { 
             'linkDesenho': '',
@@ -164,8 +173,10 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     }
 
 
-    //===========================================================================
-
+    // defineTextoBotaoArquivar()
+    //
+    // Essa função é responsável por especificar qual o texto que será mostrado para o usuário
+    // no botão de arquivar ou desarquivar com base na propriedade arquivado do projeto.
     function defineTextoBotaoArquivar() {
         if (projeto.arquivado) {
             return 'Desarquivar';
@@ -174,10 +185,13 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
         }
     }
 
-    //===========================================================================
 
+    // gerarPlanilha()
+    //
+    // Essa função é responsável por chamar a rota da API que cria a planilha Excel
+    // com os dados do projeto em questão. Para tratar os dados que são retornados pela 
+    // API é usada uma função compiada de um pacote do npm.
     async function gerarPlanilha() {
-
         /*
         await api.get(`/excel/${projeto._id}`, { responseType: 'arraybuffer' })
         .then((response) => {
@@ -187,7 +201,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
         })
         .catch(err => console.log(err));
         */
-
 
         // js-file-download Package:
         var jsFileDownload = function(data, filename, mime, bom) {
@@ -230,17 +243,14 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
             var fileName = String('GRD_' + Date.now() + '.xlsx');
             jsFileDownload(response.data, fileName);
         })
-        
-
+        .catch(err => { console.log(err) });
     }
 
-    //===========================================================================
 
     return(
         <>
         <div className="update-item">
             <div id={projeto._id} className="grid-container">
-
             <form className="update-form">
                 <div className="inputFields">
 
@@ -319,11 +329,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                 </div>
                 </div>
 
-                {
-                /*
-                 * InfoProjetos -> Não atualiza o _id quando o infoProjetos é atualizado
-                 */
-                }
                 <ol>
                     {infoProjetos.map(informacao => (
                         <GerenciarInfo 
@@ -343,7 +348,8 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
                     {/*
                         Funcionando 
-                    Adiciona os campos de input para adicionar novas informações ao projeto que está aberto
+                        Adiciona os campos de input para adicionar novas informações ao projeto que 
+                        está aberto
                     */}
                     <button
                         type="button"
@@ -355,7 +361,8 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
                     {/* 
                         Funcionando
-                    Quando o usuário clicar neste botão
+                        Quando o usuário clicar neste botão o projeto ou infoProjeto em questão será salvo
+                        no banco de dados
                     */}
                     <button
                         type="button"
@@ -367,7 +374,9 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
                     {/* 
                         Funcionando 
-                    Quando o usuário clicar neste botão ele deve ser redirecionado para a página que estava anteriormente, que pode ser definida com base no valor do estado arquivado.
+                        Quando o usuário clicar neste botão ele deve ser redirecionado para a página que 
+                        estava anteriormente, que pode ser definida com base no valor da propriedade 
+                        arquivado.
                     */}
                     <button 
                         type="button"
@@ -379,7 +388,8 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
                     {/*
                         Funcionando
-                    Quando este botão for clicado, deve abrir uma janela pop-up para que o usuário possa atualizar o valor do estado de status. 
+                        Quando este botão for clicado, deve abrir uma janela pop-up para que o usuário 
+                        possa atualizar o valor do estado de status. 
                      */}
                     <button
                         type="button"

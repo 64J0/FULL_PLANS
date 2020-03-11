@@ -10,11 +10,17 @@ function Login({ onSubmit }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        try {
+            if ((email === '') || (senha === '')) throw new Error('Usuário ou senha vazios');
+            if (!(/@fullengenharia.com/.test(email))) throw new Error('E-mail errado');
 
-        await onSubmit({
-            email,
-            senha
-        });
+            await onSubmit({
+                email,
+                senha
+            });
+        } catch(err) {
+            return alert(err);
+        }
     }
 
     return(

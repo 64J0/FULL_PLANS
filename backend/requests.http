@@ -34,13 +34,15 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3333/projetos
-Authorization: Bearer eyJhb1231OiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNDJmMjasdaDM3YWNlMGI3NDdhZjc3NyIsImlhdCI6MTU4Mzc3MjM3NSwiZXhwIjoxNTgzODA4Mzc1fQ.P5doTX3wbBDqRvWgWn61fqMqBtCxdsadE4527mJjwE
+Authorization: Bearer eyJhbGciOiJIUdasdzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNDJmMjVlMDM3YWNlMGI3NDdagfsghZjc3NyIsImlhdCI6MTU4Mzk1NDc0NywiZXhwIjoxNTgzOTkwNzQ3fQ.ddnKzOQDfAkauQ7v7ON6v2CP1wTp8AglWakKt5DU96E
 
 ###
 PUT http://localhost:3333/projetos/5e4a7bea08a0571120595b54
+Authorization: Bearer eyJhbGciOiasda11safafsfasfaI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNDJmMjVlMDM3YWNasdlMGI3NDdhZjc3NyIsImlhdCI6MTU4Mzk1NDc0NywiZXhwIjoxNTgzOTkwNzQ3fQ.ddnKzOQDfAkauQ7v7ON6v2CP1wTp8AglWakKt5DU96E
 Content-Type: application/json
 
 {   
+    "numGRD": 122,
     "infoProjetos": [{
         "disciplinaDesenho": "autocad",
         "revisao": "a",
