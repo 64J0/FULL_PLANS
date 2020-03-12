@@ -240,7 +240,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
         await api.get(`/excel/${projeto._id}`, { responseType: 'arraybuffer' })
         .then((response) => {
-            var fileName = String('GRD_' + Date.now() + '.xlsx');
+            var fileName = String(`GRD_${projeto.numGRD}.xlsx`);
             jsFileDownload(response.data, fileName);
         })
         .catch(err => { console.log(err) });
@@ -336,6 +336,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                             informacao={informacao}
                             updateInfoProjeto={updateInfoProjeto}
                             apagarProjeto={apagarProjeto}
+                            projeto={projeto}
                         />
                     ))}
                 </ol>

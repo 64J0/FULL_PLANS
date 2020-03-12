@@ -1,6 +1,6 @@
 {
   "name": "full-plans",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "maybe later",
   "main": "backend/bin/server.js",
   "private": true,

@@ -88,14 +88,20 @@ function App() {
   }, [projetos]);
 
 
+  // setNumeroDaGRD()
+  //
+  // Essa função é responsável por preencher o campo com o valor do número da GRD que será
+  // usado posteriormente na hora de nomear a planilha no servidor
   useEffect(() => {
+    console.log('projetos ', projetos);
     let maiorNumGRD = 357;
     async function setNumeroDaGRD() {
       for(let aux = 0; aux < projetos.length; aux++) {
-        console.log('maiorNumGRD ', maiorNumGRD);
-        if ((projetos[aux].numGRD) && (projetos[aux].numGRD > maiorNumGRD)) {
+        console.log(`projetos[${aux}].numGRD `, projetos[aux].numGRD);
+        if ((projetos[aux].numGRD) && (projetos[aux].numGRD >= maiorNumGRD)) {
           maiorNumGRD = projetos[aux].numGRD + 1;
         } else if (!projetos[aux].numGRD) {
+          // salva apenas os valores de numGRD
           await handleUpdateProjeto(projetos[aux]._id, {
             numGRD: maiorNumGRD
           });
@@ -205,21 +211,22 @@ function App() {
   //
   // ESSE TRECHO DE CÓDIGO AINDA PODE SER MELHORADO, PORÉM FALTA CONHECIMENTO AO AUTOR 
   // DO CÓDIGO
+  // O estado de projetos não é atualizado após a atualização
   async function handleUpdateProjeto(id, body) {
-
     var index = projetos.findIndex(x => x._id === id);
     if (!index) throw new Error();
 
     await api.put(`/projetos/${id}`, body, configAuth)
     .then((response) => {
       setAuxProjetoUpdate(response.data);
+      return (response.data);
     })
-    .then(() => {
-      body._id = id;
+    .then((data) => {
+      //body._id = id;
 
       const projetosAtualizados = [
         ...projetos.slice(0, index),
-        body,
+        data,
         ...projetos.slice(index+1)
       ];
 
@@ -231,11 +238,9 @@ function App() {
     .catch((error) => {
       console.log(error);
     });
-
   }
 
   useEffect(() => {
-
     function atualizaTudo() {
       new Promise((resolve, reject) => {
         setProjetos(auxProjetos);
@@ -252,7 +257,6 @@ function App() {
     if (toggleUpdate) {
       atualizaTudo();
     }
-
   }, [toggleUpdate, auxProjetos, auxProjetoUpdate]);
 
 

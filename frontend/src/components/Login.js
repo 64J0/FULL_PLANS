@@ -44,7 +44,7 @@ function Login({ onSubmit }) {
                         value={senha}
                         id="senha-login"
                     />
-                    <button type="submit">
+                    <button type="submit" id="btnLogin" >
                         Logar
                     </button>
                 </fieldset>

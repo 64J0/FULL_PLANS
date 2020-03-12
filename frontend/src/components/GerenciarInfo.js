@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import './GerenciarInfo.css';
 
-function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
+function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto, projeto }) {
 
     const [linkDesenho, setLinkDesenho] = useState(informacao.linkDesenho || 'https://github.com/gajomon/FULL_PLANS/tree/master');
     const [tipoEngenharia, setTipoEngenharia] = useState(informacao.tipoEngenharia || '');
@@ -109,6 +109,36 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
     }
 
 
+    // copiarDadosProjetoAnterior()
+    //
+    // Essa função é responsável por adicionar o conteúdo do projeto acima às células do
+    // projeto de baixo. Foi uma requisição da utilizadora do sistema.
+    // OS ESTADOS DO COMPONENTE NÃO SÃO ATUALIZADOS AUTOMATICAMENTE QUANDO O VALUE É ALTERADO 
+    function copiarDadosProjetoAnterior() {
+        var index = projeto.infoProjetos.findIndex(x => x._id === informacao._id);
+        let descricaoInput = document.getElementsByClassName('descricao')[index],
+            tipoEngenhariaInput = document.getElementsByClassName('tipoEngenharia')[index],
+            linkDesenhoInput = document.getElementsByClassName('linkDesenho')[index],
+            disciplinaDesenhoInput = document.getElementsByClassName('disciplinaDesenho')[index],
+            revisaoInput = document.getElementsByClassName('revisao')[index],
+            formatoInput = document.getElementsByClassName('formato')[index],
+            numFullInput = document.getElementsByClassName('numFull')[index],
+            numClienteInput = document.getElementsByClassName('numCliente')[index],
+            projetistaDesenhoInput = document.getElementsByClassName('projetistaDesenho')[index],
+            verificadorDesenhoInput = document.getElementsByClassName('verificadorDesenho')[index];
+        descricaoInput.value            = projeto.infoProjetos[index - 1].descricao;
+        tipoEngenhariaInput.value       = projeto.infoProjetos[index - 1].tipoEngenharia;
+        linkDesenhoInput.value          = projeto.infoProjetos[index - 1].linkDesenho;
+        disciplinaDesenhoInput.value    = projeto.infoProjetos[index - 1].disciplinaDesenho;
+        revisaoInput.value              = projeto.infoProjetos[index - 1].revisao;
+        formatoInput.value              = projeto.infoProjetos[index - 1].formato;
+        numFullInput.value              = projeto.infoProjetos[index - 1].numFull;
+        numClienteInput.value           = projeto.infoProjetos[index - 1].numCliente;
+        projetistaDesenhoInput.value    = projeto.infoProjetos[index - 1].projetistaDesenho;
+        verificadorDesenhoInput.value   = projeto.infoProjetos[index - 1].verificadorDesenho;
+    }
+
+
     return(
         <>
             <li className="liGerenciarInfo">
@@ -116,7 +146,8 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                     <p>
                         Descrição:
                     </p>
-                    <input type="text" 
+                    <input type="text"
+                        className="descricao" 
                         name="descricao"
                         value={descricao}
                         onChange={e => {
@@ -128,6 +159,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         Engenharia:
                     </p>
                     <input type="text" 
+                        className="tipoEngenharia"
                         name="tipoEngenharia"
                         value={tipoEngenharia}
                         onChange={e => {
@@ -141,6 +173,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         Link do desenho:
                     </p>
                     <input type="text"
+                        className="linkDesenho"
                         name="linkDesenho"
                         value={linkDesenho}
                         onChange={e => {
@@ -154,6 +187,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         Disciplina:
                     </p>
                     <input type="text" 
+                        className="disciplinaDesenho"
                         name="disciplinaDesenho"
                         value={disciplinaDesenho}
                         onChange={e => {
@@ -165,6 +199,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         Revisão:
                     </p>
                     <input type="text" 
+                        className="revisao"
                         name="revisao"
                         value={revisao}
                         onChange={e => {
@@ -176,6 +211,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         Formato:
                     </p>
                     <input type="text" 
+                        className="formato"
                         name="formato"
                         value={formato}
                         onChange={e => {
@@ -189,6 +225,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         Número FULL:
                     </p>
                     <input type="text" 
+                        className="numFull"
                         name="numFull"
                         value={numFull}
                         onChange={e => {
@@ -200,6 +237,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         Número do cliente:
                     </p>
                     <input type="text" 
+                        className="numCliente"
                         name="numCliente"
                         value={numCliente}
                         onChange={e => {
@@ -213,6 +251,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         Projetista:
                     </p>
                     <input type="text" 
+                        className="projetistaDesenho"
                         name="projetistaDesenho"
                         value={projetistaDesenho}
                         onChange={e => {
@@ -224,6 +263,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         Verificador:
                     </p>
                     <input type="text" 
+                        className="verificadorDesenho"
                         name="verificadorDesenho"
                         value={verificadorDesenho}
                         onChange={e => {
@@ -237,6 +277,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         Data de início:
                     </p>
                     <input type="date" 
+                        className="dataInicio"
                         name="dataInicio"
                         value={tratarDataMostrar(dataInicio)}
                         onChange={e => {
@@ -248,6 +289,7 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                         Data do término:
                     </p>
                     <input type="date" 
+                        className="dataFinal"
                         name="dataFinal"
                         value={tratarDataMostrar(dataFinal)}
                         onChange={e => {
@@ -269,6 +311,23 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto }) {
                 >
                     Apagar
                 </button>
+
+                {   
+                    function teste() {
+                        if (projeto.infoProjetos.length > 1) {
+                            if (projeto.infoProjetos[0]._id !== informacao._id) {
+                                return (<button 
+                                    className="copiarSuperior"
+                                    type="button"
+                                    onClick={() => copiarDadosProjetoAnterior()}
+                                >
+                                    Copiar ^
+                                </button>);
+                            }
+                        }
+                    }
+                }
+                
             </li>
         </>
     );
