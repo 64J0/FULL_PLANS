@@ -41,11 +41,9 @@ function App() {
   // de código vai sempre repetir quando o valor da propriedade login.auth mudar.
   useEffect(() => {
     async function loadProjetos() {
-
       const response = await api.get('/projetos', configAuth);
       console.log('response.data ', response.data);
-      setProjetos(response.data);
-      
+      setProjetos(response.data);  
     }
 
     if (login.auth === true) {
@@ -67,7 +65,6 @@ function App() {
     let arrayProjetosAbertos = [];
 
     function asignTheCorrectState() {
-
       projetos.map(projeto => {
 
         if (projeto.arquivado === true) {
@@ -81,7 +78,6 @@ function App() {
 
       setProjetosArquivados(arrayProjetosArquivados);
       setProjetosAbertos(arrayProjetosAbertos);
-
     }
 
     asignTheCorrectState();
@@ -94,7 +90,7 @@ function App() {
   // usado posteriormente na hora de nomear a planilha no servidor
   useEffect(() => {
     console.log('projetos ', projetos);
-    let maiorNumGRD = 357;
+    let maiorNumGRD = 0;
     async function setNumeroDaGRD() {
       for(let aux = 0; aux < projetos.length; aux++) {
         console.log(`projetos[${aux}].numGRD `, projetos[aux].numGRD);

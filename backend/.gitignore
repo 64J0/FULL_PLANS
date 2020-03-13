@@ -1,3 +1,4 @@
 login.http
 node_modules
 .env
+requests.http

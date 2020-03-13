@@ -113,29 +113,40 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto, projeto }
     //
     // Essa função é responsável por adicionar o conteúdo do projeto acima às células do
     // projeto de baixo. Foi uma requisição da utilizadora do sistema.
-    // OS ESTADOS DO COMPONENTE NÃO SÃO ATUALIZADOS AUTOMATICAMENTE QUANDO O VALUE É ALTERADO 
     function copiarDadosProjetoAnterior() {
         var index = projeto.infoProjetos.findIndex(x => x._id === informacao._id);
-        let descricaoInput = document.getElementsByClassName('descricao')[index],
-            tipoEngenhariaInput = document.getElementsByClassName('tipoEngenharia')[index],
-            linkDesenhoInput = document.getElementsByClassName('linkDesenho')[index],
-            disciplinaDesenhoInput = document.getElementsByClassName('disciplinaDesenho')[index],
-            revisaoInput = document.getElementsByClassName('revisao')[index],
-            formatoInput = document.getElementsByClassName('formato')[index],
-            numFullInput = document.getElementsByClassName('numFull')[index],
-            numClienteInput = document.getElementsByClassName('numCliente')[index],
-            projetistaDesenhoInput = document.getElementsByClassName('projetistaDesenho')[index],
-            verificadorDesenhoInput = document.getElementsByClassName('verificadorDesenho')[index];
-        descricaoInput.value            = projeto.infoProjetos[index - 1].descricao;
-        tipoEngenhariaInput.value       = projeto.infoProjetos[index - 1].tipoEngenharia;
-        linkDesenhoInput.value          = projeto.infoProjetos[index - 1].linkDesenho;
-        disciplinaDesenhoInput.value    = projeto.infoProjetos[index - 1].disciplinaDesenho;
-        revisaoInput.value              = projeto.infoProjetos[index - 1].revisao;
-        formatoInput.value              = projeto.infoProjetos[index - 1].formato;
-        numFullInput.value              = projeto.infoProjetos[index - 1].numFull;
-        numClienteInput.value           = projeto.infoProjetos[index - 1].numCliente;
-        projetistaDesenhoInput.value    = projeto.infoProjetos[index - 1].projetistaDesenho;
-        verificadorDesenhoInput.value   = projeto.infoProjetos[index - 1].verificadorDesenho;
+        if (index) {
+            let descricaoInput = document.getElementsByClassName('descricao')[index],
+                tipoEngenhariaInput = document.getElementsByClassName('tipoEngenharia')[index],
+                linkDesenhoInput = document.getElementsByClassName('linkDesenho')[index],
+                disciplinaDesenhoInput = document.getElementsByClassName('disciplinaDesenho')[index],
+                revisaoInput = document.getElementsByClassName('revisao')[index],
+                formatoInput = document.getElementsByClassName('formato')[index],
+                numFullInput = document.getElementsByClassName('numFull')[index],
+                numClienteInput = document.getElementsByClassName('numCliente')[index],
+                projetistaDesenhoInput = document.getElementsByClassName('projetistaDesenho')[index],
+                verificadorDesenhoInput = document.getElementsByClassName('verificadorDesenho')[index];
+            descricaoInput.value            = projeto.infoProjetos[index - 1].descricao;
+            setDescricao(descricaoInput.value);
+            tipoEngenhariaInput.value       = projeto.infoProjetos[index - 1].tipoEngenharia;
+            setTipoEngenharia(tipoEngenhariaInput.value);
+            linkDesenhoInput.value          = projeto.infoProjetos[index - 1].linkDesenho;
+            setLinkDesenho(linkDesenhoInput.value);
+            disciplinaDesenhoInput.value    = projeto.infoProjetos[index - 1].disciplinaDesenho;
+            setDisciplinaDesenho(disciplinaDesenhoInput.value);
+            revisaoInput.value              = projeto.infoProjetos[index - 1].revisao;
+            setRevisao(revisaoInput.value);
+            formatoInput.value              = projeto.infoProjetos[index - 1].formato;
+            setFormato(formatoInput.value);
+            numFullInput.value              = projeto.infoProjetos[index - 1].numFull;
+            setNumFull(numFullInput.value);
+            numClienteInput.value           = projeto.infoProjetos[index - 1].numCliente;
+            setNumCliente(numClienteInput.value);
+            projetistaDesenhoInput.value    = projeto.infoProjetos[index - 1].projetistaDesenho;
+            setProjetistaDesenho(projetistaDesenhoInput.value);
+            verificadorDesenhoInput.value   = projeto.infoProjetos[index - 1].verificadorDesenho;
+            setVerificadorDesenho(verificadorDesenhoInput.value);
+        }
     }
 
 
@@ -304,30 +315,22 @@ function GerenciarInfo({ informacao, updateInfoProjeto, apagarProjeto, projeto }
                 Quando o usuário clicar neste botão deve retirar o card com o id definido neste campo, mas isso deve se suceder apenas localmente, sem que o banco de dados seja atualizado.
                 A atalização do banco de dados só deve ser realizada no momento que o usuário clicar em salvar.
                 */}
-                <button
-                    className="deletarInfoProjeto"
-                    type="button"
-                    onClick={() => setBoolApagar(true)}
-                >
-                    Apagar
-                </button>
-
-                {   
-                    function teste() {
-                        if (projeto.infoProjetos.length > 1) {
-                            if (projeto.infoProjetos[0]._id !== informacao._id) {
-                                return (<button 
-                                    className="copiarSuperior"
-                                    type="button"
-                                    onClick={() => copiarDadosProjetoAnterior()}
-                                >
-                                    Copiar ^
-                                </button>);
-                            }
-                        }
-                    }
-                }
-                
+                <div className="buttonsGerenciarInfo">
+                    <button 
+                        className="copiarSuperior"
+                        type="button"
+                        onClick={() => copiarDadosProjetoAnterior()}
+                    >
+                        Copiar ^
+                    </button>
+                    <button
+                        className="deletarInfoProjeto"
+                        type="button"
+                        onClick={() => setBoolApagar(true)}
+                    >
+                        Apagar
+                    </button>
+                </div>
             </li>
         </>
     );
