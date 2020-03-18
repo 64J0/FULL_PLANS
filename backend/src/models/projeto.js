@@ -90,6 +90,9 @@ const projetoSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    dataArquivado: {
+        type: Date
+    },
     createdAt: {
         type: Date,
         default: Date.now

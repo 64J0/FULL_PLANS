@@ -21,7 +21,15 @@ exports.createProjeto = async data => {
     
 };
 
+// POSSIBILIDADES DE MELHORIAS:
+// Diminuir a quantidade de requisições ao banco de dados que são feitas
 exports.updateProjeto = async (id, data) => {
+    if (data.arquivado) { //data.arquivado = req.body.arquivado === true
+        let response = await Projetos.findById(id);
+        if (!response.arquivado) { //response.arquivado === false
+            data.dataArquivado = Date.now();
+        }
+    }
     await Projetos.findByIdAndUpdate(id, {
         $set: data
     });
