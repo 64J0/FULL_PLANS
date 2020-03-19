@@ -1,8 +1,9 @@
 POST http://localhost:3333/projetos
+Authorization: Bearer e2412yJhbGciOiJIUzI1NiIasdasdasInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNDJmMjVlMDM3YWNlMGI3Ndq213asDdhZjc3NyIsImlhdCI6MTU4NDAyMjY2MiwiZXhwIjoxNTg0MDU4NjYyfQ.Y2LV4ZyrQqHmkLJn6mWGIE4vEZLibBJu0SOsBU6XdasdasdasCMO4
 Content-Type: application/json
 
 {
-    "cliente": "Gerdau",
+    "cliente": "teste333333",
     "nomeProjeto": "Linha de vida 1",
     "disciplinaMestre": "Engenharia Mecânica",
     "numPedido": "123123",
@@ -34,27 +35,16 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3333/projetos
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNDJmMjVlMDM3YWNlMGI3NDdhZjc3NyIsImlhdCI6MTU4NDUzODQwMywiZXhwIjoxNTg0NTc0NDAzfQ.tI6ePNvAhNgRkpXPq1rtKKUaS0Ex1DZXMSxNJQHvRyU
 
 ###
-PUT http://localhost:3333/projetos/5e4a7bea08a0571120595b54
+PUT http://localhost:3333/projetos/5e567ca39e1a0a04d4372875
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNDJmMjVlMDM3YWNlMGI3NDdhZjc3NyIsImlhdCI6MTU4NDUzODQwMywiZXhwIjoxNTg0NTc0NDAzfQ.tI6ePNvAhNgRkpXPq1rtKKUaS0Ex1DZXMSxNJQHvRyU
 Content-Type: application/json
 
 {   
-    "infoProjetos": [{
-        "disciplinaDesenho": "autocad",
-        "revisao": "a",
-        "numFull": "7777",
-        "numCliente": "88888",
-        "formato": "A0",
-        "descricao": "Aguardando aprovação",
-        "projetistaDesenho": "Vinícius Gajo",
-        "verificadorDesenho": "José Serra"
-    }],
-    "arquivado": true
+  "arquivado": false  
 }
 
 ###
 DELETE http://localhost:3333/projetos/5e4a7617419bab111857c19b
-
-###
-GET http://localhost:3333/excel/5e56a35a6a5f940facdeb9cd

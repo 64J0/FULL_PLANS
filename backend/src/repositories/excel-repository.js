@@ -6,6 +6,7 @@ const Projetos = mongoose.model('Projetos');
 var filePath = path.resolve(__dirname, '../assets/teste.xlsx');
 
 exports.genExcelFile = async (id) => {
+
     // Recupera os dados do projeto com o id informado no banco de dados
     const res = await Projetos.findById(id);
 
@@ -90,11 +91,15 @@ exports.genExcelFile = async (id) => {
             workBook.worksheets[0].getCell(`F${aux + 34}`).value = 
                 res.infoProjetos[aux].formato;
 
+            // Célula com o Título (Conteúdo do Documento)
+            workBook.worksheets[0].getCell(`I${aux + 34}`).value = 
+                res.infoProjetos[aux].descricao;
+
             // Célula com o valor do tipo de engenharia
             workBook.worksheets[0].getCell(`K${aux + 34}`).value = 
                 res.infoProjetos[aux].tipoEngenharia;
 
-            // Estilização da planilha
+            // Estilização da planilha B34:L34 ao longo das colunas de infoProjetos
             for(var aux2 = 0; aux2 <= limiteAux2; aux2++) {
                 varColNum = varAscii + aux2;
                 varColStr = String.fromCharCode(varColNum);
@@ -109,6 +114,8 @@ exports.genExcelFile = async (id) => {
                 if ((aux2 <= 4) || (aux2 >= 8)) {
                     //console.log(`Recebendo estilização de alinhamento: ${str}`);
                     workBook.worksheets[0].getCell(str).alignment = { vertical: 'middle', horizontal: 'center' };
+                } else if(aux2 === 7) {
+                    workBook.worksheets[0].getCell(str).alignment = { vertical: 'middle', horizontal: 'left' };
                 }
             }
         }
@@ -124,6 +131,12 @@ exports.genExcelFile = async (id) => {
         workBook.worksheets[0].getCell(`D${salto + 3}`).value = D44;
         workBook.worksheets[0].getCell(`E${salto + 3}`).value = E44;
         workBook.worksheets[0].getCell(`C${salto + 5}`).value = C46;
+
+        // Estilização das células C19 até D22
+        for (var aux = 19; aux <= 22; aux++) {
+            workBook.worksheets[0].getCell(`C${aux}`).alignment = { vertical: 'middle', horizontal: 'left' };
+            workBook.worksheets[0].getCell(`D${aux}`).alignment = { vertical: 'middle', horizontal: 'left' };
+        }
 
         return(workBook);
     })

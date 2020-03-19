@@ -40,6 +40,7 @@ function CadastrarProjeto({ onSubmit }) {
                         required
                         value={cliente}
                         onChange={e => setCliente(e.target.value)}
+                        autoFocus
                     />
                 </div>
                 

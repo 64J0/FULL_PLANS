@@ -14,6 +14,9 @@ const projetoSchema = new Schema({
         required: true,
         uppercase: true
     },
+    numGRD: {
+        type: Number
+    },
     nomeProjeto: {
         type: String,
         uppercase: true
@@ -86,6 +89,9 @@ const projetoSchema = new Schema({
     arquivado: {
         type: Boolean,
         default: false,
+    },
+    dataArquivado: {
+        type: Date
     },
     createdAt: {
         type: Date,

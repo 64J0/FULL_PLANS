@@ -16,6 +16,7 @@ exports.createProjeto = async (req, res) => {
     try {
         let projeto = await repository.createProjeto({
             cliente: req.body.cliente,
+            numGRD: req.body.numGRD,
             nomeProjeto: req.body.nomeProjeto,
             disciplinaMestre: req.body.disciplinaMestre,
             numPedido: req.body.numPedido,

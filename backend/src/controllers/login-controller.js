@@ -1,5 +1,10 @@
 const repository = require('../repositories/login-repository');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const path = require('path');
+const dotenv = require('dotenv');
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 // login
 exports.verifyUser = async (req, res) => {
@@ -7,27 +12,32 @@ exports.verifyUser = async (req, res) => {
     try {
 
         if (!req.body.email) {
-            //console.log('E-mail não bate');
+            // E-mail não bate 
             return res.send({ auth: false });
         }
 
         const user = await repository.verifyUser(req.body);
 
         if (!user) {
-            //console.log('Usuário não encontrado');
+            // Usuário não encontrado 
             return res.send({ auth: false });
         }
 
         if (!(bcrypt.compare(req.body.senha, user.senha))) {
-            //console.log('Senhas não batem');
+            // Senhas não batem 
             return res.send({ auth: false });
         }
 
-        //console.log('Usuário encontrado');
-        return res.send({ auth: true });
+        // Usuário encontrado 
+        const id = user._id;
+        // Gera o token de acesso encriptado
+        const token = jwt.sign({ id }, process.env.SECRET, {
+            expiresIn: 36000 // 10 horas
+        })
+        return res.status(200).send({ auth: true, token: token });
 
     } catch(err) {
-        res.send('Usuário não encontrado no banco de dados');
+        res.send('Login inválido');
         console.log(err);
     }
 }

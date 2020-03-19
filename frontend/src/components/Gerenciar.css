@@ -143,3 +143,7 @@
     background-color: rgba(126, 252, 0, 0.541);
     color: #444;
 }
+
+div.inputFields {
+    padding-bottom: 10px;
+}
