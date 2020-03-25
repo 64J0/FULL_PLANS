@@ -26,7 +26,6 @@ Os códigos da API foram baseados, principalmente, nessa sequência de posts do 
 * Desenvolver um sistema de envio de e-mails automático, em que o projetista do desenho receberá um e-mail contendo valores para atualização das informações do desenho, como por exemplo, o número FULL;
 * Implementar um sistema de paginação para quando o banco de dados estiver com vários itens;
 * Layout precisa ser ajustado para ficar mais user friendly:
-  * Uma tela de confirmação quando o usuário quiser deletar um determinado arquivo;
   * Uma tela de loading para quando os projetos estiverem sendo carregados do banco de dados;
   * Uma mensagem de sucesso para caso o projeto tenha sido cadastrado corretamente;
   * Implementar um layout responsivo;
