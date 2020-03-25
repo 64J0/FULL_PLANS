@@ -10,7 +10,6 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 exports.verifyUser = async (req, res) => {
 
     try {
-
         if (!req.body.email) {
             // E-mail não bate 
             return res.send({ auth: false });
@@ -18,13 +17,14 @@ exports.verifyUser = async (req, res) => {
 
         const user = await repository.verifyUser(req.body);
 
+        // Usuário não encontrado 
         if (!user) {
-            // Usuário não encontrado 
             return res.send({ auth: false });
         }
 
-        if (!(bcrypt.compare(req.body.senha, user.senha))) {
-            // Senhas não batem 
+        // Senhas não coincidem
+        const resComparacao = bcrypt.compareSync(req.body.senha, user.senha);
+        if (!resComparacao) {
             return res.send({ auth: false });
         }
 

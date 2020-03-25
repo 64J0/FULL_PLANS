@@ -148,13 +148,16 @@ function App() {
     await api.post('/login', data)
     .then(response => {
       if (!response.data.auth) {
-        alert('Falha no login');
         throw new Error();
       } else {
         setLogin(response.data);
       }
     })
-    .catch(() => {console.log('Credenciais inválidas')});
+    .catch(() => {
+      // Esse erro é enviado para a função que fez a chamada do método assíncrono
+      // para que esta possa lidar com o erro também.
+      throw new Error('Credenciais inválidas');
+    });
   }
 
 

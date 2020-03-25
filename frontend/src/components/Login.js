@@ -8,6 +8,8 @@ function Login({ onSubmit }) {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
+    let btnLogin = document.getElementById('btnLogin');
+
     async function handleSubmit(e) {
         e.preventDefault();
         try {
@@ -19,8 +21,17 @@ function Login({ onSubmit }) {
                 senha
             });
         } catch(err) {
+            btnLogin.setAttribute('style', '');
             return alert(err);
         }
+    }
+
+    // Essa função é responsável por mudar a aparência do botão que faz submit do formulário
+    // de login, evitando que o usuário tente clicar mais que uma vez neste componente.
+    function disableButton() {
+        btnLogin.setAttribute('style', `
+            background-color: #ccc;
+            cursor: not-allowed;`);
     }
 
     return(
@@ -44,7 +55,7 @@ function Login({ onSubmit }) {
                         value={senha}
                         id="senha-login"
                     />
-                    <button type="submit" id="btnLogin" >
+                    <button type="submit" id="btnLogin" onClick={() => {disableButton()}}>
                         Logar
                     </button>
                 </fieldset>
