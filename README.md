@@ -1,10 +1,12 @@
 # FULL PLANS :sparkles:
 
-## *Projeto de estudos*
+### Backend
 
-Este projeto está sendo desenvolvido como meio de aprimorar meus conhecimentos na criação de uma API REST usando Nodejs, Express, MongoDB e o Mongoose, assim como aprimorar minhas habilidades no frontend com React usando os Hooks. 
+Os códigos da API Rest foram baseados, principalmente, nessa sequência de posts do William Oliveira (https://woliveiras.com.br/posts/construindo-uma-api-com-node-js-parte-1-criando-e-listando-dados/). Algumas tecnologias utilizadas foram NodeJS, Express para roteamento, banco de dados MongoDB com Mongoose. Além disso foram utilizados alguns middlewares que não são citados neste site, visando melhorar o aspecto da segurança da aplicação, e possibilidade de implementação de novas features.
 
-Os códigos da API foram baseados, principalmente, nessa sequência de posts do William Oliveira (https://woliveiras.com.br/posts/construindo-uma-api-com-node-js-parte-1-criando-e-listando-dados/). Foram utilizados alguns middlewares que não são citados neste site, visando melhorar o aspecto da segurança da aplicação.
+### Frontend
+
+Para desenvolver o frontend foi utilizado, basicamente, ReactJS com Hooks.
 
 ### O que já foi desenvolvido :memo:: 
 
