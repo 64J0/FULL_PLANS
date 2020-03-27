@@ -10,9 +10,12 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import Gerenciar from './components/Gerenciar';
 
+// CSS
 import './App.css';
 import './global.css';
-import './components/Cabecalho.css';
+
+// utils
+import verifyLocalStorage from './utils/verifyLocalStorage';
 
 function App() {
 
@@ -43,7 +46,7 @@ function App() {
     async function loadProjetos() {
       const response = await api.get('/projetos', configAuth);
       console.log('response.data ', response.data);
-      setProjetos(response.data);  
+      setProjetos(response.data); 
     }
 
     if (login.auth === true) {
@@ -108,6 +111,18 @@ function App() {
   }, [projetos]);
 
 
+  useEffect(() => {
+    if (verifyLocalStorage()){
+      let token = localStorage.getItem('authJWT');
+      let objLoginTrue = {
+        auth: true,
+        token: token
+      }
+      setLogin(objLoginTrue);
+    }
+  }, []);
+
+
   // displayLogin()
   //
   // Essa função determina qual a tela que será exibida para o usuário quando
@@ -151,6 +166,9 @@ function App() {
         throw new Error();
       } else {
         setLogin(response.data);
+        localStorage.setItem('authJWT', response.data.token.toString());
+        let expirationDate = Date.now() + 1000*60*60; //Uma hora
+        localStorage.setItem('expiresIn', expirationDate.toString());
       }
     })
     .catch(() => {
