@@ -19,6 +19,7 @@ Para desenvolver o frontend foi utilizado, basicamente, ReactJS com Hooks.
 * Desenvolver uma funcionalidade que preencha uma planilha do Excel automaticamente com os dados armazenados no banco de dados referentes ao projeto que estiver aberto (com estilização). O número da planilha será corrigido com base numa regra específica da empresa e segue uma ordem crescente;
 * Implementar um sistema de autenticação e autorização usando JWT;
 * ~~Estudar a possibilidade de implementação do Redux para trabalhar em conjunto com o React~~. Conforme o sistema foi sendo desenvolvido não foi realmente necessária a utilização do Redux.
+* Funcionalidade de salvar a sessão do usuário, salvando suas credenciais no localStorage do navegador.
 * Estudar sobre a hospedagem no GCP e no Netlify;
 * Deploy da API no GCP (Google Cloud Platform);
 * O Frontend foi hospedado no Netlify;
