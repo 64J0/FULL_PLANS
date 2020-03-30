@@ -27,6 +27,7 @@ Para desenvolver o frontend foi utilizado, basicamente, ReactJS com Hooks.
 ### O que ainda será desenvolvido :memo::
 
 * Desenvolver um sistema de envio de e-mails automático, em que o projetista do desenho receberá um e-mail contendo valores para atualização das informações do desenho, como por exemplo, o número FULL;
+* Configurar o CORS para permitir acessar a API apenas de determinadas URLs;
 * Implementar um sistema de paginação para quando o banco de dados estiver com vários itens;
 * Layout precisa ser ajustado para ficar mais user friendly:
   * Uma tela de loading para quando os projetos estiverem sendo carregados do banco de dados;
