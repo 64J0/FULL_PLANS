@@ -16,7 +16,6 @@ Para desenvolver o frontend foi utilizado, basicamente, ReactJS com Hooks.
 * Funcionalidade de arquivar projetos finalizados, e separar em páginas diferentes;
 * Sistema de login para acessar as funcionalidades do resto da aplicação;
 * ~~Implementar um sistema de upload de arquivos para armazenar detalhes de projetos já finalizados. Para isso está sendo estudada uma implementação usando o GridFS do MongoDB, pois este é o banco de dados escolhido para se utilizar no projeto. *O GridFS deve ser usado quando for necessário guardar no banco de dados MongoDB um arquivo de tamanho superior a 16 MB~~. Esta funcionalidade foi alterada, agora os arquivos do projeto serão salvos em um servidor provido pelo Google, e no banco de dados será armazenado apenas o link para aquele projeto;
-* Desenvolver uma funcionalidade que preencha uma planilha do Excel automaticamente com os dados armazenados no banco de dados referentes ao projeto que estiver aberto (com estilização). O número da planilha será corrigido com base numa regra específica da empresa e segue uma ordem crescente;
 * Implementar um sistema de autenticação e autorização usando JWT;
 * ~~Estudar a possibilidade de implementação do Redux para trabalhar em conjunto com o React~~. Conforme o sistema foi sendo desenvolvido não foi realmente necessária a utilização do Redux.
 * Funcionalidade de salvar a sessão do usuário, salvando suas credenciais no localStorage do navegador.
@@ -28,6 +27,7 @@ Para desenvolver o frontend foi utilizado, basicamente, ReactJS com Hooks.
 
 * Desenvolver um sistema de envio de e-mails automático, em que o projetista do desenho receberá um e-mail contendo valores para atualização das informações do desenho, como por exemplo, o número FULL;
 * Configurar o CORS para permitir acessar a API apenas de determinadas URLs;
+* ~~Desenvolver uma funcionalidade que preencha uma planilha do Excel automaticamente com os dados armazenados no banco de dados referentes ao projeto que estiver aberto (com estilização). O número da planilha será corrigido com base numa regra específica da empresa e segue uma ordem crescente~~. A meta atual é preencher uma planilha do Google Spreadsheet formatada com os dados do projeto;
 * Implementar um sistema de paginação para quando o banco de dados estiver com vários itens;
 * Layout precisa ser ajustado para ficar mais user friendly:
   * Uma tela de loading para quando os projetos estiverem sendo carregados do banco de dados;
