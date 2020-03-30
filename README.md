@@ -2,7 +2,7 @@
 
 ### Backend
 
-Os códigos da API Rest foram baseados, principalmente, nessa sequência de posts do William Oliveira (https://woliveiras.com.br/posts/construindo-uma-api-com-node-js-parte-1-criando-e-listando-dados/). Algumas tecnologias utilizadas foram NodeJS, Express para roteamento, banco de dados MongoDB com Mongoose. Além disso foram utilizados alguns middlewares que não são citados neste site, visando melhorar o aspecto da segurança da aplicação, e possibilidade de implementação de novas features.
+Os códigos da API Rest foram baseados, principalmente, nessa sequência de posts do William Oliveira (<a href="https://woliveiras.com.br/posts/construindo-uma-api-com-node-js-parte-1-criando-e-listando-dados/">link do blog</a>). Algumas tecnologias utilizadas foram NodeJS, Express para roteamento, banco de dados MongoDB com Mongoose. Além disso foram utilizados alguns middlewares que não são citados neste site, visando melhorar o aspecto da segurança da aplicação, e possibilidade de implementação de novas features.
 
 ### Frontend
 
