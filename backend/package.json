@@ -1,12 +1,13 @@
 {
   "name": "full-plans",
-  "version": "1.0.1",
-  "description": "maybe later",
-  "main": "backend/bin/server.js",
+  "version": "1.0.2",
+  "description": "This project is a REST API of a project management system that is implemented in Full Engenharia.",
+  "main": "bin/server.js",
   "private": true,
   "scripts": {
     "dev": "node node_modules/nodemon/bin/nodemon bin/server",
-    "start": "node bin/server.js"
+    "start": "node bin/server.js",
+    "test": "cross-env NODE_ENV=test jest"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,16 @@
     "rate-limiter-flexible": "^2.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^25.2.4",
+    "nodemon": "^2.0.2",
+    "prettier": "^2.0.2",
+    "supertest": "^4.0.2"
   }
 }

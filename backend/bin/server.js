@@ -20,7 +20,6 @@ function normalizePort(val) {
         return port;
     }
         
-
     return false;
 }
 

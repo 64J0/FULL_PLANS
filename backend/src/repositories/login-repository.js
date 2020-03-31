@@ -1,34 +1,35 @@
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const mongoose = require("mongoose");
 
-exports.verifyUser = async (data) => {
-    try {
-        const user = await User.findOne({ 'email': data.email }).select('+senha');
-        return user;
-    } catch(err) {
-        console.log(err);
+const User = mongoose.model("User");
+
+exports.verifyUser = async data => {
+  try {
+    const user = await User.findOne({ email: data.email }).select("+senha");
+    return user;
+  } catch (err) {
+    return { message: err };
+  }
+};
+
+exports.create = async data => {
+  try {
+    if (await User.findOne({ email: data.email })) {
+      return { message: "E-mail já cadastrado" };
     }
-}
-
-exports.create = async (data) => {
-    try {
-        if (await User.findOne({ 'email': data.email })) {
-            console.log('E-mail já cadastrado');
-            return null;
-        } else {
-            const usuario = new User(data);
-            usuario.password = undefined;
-            await usuario.save();
-            return usuario;
-        }
-    } catch(err) {
-        console.log('Usuário NÃO cadastrado');
-        console.log(err);
-        return null;
-    }  
-}
+    const usuario = new User(data);
+    await usuario.save();
+    usuario.senha = undefined;
+    return usuario;
+  } catch (err) {
+    return err;
+  }
+};
 
 exports.list = async () => {
+  try {
     const res = await User.find({});
     return res;
-}
+  } catch (err) {
+    return err;
+  }
+};

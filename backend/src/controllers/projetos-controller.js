@@ -1,61 +1,63 @@
-const repository = require('../repositories/projetos-repository');
+const repository = require("../repositories/projetos-repository");
 
-//list
+// List all Projects
 exports.listProjeto = async (req, res) => {
-    try {
-        const data = await repository.listProjeto();
-        res.status(200).send(data);
-    } catch(e) {
-        res.status(500).send({ mesage: 'Falha ao carregar os projetos! '});
-        console.log(e);
-    }
+  try {
+    const data = await repository.listProjeto();
+    return res.status(200).send(data);
+  } catch (e) {
+    return res
+      .status(500)
+      .send({ mesage: "Falha ao carregar os projetos!", Error: e });
+  }
 };
 
-//create
+// Create a new project
 exports.createProjeto = async (req, res) => {
-    try {
-        let projeto = await repository.createProjeto({
-            cliente: req.body.cliente,
-            numGRD: req.body.numGRD,
-            nomeProjeto: req.body.nomeProjeto,
-            disciplinaMestre: req.body.disciplinaMestre,
-            numPedido: req.body.numPedido,
-            responsavel: req.body.responsavel,
-            status: req.body.status,
-            infoProjetos: req.body.infoProjetos,
-            arquivado: req.body.arquivado
-        });
-        res.status(201).send(projeto);
-    } catch(e) {
-        res.status(400).send({ message: 'Falha ao cadastrar o projeto!' });
-        console.log(e);
-    }
+  try {
+    const projeto = await repository.createProjeto({
+      cliente: req.body.cliente,
+      numGRD: req.body.numGRD,
+      nomeProjeto: req.body.nomeProjeto,
+      disciplinaMestre: req.body.disciplinaMestre,
+      numPedido: req.body.numPedido,
+      responsavel: req.body.responsavel,
+      status: req.body.status,
+      infoProjetos: req.body.infoProjetos,
+      arquivado: req.body.arquivado
+    });
+    return res.status(201).send(projeto);
+  } catch (e) {
+    return res
+      .status(400)
+      .send({ message: "Falha ao cadastrar o projeto!", Error: e });
+  }
 };
 
-//update
+// update
 exports.updateProjeto = async (req, res) => {
-    try {
-        let projeto = await repository.updateProjeto(req.params.id, req.body);
-        res.status(201).send(projeto);
-    } catch(e) {
-        res.status(500).send({
-            message: 'Falha ao atualizar o projeto!'
-        });
-        console.log(e);
-    }
+  try {
+    const projeto = await repository.updateProjeto(req.params.id, req.body);
+    return res.status(201).send(projeto);
+  } catch (e) {
+    return res.status(500).send({
+      message: "Falha ao atualizar o projeto!",
+      Error: e
+    });
+  }
 };
 
-//delete
+// delete
 exports.deleteProjeto = async (req, res) => {
-    try {
-        await repository.deleteProjeto(req.params.id);
-        res.status(200).send({
-            message: 'Projeto removido com sucesso!'
-        });
-    } catch(e) {
-        res.status(500).send({
-            message: 'Falha ao remover o projeto!'
-        });
-        console.log(e);
-    }
+  try {
+    await repository.deleteProjeto(req.params.id);
+    return res.status(200).send({
+      message: "Projeto removido com sucesso!"
+    });
+  } catch (e) {
+    return res.status(500).send({
+      message: "Falha ao remover o projeto!",
+      Error: e
+    });
+  }
 };

@@ -7,14 +7,14 @@ import api from '../services/api';
 // projeto === projetoUpdate
 function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
-    const [cliente, setCliente] = useState(projeto.cliente);
-    const [nomeProjeto, setNomeProjeto] = useState(projeto.nomeProjeto);
-    const [disciplinaMestre, setDisciplinaMestre] = useState(projeto.disciplinaMestre);
-    const [numPedido, setNumPedido] = useState(projeto.numPedido);
-    const [responsavel, setResponsavel] = useState(projeto.responsavel);
+    const [cliente, setCliente] = useState(projeto.cliente || '');
+    const [nomeProjeto, setNomeProjeto] = useState(projeto.nomeProjeto || '');
+    const [disciplinaMestre, setDisciplinaMestre] = useState(projeto.disciplinaMestre || '');
+    const [numPedido, setNumPedido] = useState(projeto.numPedido || '');
+    const [responsavel, setResponsavel] = useState(projeto.responsavel || '');
 
     const [arquivado, setArquivado] = useState(projeto.arquivado);
-    const [status, setStatus] = useState(projeto.status);
+    const [status, setStatus] = useState(projeto.status || '');
 
     const [infoProjetos, setInfoProjetos] = useState(projeto.infoProjetos);
 
@@ -52,7 +52,9 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                 new Promise((resolve, reject) => {
                     const texto = 'Descrição do status:';
                     let novoStatus = window.prompt(texto, "");
-                    novoStatus = novoStatus.toUpperCase();
+                    if (novoStatus) {
+                        novoStatus = novoStatus.toUpperCase();
+                    }
                     resolve(novoStatus);
                 })
                 .then((novoStatus) => {
@@ -66,7 +68,6 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                         infoProjetos,
                         arquivado
                     };
-
                     return(body);
                 })
                 .then((body) => {

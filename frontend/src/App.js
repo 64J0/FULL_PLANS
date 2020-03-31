@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
+// Services
 import api from './services/api';
+
+// Components
 import CadastrarProjeto from './components/CadastrarProjeto';
 import Cabecalho from './components/Cabecalho';
 import Abertos from './components/Abertos';
@@ -45,14 +48,11 @@ function App() {
   useEffect(() => {
     async function loadProjetos() {
       const response = await api.get('/projetos', configAuth);
-      console.log('response.data ', response.data);
       setProjetos(response.data); 
     }
-
     if (login.auth === true) {
       loadProjetos();
     }
-  
   // eslint-disable-next-line
   }, [login.auth]);
 
@@ -66,23 +66,18 @@ function App() {
   useEffect(() => {
     let arrayProjetosArquivados = [];
     let arrayProjetosAbertos = [];
-
     function asignTheCorrectState() {
       projetos.map(projeto => {
-
         if (projeto.arquivado === true) {
           arrayProjetosArquivados.push(projeto);
         } else {
           arrayProjetosAbertos.push(projeto);
         }
-
         return null;
       });
-
       setProjetosArquivados(arrayProjetosArquivados);
       setProjetosAbertos(arrayProjetosAbertos);
     }
-
     asignTheCorrectState();
   }, [projetos]);
 
@@ -111,6 +106,13 @@ function App() {
   }, [projetos]);
 
 
+  // verifyLocalStorage()
+  //
+  // Esse useEffect é responsável por executar o código da função em utils/verifyLocalStorage,
+  // que por sua vez verifica se tem um token armazenado no localStorage e se ele ainda não
+  // expirou. Com base nessa informação é verificada a necessidade de mostrar a tela de login
+  // ou não.
+  // Essa função só repete uma vez no carregamento da página.
   useEffect(() => {
     if (verifyLocalStorage()){
       let token = localStorage.getItem('authJWT');
