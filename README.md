@@ -29,6 +29,7 @@ Para desenvolver o frontend foi utilizado, basicamente, ReactJS com Hooks.
 * Configurar o CORS para permitir acessar a API apenas de determinadas URLs;
 * ~~Desenvolver uma funcionalidade que preencha uma planilha do Excel automaticamente com os dados armazenados no banco de dados referentes ao projeto que estiver aberto (com estilização). O número da planilha será corrigido com base numa regra específica da empresa e segue uma ordem crescente~~. A meta atual é preencher uma planilha do Google Spreadsheet formatada com os dados do projeto;
 * Implementar um sistema de paginação para quando o banco de dados estiver com vários itens;
+* Funcionalidade necessária: Criar um botão no frontend para fazer download dos arquivos de desenhos salvos no Google Drive. Serão acessados os links salvos para cada projeto, esses desenhos devem ser baixados em formato .zip.
 * Layout precisa ser ajustado para ficar mais user friendly:
   * Uma tela de loading para quando os projetos estiverem sendo carregados do banco de dados;
   * Uma mensagem de sucesso para caso o projeto tenha sido cadastrado corretamente;
