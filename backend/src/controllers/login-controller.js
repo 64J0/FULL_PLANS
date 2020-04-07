@@ -1,11 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const path = require("path");
-const dotenv = require("dotenv");
-
-dotenv.config({ path: path.resolve(__dirname, "../../.env") });
-
 const repository = require("../repositories/login-repository");
 
 // login
@@ -20,7 +15,7 @@ exports.verifyUser = async (req, res) => {
     if (!user) return res.send({ auth: false });
 
     // Comparando a senha armazenada no banco de dados e a informada no body da requisição
-    const resComparacao = bcrypt.compareSync(req.body.senha, user.senha);
+    const resComparacao = await bcrypt.compare(req.body.senha, user.senha);
     if (!resComparacao) return res.send({ auth: false });
 
     // Usuário encontrado

@@ -2,3 +2,5 @@ login.http
 node_modules
 .env
 requests.http
+tests/integration/projetos.spec.js
+credentials.json

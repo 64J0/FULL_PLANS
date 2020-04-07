@@ -59,15 +59,22 @@ require("./models/user");
 const indexRoutes = require("./routes/index-routes");
 
 app.use("/", indexRoutes);
+
 const projetosRoutes = require("./routes/projetos-routes");
 
 app.use("/projetos", projetosRoutes);
+
 const loginRoutes = require("./routes/login-routes");
 
 app.use("/login", loginRoutes);
-const excelGenRoutes = require("./routes/excelGen-routes");
 
-app.use("/excel", excelGenRoutes);
+const googleRoutes = require("./routes/google-routes");
+
+app.use("/google", googleRoutes);
+
+// Rota "aposentada", pois a escolha do software da empresa mudou
+// const excelGenRoutes = require("./routes/excelGen-routes");
+// app.use("/excel", excelGenRoutes);
 
 // const email = require("./routes/email");
 // app.use("/email", email);

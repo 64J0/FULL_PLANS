@@ -1,0 +1,16 @@
+{
+  "name": "tutorial-google",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "create": "node create/createSpreadsheet.js",
+    "edit": "node edit/editSpreadsheet.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "googleapis": "^39.2.0"
+  }
+}
