@@ -1,14 +1,20 @@
 {
   "name": "tutorial-google",
   "version": "1.0.0",
-  "description": "",
+  "description": "Those files have been created so I can study in a different project how to interact with the Google Spreadsheets API",
   "main": "index.js",
   "scripts": {
     "create": "node create/createSpreadsheet.js",
-    "edit": "node edit/editSpreadsheet.js"
+    "read": "node read/readSpreadsheet.js",
+    "readBatch": "node read/readBatchSpreadsheet.js",
+    "edit": "node edit/editSpreadsheet.js",
+    "write": "node write/writeSpreadsheet.js",
+    "writeBatch": "node write/writeBatchSpreadsheet.js",
+    "writeAppend": "node write/writeAppedSpreadsheet.js",
+    "update": "node update/updateSpreadsheet.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Vinícius Gajo Marques Oliveira",
   "license": "ISC",
   "dependencies": {
     "googleapis": "^39.2.0"
