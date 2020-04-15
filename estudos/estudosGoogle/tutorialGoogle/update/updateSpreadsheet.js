@@ -48,8 +48,8 @@ const cor = {
 
 const customRange = {
   sheetId: 0,
-  startRowIndex: 4,
-  endRowIndex: 5,
+  startRowIndex: 1,
+  endRowIndex: 2,
   startColumnIndex: 4,
   endColumnIndex: 5,
 };

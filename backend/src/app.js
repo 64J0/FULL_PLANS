@@ -9,7 +9,7 @@ const cors = require("cors");
 const hpp = require("hpp");
 const rateLimit = require("express-rate-limit");
 const cookieParser = require("cookie-parser");
-const db = require("./database/index");
+const db = require("./database");
 
 // Instanciando a aplicação, a variável app receberá uma instância de um objeto do Express()
 const app = express();
@@ -43,9 +43,11 @@ app.use(cookieParser());
 // evitando portanto ataques como ddos
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  max: 100, // limit each IP to 100 requests per windowMs
 });
 app.use(limiter);
+
+// BANCO DE DADOS (DATABASE)
 
 if (process.env.NODE_ENV !== "test") {
   db();

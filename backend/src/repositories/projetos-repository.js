@@ -6,40 +6,39 @@ const mongoose = require("mongoose");
 const Projetos = mongoose.model("Projetos");
 
 exports.listProjeto = async () => {
-  const res = await Projetos.find({});
+  const res = await Projetos.find({}).catch((error) => {
+    return { error };
+  });
   return res;
 };
 
-exports.createProjeto = async data => {
+exports.createProjeto = async (data) => {
   try {
     const projeto = new Projetos(data);
-    await projeto.save();
+    await projeto.save().catch((error) => {
+      throw new Error({ error });
+    });
     return projeto;
   } catch (err) {
-    return { Error: err };
+    return err;
   }
 };
 
 // POSSIBILIDADES DE MELHORIAS:
 // Diminuir a quantidade de requisições ao banco de dados que são feitas
 exports.updateProjeto = async (id, data) => {
-  if (data.arquivado) {
-    // data.arquivado = req.body.arquivado === true
-    const response = await Projetos.findById(id);
-    if (!response.arquivado) {
-      // response.arquivado === false
-      /* eslint no-param-reassign: ["error", { "props": false }] */
-      data.dataArquivado = Date.now();
-    }
-  }
   await Projetos.findByIdAndUpdate(id, {
-    $set: data
+    $set: data,
+  }).catch((error) => {
+    return { error };
   });
   // Retorna o projeto atualizado
   return Projetos.findById(id);
 };
 
-exports.deleteProjeto = async id => {
-  await Projetos.findByIdAndDelete(id);
+exports.deleteProjeto = async (id) => {
+  await Projetos.findByIdAndDelete(id).catch((error) => {
+    return { error };
+  });
   return { message: "Deleted!" };
 };

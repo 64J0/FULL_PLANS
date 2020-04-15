@@ -24,7 +24,7 @@ exports.createProjeto = async (req, res) => {
       responsavel: req.body.responsavel,
       status: req.body.status,
       infoProjetos: req.body.infoProjetos,
-      arquivado: req.body.arquivado
+      arquivado: req.body.arquivado,
     });
     return res.status(201).send(projeto);
   } catch (e) {
@@ -42,7 +42,7 @@ exports.updateProjeto = async (req, res) => {
   } catch (e) {
     return res.status(500).send({
       message: "Falha ao atualizar o projeto!",
-      Error: e
+      Error: e,
     });
   }
 };
@@ -52,12 +52,12 @@ exports.deleteProjeto = async (req, res) => {
   try {
     await repository.deleteProjeto(req.params.id);
     return res.status(200).send({
-      message: "Projeto removido com sucesso!"
+      message: "Projeto removido com sucesso!",
     });
   } catch (e) {
     return res.status(500).send({
       message: "Falha ao remover o projeto!",
-      Error: e
+      Error: e,
     });
   }
 };
