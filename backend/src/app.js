@@ -75,8 +75,15 @@ const googleRoutes = require("./routes/google-routes");
 app.use("/google", googleRoutes);
 
 // Rota "aposentada", pois a escolha do software da empresa mudou
-// const excelGenRoutes = require("./routes/excelGen-routes");
-// app.use("/excel", excelGenRoutes);
+const excelGenRoutes = require("./routes/excelGen-routes");
+
+app.use("/excel", excelGenRoutes);
+
+/*
+app.get("/test", (req, res) => {
+  return res.redirect("http://localhost:3333/");
+});
+*/
 
 // const email = require("./routes/email");
 // app.use("/email", email);

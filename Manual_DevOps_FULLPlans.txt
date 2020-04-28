@@ -1,6 +1,7 @@
 Manual para DevOps FULL Plans:
 
 * Corrigir o arquivo .xlsx para o layout de GRD padrão e correto;
+	* Fazer isso em relação ao arquivo na pasta assets e no repository para buscar o 	arquivo com o nome atualizado.
 * Corrigir a connection string do banco de dados;
 * Fazer deploy do backend e anotar o link;
 * Corrigir o services/api do frontend para direcionar ao link da api rodando no servidor externo.

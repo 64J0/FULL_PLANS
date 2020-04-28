@@ -22,7 +22,7 @@ exports.verifyJWT = (req, res, next) => {
     if (err) {
       return res.send({
         auth: false,
-        message: "Failed to authenticate token."
+        message: "Failed to authenticate token.",
       });
     }
 
@@ -31,5 +31,5 @@ exports.verifyJWT = (req, res, next) => {
     return next();
   });
 
-  return { message: "Não foi possível autenticar o usuário" };
+  return { message: "Cannot authenticate the user" };
 };

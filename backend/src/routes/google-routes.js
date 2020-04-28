@@ -21,7 +21,12 @@ const googleController = require("../controllers/google-controller");
 // Será devolvido pro frontend um link para a planilha com os dados do projeto
 // Com esse link o frontend deve criar uma nova aba no navegador do usuário e redirecionar
 // para esse caminho da planilha
-router.get("/spreadsheets/:id", googleController.fillsSpreadsheet);
+router.get(
+  "/spreadsheets/update/:project_id",
+  googleController.fillsSpreadsheet
+);
+
+router.get("/spreadsheets/auth", googleController.authorize);
 
 // Rota que irá fazer download dos arquivos do Google Drive ZIPADOS e enviar para
 // o frontend

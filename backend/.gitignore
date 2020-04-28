@@ -4,3 +4,4 @@ node_modules
 requests.http
 tests/integration/projetos.spec.js
 credentials.json
+tmp/token.json

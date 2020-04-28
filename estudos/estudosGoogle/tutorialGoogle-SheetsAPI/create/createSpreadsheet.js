@@ -6,7 +6,6 @@ authorization(createNewSpreadsheet);
 const resource = {
   properties: {
     title: "From API",
-    locale: "pt-BR",
   },
 };
 
@@ -22,6 +21,7 @@ function createNewSpreadsheet(auth) {
       fields: "spreadsheetId",
     })
     .then((response) => {
+      // Para pegar o ID da planilha que foi criada: response.data.spreadsheetId
       console.log("response", response);
     })
     .catch((error) => {
