@@ -4,7 +4,9 @@ exports.genExcelFile = async (req, res) => {
   try {
     await repository
       .genExcelFile(req.params.id)
-      .then(workBook => {
+      .then((PlanilhaEditada) => {
+        const workBook = PlanilhaEditada.saida;
+        const { numGRD } = PlanilhaEditada;
         res.setHeader("Content-Description", "File Transfer");
         res.setHeader(
           "Content-Type",
@@ -15,22 +17,20 @@ exports.genExcelFile = async (req, res) => {
           "attachment;",
           "filename='Report.xlsx'"
         );
-        // var fileName = String('GRD_' + Date.now() + '.xlsx');
-        const fileName = "Report.xlsx";
+        const fileName = `GRD_${numGRD}.xlsx`;
+        // const fileName = "Report.xlsx";
         res.attachment(fileName);
         // workBook.xlsx.writeFile(fileName); // Salva localmente no backend
-        return workBook.xlsx.write(res).then(() => {
-          res.end();
-        });
+        return workBook.xlsx.write(res);
       })
-      .catch(err => {
-        return res.status(500).send({ Error: err });
+      .catch((err) => {
+        throw new Error(err);
       });
-    return res.status(200).send({ ok: true });
+    return { ok: true };
   } catch (e) {
     return res.status(500).send({
       message: "Falha ao gerar o Excel!",
-      Error: e
+      Error: e.message,
     });
   }
 };

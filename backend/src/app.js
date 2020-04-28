@@ -1,7 +1,4 @@
 // EXPRESS (ROTEAMENTO)
-/*  Chamando o Express
-    O Express é um framwork minimalista capaz de fazer a parte de roteamento da aplicação
-*/
 const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -39,11 +36,10 @@ app.use(hpp());
 // requisição do cliente
 app.use(cookieParser());
 
-// O rateLimit é utilizado para evitar que um usuário consiga fazer várias requisições ao mesmo tempo
-// evitando portanto ataques como ddos
+// Evita DDOS
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100,
 });
 app.use(limiter);
 
@@ -79,16 +75,10 @@ const excelGenRoutes = require("./routes/excelGen-routes");
 
 app.use("/excel", excelGenRoutes);
 
-/*
-app.get("/test", (req, res) => {
-  return res.redirect("http://localhost:3333/");
-});
-*/
-
+// TODO
 // const email = require("./routes/email");
 // app.use("/email", email);
 
-// Rota para quando o usuário tenta acessar alguma rota que não foi especificada acima
 app.route("/*").get((req, res) => {
   return res.status(404).send({ error: "Error 404 - Page not found" });
 });

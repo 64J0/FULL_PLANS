@@ -6,7 +6,7 @@ const Projetos = mongoose.model("Projetos");
 
 const filePath = path.resolve(__dirname, "../assets/teste.xlsx");
 
-exports.genExcelFile = async id => {
+exports.genExcelFile = async (id) => {
   // Recupera os dados do projeto com o id informado no banco de dados
   const res = await Projetos.findById(id);
 
@@ -22,21 +22,21 @@ exports.genExcelFile = async id => {
       // Título da GRD
       workBook.worksheets[0].getCell("C3").alignment = {
         vertical: "middle",
-        horizontal: "center"
+        horizontal: "center",
       };
 
       // Célula de cliente
       workBook.worksheets[0].getCell("D5").value = res.cliente;
       workBook.worksheets[0].getCell("D5").alignment = {
         vertical: "middle",
-        horizontal: "left"
+        horizontal: "left",
       };
 
       // Célula do responsável
       workBook.worksheets[0].getCell("C11").value = "Responsável pelo Projeto:";
       workBook.worksheets[0].getCell("C11").alignment = {
         vertical: "middle",
-        horizontal: "right"
+        horizontal: "right",
       };
       workBook.worksheets[0].getCell("D11").value = res.responsavel;
 
@@ -76,10 +76,10 @@ exports.genExcelFile = async id => {
         top: { style: "thin", color: { argb: "FF000000" } },
         left: { style: "thin", color: { argb: "FF000000" } },
         bottom: { style: "thin", color: { argb: "FF000000" } },
-        right: { style: "thin", color: { argb: "FF000000" } }
+        right: { style: "thin", color: { argb: "FF000000" } },
       };
       const fontStyle = {
-        bold: true
+        bold: true,
       };
 
       // Preenche os dados de cada desenho do projeto
@@ -122,19 +122,19 @@ exports.genExcelFile = async id => {
 
           workBook.worksheets[0].getCell(str).style = {
             font: fontStyle,
-            border: borderStyles
+            border: borderStyles,
           };
 
           if (aux2 <= 4 || aux2 >= 8) {
             // console.log(`Recebendo estilização de alinhamento: ${str}`);
             workBook.worksheets[0].getCell(str).alignment = {
               vertical: "middle",
-              horizontal: "center"
+              horizontal: "center",
             };
           } else if (aux2 === 7) {
             workBook.worksheets[0].getCell(str).alignment = {
               vertical: "middle",
-              horizontal: "left"
+              horizontal: "left",
             };
           }
         }
@@ -147,7 +147,7 @@ exports.genExcelFile = async id => {
       workBook.worksheets[0].getCell(`C${salto}`).value = C41;
       workBook.worksheets[0].getCell(`C${salto}`).alignment = {
         vertical: "middle",
-        horizontal: "left"
+        horizontal: "left",
       };
       workBook.worksheets[0].getCell(`H${salto}`).value = H41;
       workBook.worksheets[0].getCell(`C${salto + 3}`).value = C44;
@@ -159,21 +159,22 @@ exports.genExcelFile = async id => {
       for (var aux = 19; aux <= 22; aux++) {
         workBook.worksheets[0].getCell(`C${aux}`).alignment = {
           vertical: "middle",
-          horizontal: "left"
+          horizontal: "left",
         };
         workBook.worksheets[0].getCell(`D${aux}`).alignment = {
           vertical: "middle",
-          horizontal: "left"
+          horizontal: "left",
         };
       }
 
       return workBook;
     })
-    .then(workBook => {
+    .then((workBook) => {
       // workBook.xlsx.writeFile(`planilha_${Date.now()}.xlsx`); // Salva um arquivo no sistema local
       return workBook;
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 
-  return saida;
+  // Saida === workBook
+  return { saida, numGRD: res.numGRD };
 };

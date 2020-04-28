@@ -14,19 +14,17 @@ const express = require("express");
 
 const router = express.Router();
 
-const googleController = require("../controllers/google-controller");
+const createController = require("../controllers/google-api/createController");
+const authController = require("../controllers/google-api/authController");
 
 // Rota que irá criar a planilha da GRD
 //
 // Será devolvido pro frontend um link para a planilha com os dados do projeto
 // Com esse link o frontend deve criar uma nova aba no navegador do usuário e redirecionar
 // para esse caminho da planilha
-router.get(
-  "/spreadsheets/update/:project_id",
-  googleController.fillsSpreadsheet
-);
+router.get("/create/:id", createController.create);
 
-router.get("/spreadsheets/auth", googleController.authorize);
+router.get("/auth", authController.auth);
 
 // Rota que irá fazer download dos arquivos do Google Drive ZIPADOS e enviar para
 // o frontend

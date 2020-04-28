@@ -86,11 +86,6 @@ async function updateSpreadsheetData(
   }
 }
 
-/**
- * This function is used to search in the Database for the data
- * of a project with a specific ID.
- * @param {The ID of the project in MongoDB} project_id
- */
 async function findProjectDataInDB(project_id) {
   try {
     const projectObject = await Projetos.findById(project_id);
@@ -100,8 +95,6 @@ async function findProjectDataInDB(project_id) {
   }
 }
 
-// =============================================================
-// Rota específica para fazer a atualização da planilha
 exports.fillsSpreadsheet = async (req, res) => {
   const { project_id } = req.params;
   try {
