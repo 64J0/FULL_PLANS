@@ -7,27 +7,26 @@
 //
 // A numeração FULL será gerada automaticamente, com base na regra de negócio definida
 // pela Marília
-//
-// Deverá ter uma rota para baixar os arquivos de um projeto, no Drive (zipado) automa-
-// ticamente.
 const express = require("express");
 
 const router = express.Router();
 
 const createController = require("../controllers/google-api/createController");
 const authController = require("../controllers/google-api/authController");
+const downloadController = require("../controllers/google-api/downloadController");
 
-// Rota que irá criar a planilha da GRD
-//
-// Será devolvido pro frontend um link para a planilha com os dados do projeto
-// Com esse link o frontend deve criar uma nova aba no navegador do usuário e redirecionar
-// para esse caminho da planilha
+// Rota que irá salva a planilha da GRD no Google Drive
+// Não será finalizada pois algumas regras de negócio não poderão ser implementadas
+// visando melhorar a usabilidade do sistema (Não é possível saber o ID da pasta em
+// que uma GRD deve ser salva de antemão).
 router.get("/create/:id", createController.create);
 
+// Rota que é responsável por criar o token.json que posteriormente dá autorização
+// para fazer as operações no Drive.
 router.get("/auth", authController.auth);
 
 // Rota que irá fazer download dos arquivos do Google Drive ZIPADOS e enviar para
-// o frontend
-router.get("/files/:id");
+// o frontend que por sua vez irá permitir o usuário fazer download.
+router.get("/download/:id", downloadController.download);
 
 module.exports = router;

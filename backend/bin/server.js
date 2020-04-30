@@ -1,20 +1,16 @@
-/*
-    Neste trecho estão sendo chamadas as dependências necessárias para subir o servidor HTTP e realizar o debug (procurar por erros).
-*/
+// Neste trecho estão sendo chamadas as dependências necessárias para subir
+// o servidor HTTP e realizar o  debug (procurar por erros).
 const debug = require("debug")("nodestr:server");
 const http = require("http");
 const app = require("../src/app");
 
-/*
-    Função para normalizar a porta que vamos expor a aplicação
-*/
-// PORT // based on express-generator
+// PORT -> based on express-generator
 function normalizePort(val) {
-  const port = parseInt(val, 10); // Converte para Integer na base decimal (10)
+  // Converte para Integer na base decimal (10)
+  const port = parseInt(val, 10);
 
   // eslint-disable-next-line
   if (isNaN(port)) {
-    // isNaN = is Not a Number?
     return val;
   }
 
@@ -28,10 +24,7 @@ function normalizePort(val) {
 const port = normalizePort(process.env.PORT || 3333);
 app.set("port", port);
 
-/*
-    Função para lidar com possíveis erros
-*/
-// error handler
+// Error handler
 function onError(error) {
   if (error.syscall !== "listen") {
     throw error;
@@ -55,16 +48,10 @@ function onError(error) {
   }
 }
 
-/*
-    Servidor iniciado
-*/
-// server
+// Server
 const server = http.createServer(app);
 
-/*
-    Função para escutar o servidor
-*/
-// listener handler
+// Listener handler
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;

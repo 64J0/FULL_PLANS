@@ -62,6 +62,7 @@ async function uploadSpreadsheet(auth, idProject) {
 
       const fileMetadata = {
         name: `GRD_${numGRD}.xlsx`,
+        parents: ["1OV_Hi0lMZpIksOyVhVMvDY8do-DCUCMT"],
       };
 
       // Salva localmente no backend

@@ -1,19 +1,28 @@
-/*
-    Neste código é carregado o pacote do Express, sendo posteriormente instanciado em uma variável chamada express. Em seguida é instanciado um objeto do Express criado para lidar especificamente com o roteamento do navegador, neste caso, express.Router().
-*/
-const express = require('express');
+const express = require("express");
+
 const router = express.Router();
 
-const packageJson = require('../../package.json');
+const packageJson = require("../../package.json");
 
-/*
-    De acordo com o que está definido em app.js, quando o usuário entrar na página inicial, INDEX, será enviada uma requisição GET pelo navegador. Em seguida, o servidor, ouvindo essa requisição, retornará uma resposta, com o código 200 que significa que tudo deu certo, e será mostrado um arquivo json com um título e a versão.
-*/
-router.get('/', (req, res) => {
-    res.status(200).send({
-        title: 'FULL Plans API',
-        version: packageJson.version
-    });
+const projetosRoutes = require("./projetos-routes");
+const loginRoutes = require("./login-routes");
+const googleRoutes = require("./google-routes");
+const excelGenRoutes = require("./excelGen-routes");
+
+router.use("/projetos", projetosRoutes);
+router.use("/login", loginRoutes);
+router.use("/google", googleRoutes);
+router.use("/excel", excelGenRoutes);
+
+router.get("/", (req, res) => {
+  res.status(200).send({
+    title: "FULL Plans API",
+    version: packageJson.version,
+  });
+});
+
+router.route("/*").get((req, res) => {
+  return res.status(404).send({ error: "Error 404 - Page not found" });
 });
 
 module.exports = router;
