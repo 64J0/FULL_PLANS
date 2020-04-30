@@ -55,4 +55,26 @@ cd frontend
 npm start
 ```
 
+### Algumas telas da aplicação
+
+* Login:
+
+![Tela de login](https://github.com/64J0/FULL_PLANS/blob/master/imagens/preview-site/tela-login.JPG)
+
+* Home:
+
+![Tela home](https://github.com/64J0/FULL_PLANS/blob/master/imagens/preview-site/tela-home.JPG)
+
+* Cadastro de projetos:
+
+![Tela de cadastro de projetos](https://github.com/64J0/FULL_PLANS/blob/master/imagens/preview-site/projetos-cadastro.png)
+
+* Projetos abertos:
+
+![Tela de projetos abertos](https://github.com/64J0/FULL_PLANS/blob/master/imagens/preview-site/projetos-abertos.png)
+
+* Detalhes do projeto:
+
+![Tela de detalhes do projeto](https://github.com/64J0/FULL_PLANS/blob/master/imagens/preview-site/projetos-detalhes.png)
+
 *Vinícius Gajo Marques Oliveira*, 2020.
