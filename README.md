@@ -18,6 +18,7 @@ Para desenvolver o frontend foi utilizado, basicamente, ReactJS com Hooks.
 * ~~Implementar um sistema de upload de arquivos para armazenar detalhes de projetos já finalizados. Para isso está sendo estudada uma implementação usando o GridFS do MongoDB, pois este é o banco de dados escolhido para se utilizar no projeto. *O GridFS deve ser usado quando for necessário guardar no banco de dados MongoDB um arquivo de tamanho superior a 16 MB~~. Esta funcionalidade foi alterada, agora os arquivos do projeto serão salvos em um servidor provido pelo Google, e no banco de dados será armazenado apenas o link para aquele projeto;
 * Implementar um sistema de autenticação e autorização usando JWT;
 * ~~Estudar a possibilidade de implementação do Redux para trabalhar em conjunto com o React~~. Conforme o sistema foi sendo desenvolvido não foi realmente necessária a utilização do Redux.
+* Implementar um sistema de paginação na aba de **Projetos Arquivados** para quando o banco de dados estiver com vários itens. Não será necessário implementar essa feature para os **Projetos Abertos** pois acredita-se que a sua quantidade não será realmente grande visto a rapidez com que os projetos são feitos na empresa;
 * Funcionalidade de salvar a sessão do usuário, salvando suas credenciais no localStorage do navegador.
 * Estudar sobre a hospedagem no GCP e no Netlify;
 * Deploy da API no GCP (Google Cloud Platform);
@@ -29,7 +30,6 @@ Para desenvolver o frontend foi utilizado, basicamente, ReactJS com Hooks.
 * Configurar o CORS para permitir acessar a API apenas de determinadas URLs;
 * ~~Desenvolver uma funcionalidade que preencha uma planilha do Excel automaticamente com os dados armazenados no banco de dados referentes ao projeto que estiver aberto (com estilização). O número da planilha será corrigido com base numa regra específica da empresa e segue uma ordem crescente~~. A meta atual é preencher uma planilha do Google Spreadsheet formatada com os dados do projeto, ou fazer upload automático da planilha criada para o Excel diretamente para o Google Sheets;
 * Determinar uma lista suspensa para escolha do status dos projeto. Não deixar a pessoa escrever o status e sim escolher os que estão na lista suspensa.
-* Implementar um sistema de paginação para quando o banco de dados estiver com vários itens;
 * Funcionalidade necessária: Criar um botão no frontend para fazer download dos arquivos de desenhos salvos no Google Drive. Serão acessados os links salvos para cada projeto, esses desenhos devem ser baixados em formato .zip.
 * Layout precisa ser ajustado para ficar mais user friendly:
   * Uma tela de loading para quando os projetos estiverem sendo carregados do banco de dados;
