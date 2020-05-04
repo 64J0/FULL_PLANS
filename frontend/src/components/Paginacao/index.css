@@ -1,0 +1,10 @@
+button.PaginacaoBtn {
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+
+  color: blue;
+  font-size: 18px;
+  font-weight: bold;
+}

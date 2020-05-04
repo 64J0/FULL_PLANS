@@ -47,7 +47,7 @@ function App() {
   useEffect(() => {
     async function loadProjetos() {
       const response = await api.get("/projetos", configAuth);
-      setProjetos(response.data);
+      return setProjetos(response.data);
     }
     if (login.auth) {
       loadProjetos();
@@ -220,12 +220,10 @@ function App() {
     var index = projetos.findIndex((x) => String(x._id) === String(id));
     if (isNaN(index)) throw new Error("Não foi encontrado o ID do projeto");
 
-    console.log("body", body);
     await api
       .put(`/projetos/${id}`, body, configAuth)
       .then((response) => {
         setAuxProjetoUpdate(response.data);
-        console.log("response.data", response.data);
         return response.data;
       })
       .then((data) => {
