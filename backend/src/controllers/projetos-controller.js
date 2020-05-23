@@ -23,6 +23,7 @@ exports.createProjeto = async (req, res) => {
       numPedido: req.body.numPedido,
       responsavel: req.body.responsavel,
       status: req.body.status,
+      comentario: req.body.comentario,
       infoProjetos: req.body.infoProjetos,
       arquivado: req.body.arquivado,
     });

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import GerenciarInfo from "./GerenciarInfo";
+import { FiChevronsUp } from "react-icons/fi";
 
 import "./Gerenciar.css";
 import api from "../services/api";
@@ -16,6 +17,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
   const [arquivado, setArquivado] = useState(projeto.arquivado);
   const [status, setStatus] = useState(projeto.status || "");
+  const [comentario, setComentario] = useState(projeto.comentario || "");
 
   const [infoProjetos, setInfoProjetos] = useState(projeto.infoProjetos);
 
@@ -63,6 +65,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
               numPedido,
               responsavel,
               status: novoStatus,
+              comentario,
               infoProjetos,
               arquivado,
             };
@@ -138,6 +141,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
       numPedido,
       responsavel,
       status,
+      comentario,
       infoProjetos,
       arquivado,
     };
@@ -258,13 +262,41 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
             <div className="inputFields">
               <div className="input-block">
                 <label htmlFor="status">Status</label>
-                <input
-                  type="text"
+                <select
                   name="status"
-                  required
-                  value={status}
+                  id="status"
+                  defaultValue={status}
                   onChange={(e) => setStatus(e.target.value)}
-                />
+                >
+                  <option value="EM ANDAMENTO">EM ANDAMENTO</option>
+                  <option value="PARALISADO PELO CLIENTE">
+                    PARALISADO PELO CLIENTE
+                  </option>
+                  <option value="AGUARDANDO INÍCIO PELA FULL">
+                    AGUARDANDO INÍCIO PELA FULL
+                  </option>
+                  <option value="AGUARDANDO LEVANTAMENTO DE CAMPO">
+                    AGUARDANDO LEVANTAMENTO DE CAMPO
+                  </option>
+                  <option value="FINALIZADO">FINALIZADO</option>
+                  <option value="NÚMEROS">NÚMEROS</option>
+                  <option value="MEDIÇÃO">MEDIÇÃO</option>
+                  <option value="APROVAÇÃO DO PROJETO">
+                    APROVAÇÃO DO PROJETO
+                  </option>
+                </select>
+              </div>
+
+              <div className="input-block">
+                <label htmlFor="comentario">Comentários</label>
+                <textarea
+                  name="comentario"
+                  id="comentario"
+                  rows="5"
+                  placeholder="Digite aqui algum comentário"
+                  value={comentario}
+                  onChange={(e) => setComentario(e.target.value)}
+                ></textarea>
               </div>
 
               <div className="input-block">
@@ -333,6 +365,18 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
           </form>
 
           {/* ================================================================================================ */}
+
+          <div className="div-back-to-top">
+            <button
+              className="back-to-top"
+              onClick={() => {
+                document.body.scrollTop = 0; // For Safari
+                document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+              }}
+            >
+              <FiChevronsUp size={30} />
+            </button>
+          </div>
 
           <div className="div-buttons">
             {/*

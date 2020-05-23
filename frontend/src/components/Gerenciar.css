@@ -26,7 +26,10 @@
   background: none;
 }
 
-.update-item .input-block input {
+.update-item .input-block input,
+select,
+textarea {
+  font-size: 14px;
   border: none;
   font-weight: bold;
   padding: 3px 3px 3px 6px;
@@ -143,4 +146,30 @@
 
 div.inputFields {
   padding-bottom: 10px;
+}
+
+div.div-back-to-top {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+
+  margin-top: 15px;
+}
+
+div.div-back-to-top button {
+  background: #666;
+  border-radius: 50% 50% 0 0;
+  border: none;
+  border-bottom: 1px solid yellow;
+  transition: background-color 0.2s;
+  width: 60px;
+}
+
+div.div-back-to-top button:hover {
+  transition: background-color 0.2s;
+  background-color: #333;
+}
+
+div.div-back-to-top button svg {
+  color: yellow;
 }

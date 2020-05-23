@@ -13,93 +13,97 @@ const projetoSchema = new Schema({
   cliente: {
     type: String,
     required: true,
-    uppercase: true
+    uppercase: true,
+  },
+  comentario: {
+    type: String,
+    uppercase: true,
   },
   numGRD: {
-    type: Number
+    type: Number,
   },
   nomeProjeto: {
     type: String,
-    uppercase: true
+    uppercase: true,
   },
   disciplinaMestre: {
     type: String,
-    uppercase: true
+    uppercase: true,
   },
   numPedido: {
     type: String,
-    uppercase: true
+    uppercase: true,
   },
   responsavel: {
     type: String,
-    uppercase: true
+    uppercase: true,
   },
   status: {
     type: String,
-    uppercase: true
+    uppercase: true,
   },
   infoProjetos: [
     {
       linkDesenho: {
-        type: String
+        type: String,
       },
       tipoEngenharia: {
         type: String,
-        uppercase: true
+        uppercase: true,
       },
       disciplinaDesenho: {
         type: String,
-        uppercase: true
+        uppercase: true,
       },
       revisao: {
         type: String,
-        uppercase: true
+        uppercase: true,
       },
       numFull: {
         type: String,
-        uppercase: true
+        uppercase: true,
       },
       numCliente: {
         type: String,
-        uppercase: true
+        uppercase: true,
       },
       formato: {
         type: String,
-        uppercase: true
+        uppercase: true,
       },
       descricao: {
         type: String,
-        uppercase: true
+        uppercase: true,
       },
       projetistaDesenho: {
         type: String,
-        uppercase: true
+        uppercase: true,
       },
       verificadorDesenho: {
         type: String,
-        uppercase: true
+        uppercase: true,
       },
       dataInicio: {
         type: Date,
-        default: Date.now
+        default: Date.now,
       },
       dataFinal: {
         type: Date,
-        default: Date.now
-      }
-    }
+        default: Date.now,
+      },
+    },
   ],
   arquivado: {
     type: Boolean,
-    default: false
+    default: false,
   },
   dataArquivado: {
-    type: Date
+    type: Date,
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("Projetos", projetoSchema);
