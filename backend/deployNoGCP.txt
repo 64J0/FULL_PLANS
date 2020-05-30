@@ -1,4 +1,6 @@
-﻿cd ...até a pasta do arquivo...
+O Google Cloud executa o comando npm start para iniciar o projeto, portanto, é necessário que o arquivo tenha no package.json, dentro de "scripts" um chamado "start" para que o GCloud consiga executar corretamente. Referência: https://cloud.google.com/appengine/docs/flexible/nodejs/runtime.
+
+cd ...até a pasta do arquivo...
 gcloud auth login
 gcloud config set project PROJECT_ID
 gcloud app deploy
