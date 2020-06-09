@@ -1,0 +1,6 @@
+Alterações propostas pelo Zé:
+
+- Eu queria que olhasse a possibilidade de colocar 5 marcadores em cada documento:
+[0%, 25%, 50%, 75%, 100%]
+- Pra na página principal de cada projeto ter um campo somando a % concluída de cada projeto
+- E no gerencial a gente conseguir ver o avanço de cada um.

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import GerenciarInfo from "./GerenciarInfo";
 import { FiChevronsUp } from "react-icons/fi";
 
@@ -14,6 +14,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
   );
   const [numPedido, setNumPedido] = useState(projeto.numPedido || "");
   const [responsavel, setResponsavel] = useState(projeto.responsavel || "");
+  const [numGRD, setNumGRD] = useState(projeto.numGRD);
 
   const [arquivado, setArquivado] = useState(projeto.arquivado);
   const [status, setStatus] = useState(projeto.status || "");
@@ -43,120 +44,171 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     }
   });
 
-  // Esse trecho de código é responsável por arquivar um projeto quando o usuário clicar no botão
-  // de arquivar. Além disso, após setar o novo estado o usuário é redirecionado para outra aba
-  // da aplicação, onde são mostrados todos os projetos arquivados.
-  useEffect(() => {
-    async function arquivar(id) {
-      if (arquivado !== projeto.arquivado) {
-        new Promise((resolve, reject) => {
-          const texto = "Descrição do status:";
-          let novoStatus = window.prompt(texto, "");
-          if (novoStatus) {
-            novoStatus = novoStatus.toUpperCase();
-          }
-          resolve(novoStatus);
-        })
-          .then((novoStatus) => {
-            var body = {
-              cliente,
-              nomeProjeto,
-              disciplinaMestre,
-              numPedido,
-              responsavel,
-              status: novoStatus,
-              comentario,
-              infoProjetos,
-              arquivado,
-            };
-            if (!projeto.arquivado) {
-              body.dataArquivado = String(new Date(Date.now()));
-            }
-            return body;
-          })
-          .then((body) => {
-            onUpdateProjeto(id, body);
-          })
-          .then(() => {
-            decideWhatToDisplay();
-          })
-          .catch((err) => {
-            console.log("Ocorreu um erro :(", err);
-            return err;
-          });
-      }
-    }
-
-    arquivar(projeto._id);
-    // eslint-disable-next-line
+  // atualizaEstadoArquivado
+  //
+  // Essa função é usada para mudar o estado da variável arquivado.
+  const atualizaEstadoArquivado = useCallback(() => {
+    return setArquivado(!arquivado);
   }, [arquivado]);
 
   // decideWhatToDisplay()
   //
   // Essa função é responsável por mudar a aba do usuário no sistema, dependendo do valor
   // armazenado na propriedade arquivado do projeto.
-  function decideWhatToDisplay() {
-    if (arquivado) {
-      display("Arquivados");
-    } else {
-      display("Abertos");
-    }
-  }
+  const decideWhatToDisplay = useCallback(
+    (boolProvisorio) => {
+      if (typeof boolProvisorio === "boolean") {
+        if (!arquivado) {
+          return display("Arquivados");
+        } else {
+          return display("Abertos");
+        }
+      }
+
+      if (arquivado) {
+        return display("Arquivados");
+      } else {
+        return display("Abertos");
+      }
+    },
+    [arquivado, display]
+  );
+
+  // Esse trecho de código é responsável por arquivar um projeto quando o usuário clicar no botão
+  // de arquivar. Além disso, após setar o novo estado o usuário é redirecionado para outra aba
+  // da aplicação, onde são mostrados todos os projetos arquivados.
+  const arquivar = useCallback(
+    async (id) => {
+      try {
+        const texto = `Deseja realmente ${
+          arquivado ? "desarquivar" : "arquivar"
+        } este projeto?`;
+
+        let confirmationBool = window.confirm(texto);
+        if (!confirmationBool) {
+          return;
+        }
+
+        atualizaEstadoArquivado();
+
+        var body = {
+          cliente,
+          nomeProjeto,
+          disciplinaMestre,
+          numPedido,
+          responsavel,
+          status,
+          comentario,
+          infoProjetos,
+          arquivado: !arquivado,
+        };
+
+        if (!projeto.arquivado) {
+          body.dataArquivado = String(new Date(Date.now()));
+        }
+
+        await onUpdateProjeto(id, body);
+
+        return decideWhatToDisplay(true);
+      } catch (err) {
+        console.log("Ocorreu um erro :(", err);
+        return err;
+      }
+    },
+    [
+      arquivado,
+      atualizaEstadoArquivado,
+      cliente,
+      comentario,
+      decideWhatToDisplay,
+      disciplinaMestre,
+      infoProjetos,
+      nomeProjeto,
+      numPedido,
+      onUpdateProjeto,
+      projeto.arquivado,
+      responsavel,
+      status,
+    ]
+  );
 
   // apagarProjeto()
   //
   // Essa função é responsável por editar os valores de infoProjetos, mais especificamente,
   // ela irá retirar do conjunto de valores de infoProjetos o valor cujo id foi passado na
   // chamada da função.
-  function apagarProjeto(id) {
-    return setInfoProjetos(
-      infoProjetos.filter((infoProjeto) => infoProjeto._id !== id)
-    );
-  }
+  const apagarProjeto = useCallback(
+    (id) => {
+      return setInfoProjetos(
+        infoProjetos.filter((infoProjeto) => infoProjeto._id !== id)
+      );
+    },
+    [infoProjetos]
+  );
 
   // updateInfoProjeto()
   //
   // Essa função é responsável por atualizar os valores de infoProjetos com os dados passados
   // no body da função.
-  function updateInfoProjeto(id, data) {
-    var index = infoProjetos.findIndex((x) => x._id === id);
+  const updateInfoProjeto = useCallback(
+    (id, data) => {
+      var index = infoProjetos.findIndex((x) => x._id === id);
 
-    data._id = id;
-    return setInfoProjetos([
-      ...infoProjetos.slice(0, index),
-      data,
-      ...infoProjetos.slice(index + 1),
-    ]);
-  }
+      data._id = id;
+      return setInfoProjetos([
+        ...infoProjetos.slice(0, index),
+        data,
+        ...infoProjetos.slice(index + 1),
+      ]);
+    },
+    [infoProjetos]
+  );
 
   // salvar()
   //
   // Essa função assíncrona é responsável por salvar os dados de um infoProjetos no banco de dados
   // com os valores salvos nos estados desse componente.
-  async function salvar(id) {
-    var body = {
+  const salvar = useCallback(
+    async (id) => {
+      var body = {
+        cliente,
+        nomeProjeto,
+        disciplinaMestre,
+        numPedido,
+        responsavel,
+        status,
+        numGRD,
+        comentario,
+        infoProjetos,
+        arquivado,
+      };
+
+      await onUpdateProjeto(id, body).then(() => {
+        if (infoProjetos !== projeto.infoProjetos) {
+          setInfoProjetos(projeto.infoProjetos);
+        }
+      });
+    },
+    [
+      arquivado,
       cliente,
-      nomeProjeto,
+      comentario,
       disciplinaMestre,
+      infoProjetos,
+      nomeProjeto,
+      numGRD,
       numPedido,
+      onUpdateProjeto,
+      projeto.infoProjetos,
       responsavel,
       status,
-      comentario,
-      infoProjetos,
-      arquivado,
-    };
-
-    await onUpdateProjeto(id, body).then(() => {
-      if (infoProjetos !== projeto.infoProjetos) {
-        setInfoProjetos(projeto.infoProjetos);
-      }
-    });
-  }
+    ]
+  );
 
   // novosCampos()
   //
   // Essa função é responsável por criar os novos campos de um infoProjeto novo.
-  function novosCampos() {
+  const novosCampos = useCallback(() => {
     let novaInfoProjeto = {
       linkDesenho: "",
       disciplinaDesenho: "",
@@ -172,19 +224,19 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     };
     setInfoProjetos([...infoProjetos, novaInfoProjeto]);
     setToggleNovoCampo(true);
-  }
+  }, [infoProjetos]);
 
   // defineTextoBotaoArquivar()
   //
   // Essa função é responsável por especificar qual o texto que será mostrado para o usuário
   // no botão de arquivar ou desarquivar com base na propriedade arquivado do projeto.
-  function defineTextoBotaoArquivar() {
+  const defineTextoBotaoArquivar = useCallback(() => {
     if (projeto.arquivado) {
       return "Desarquivar";
     } else {
       return "Arquivar";
     }
-  }
+  }, [projeto.arquivado]);
 
   // gerarPlanilha()
   //
@@ -330,14 +382,26 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
                 />
               </div>
 
-              <div className="input-block">
-                <label htmlFor="numPedido">Número do pedido</label>
-                <input
-                  type="text"
-                  name="numPedido"
-                  value={numPedido}
-                  onChange={(e) => setNumPedido(e.target.value)}
-                />
+              <div className="input-group">
+                <div className="input-block">
+                  <label htmlFor="numPedido">Número do pedido</label>
+                  <input
+                    type="text"
+                    name="numPedido"
+                    value={numPedido}
+                    onChange={(e) => setNumPedido(e.target.value)}
+                  />
+                </div>
+
+                <div className="input-field">
+                  <label htmlFor="numGRD">GRD</label>
+                  <input
+                    type="text"
+                    name="numGRD"
+                    value={numGRD}
+                    onChange={(e) => setNumGRD(e.target.value)}
+                  />
+                </div>
               </div>
 
               <div className="input-block">
@@ -380,25 +444,21 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
           <div className="div-buttons">
             {/*
-                        Funcionando 
-                        Adiciona os campos de input para adicionar novas informações ao projeto que 
-                        está aberto
-                    */}
+              Adiciona os campos de input para adicionar novas informações ao projeto que 
+              está aberto
+            */}
             <button
               type="button"
               className="btn-adicionarCampos"
-              onClick={() => {
-                novosCampos();
-              }}
+              onClick={novosCampos}
             >
               Add Campos
             </button>
 
-            {/* 
-                        Funcionando
-                        Quando o usuário clicar neste botão o projeto ou infoProjeto em questão será salvo
-                        no banco de dados
-                    */}
+            {/*
+              Quando o usuário clicar neste botão o projeto ou infoProjeto em questão será salvo
+              no banco de dados
+            */}
             <button
               type="button"
               className="btn-salvar"
@@ -410,31 +470,27 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
             </button>
 
             {/* 
-                        Funcionando 
-                        Quando o usuário clicar neste botão ele deve ser redirecionado para a página que 
-                        estava anteriormente, que pode ser definida com base no valor da propriedade 
-                        arquivado.
-                    */}
+              Quando o usuário clicar neste botão ele deve ser redirecionado para a página que 
+              estava anteriormente, que pode ser definida com base no valor da propriedade 
+              arquivado.
+            */}
             <button
               type="button"
               className="btn-cancelar"
-              onClick={() => {
-                decideWhatToDisplay();
-              }}
+              onClick={decideWhatToDisplay}
             >
               Cancelar
             </button>
 
             {/*
-                        Funcionando
-                        Quando este botão for clicado, deve abrir uma janela pop-up para que o usuário 
-                        possa atualizar o valor do estado de status. 
-                     */}
+              Quando este botão for clicado, deve abrir uma janela para o usuário confirmar
+              se quer ou não arquivar o projeto realmente. 
+            */}
             <button
               type="button"
               className="btn-arquivar"
               onClick={() => {
-                setArquivado(!projeto.arquivado);
+                arquivar(projeto._id);
               }}
             >
               {defineTextoBotaoArquivar()}
@@ -445,9 +501,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
             <button
               type="button"
               className="btn-criar-planilha"
-              onClick={() => {
-                gerarPlanilha();
-              }}
+              onClick={gerarPlanilha}
             >
               Gerar planilha!
             </button>

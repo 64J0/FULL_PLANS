@@ -174,7 +174,7 @@ function App() {
   // Ela faz a chamada à API passando os dados que são passados em sua chamada, que por
   // sua vez são abstraídos em um objeto chamado data.
   async function handleAddProjeto(data) {
-    data.status = "Novo projeto"; // Esse dado não é cadastrável no componente
+    data.status = "EM ANDAMENTO"; // Esse dado não é cadastrável no componente
     data.numGRD = biggerNumGRD; // Adiciona o valor da GRD nos dados cadastrados
     await api
       .post("/projetos", data, configAuth)

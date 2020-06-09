@@ -32,6 +32,11 @@ function GerenciarInfo({
   const [dataInicio, setDataInicio] = useState(informacao.dataInicio);
   const [dataFinal, setDataFinal] = useState(informacao.dataFinal);
 
+  // Novo estado que será utilizado no sistema, conforme pedido pelo Zé
+  const [statusPorcentagem, setStatusPorcentagem] = useState(
+    informacao.statusPorcentagem || 0
+  );
+
   // updateInfo()
   //
   // Esse trecho de código é responsável por atualizar o estado da propriedades infoProjetos
@@ -53,6 +58,7 @@ function GerenciarInfo({
         verificadorDesenho,
         dataInicio,
         dataFinal,
+        statusPorcentagem,
       });
     }
 
@@ -68,35 +74,10 @@ function GerenciarInfo({
       projetistaDesenho !== informacao.projetistaDesenho ||
       verificadorDesenho !== informacao.verificadorDesenho ||
       dataInicio !== informacao.dataInicio ||
-      dataFinal !== informacao.dataFinal
+      dataFinal !== informacao.dataFinal ||
+      statusPorcentagem !== informacao.statusPorcentagem
     ) {
       updateInfo();
-    }
-  });
-
-  // handleApagar()
-  //
-  // Esse trecho de código é responsável por apagar uma infoProjeto específica
-  const [boolApagar, setBoolApagar] = useState(false);
-
-  useEffect(() => {
-    function handleApagar() {
-      new Promise((resolve, reject) => {
-        apagarProjeto(informacao._id);
-      })
-        .then(() => {
-          setBoolApagar(false);
-        })
-        .catch((err) => {
-          console.log("error: ", err);
-        });
-    }
-
-    if (boolApagar) {
-      var confirmacao = window.confirm("Deseja realmente apagar?");
-      if (confirmacao) {
-        handleApagar();
-      }
     }
   });
 
@@ -204,7 +185,7 @@ function GerenciarInfo({
           />
         </div>
 
-        <div className="linkDesenho">
+        <div className="descricaoEtipoEngenharia">
           <p>Link do desenho:</p>
           <input
             type="text"
@@ -215,6 +196,22 @@ function GerenciarInfo({
               setLinkDesenho(e.target.value);
             }}
           />
+
+          <p>% do projeto:</p>
+          <select
+            className="statusPorcentagem"
+            name="statusPorcentagem"
+            value={statusPorcentagem}
+            onChange={(e) => {
+              setStatusPorcentagem(e.target.value);
+            }}
+          >
+            <option value="0">0%</option>
+            <option value="25">25%</option>
+            <option value="50">50%</option>
+            <option value="75">75%</option>
+            <option value="100">100%</option>
+          </select>
         </div>
 
         <div className="disciplinaErevisaoEformato">
@@ -341,7 +338,13 @@ function GerenciarInfo({
           <button
             className="deletarInfoProjeto"
             type="button"
-            onClick={() => setBoolApagar(true)}
+            onClick={() => {
+              var confirmacao = window.confirm("Deseja realmente apagar?");
+              if (confirmacao) {
+                return apagarProjeto(informacao._id);
+              }
+              return null;
+            }}
           >
             Apagar
           </button>

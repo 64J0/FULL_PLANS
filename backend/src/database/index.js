@@ -17,7 +17,7 @@ module.exports = function db_Connection() {
   // O mongoose foi utilizado para criar uma conexão com a connection string do banco
   // de dados que passamos via variável de ambiente (process.env.DATABASE_CONNECTION_STRING).
   // Também são passadas algumas configurações importantes para o funcionamento do mongoose.
-  mongoose.connect(process.env.DATABASE_CONNECTION_STRING, {
+  mongoose.connect(process.env.DATABASE_TEST_CONNECTION_STRING, {
     useNewUrlParser: true,
     useFindAndModify: false,
     useCreateIndex: true,

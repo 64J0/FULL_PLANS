@@ -83,6 +83,10 @@ const projetoSchema = new Schema({
         type: String,
         uppercase: true,
       },
+      statusPorcentagem: {
+        type: Number,
+        default: 0,
+      },
       dataInicio: {
         type: Date,
         default: Date.now,

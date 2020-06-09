@@ -18,7 +18,8 @@
   width: 100%;
 }
 
-.update-item .input-block label {
+.update-item .input-block label,
+.input-field label {
   font-weight: bold;
   padding: 3px 3px 3px 6px;
   margin: 5px 0 0 5px;
@@ -28,9 +29,10 @@
 
 .update-item .input-block input,
 select,
-textarea {
+textarea,
+.input-field input {
   font-size: 14px;
-  border: none;
+  border: 1px solid black;
   font-weight: bold;
   padding: 3px 3px 3px 6px;
   margin: 7px 20px 0 5px;
@@ -172,4 +174,15 @@ div.div-back-to-top button:hover {
 
 div.div-back-to-top button svg {
   color: yellow;
+}
+
+div.input-group {
+  display: flex;
+  grid-template-columns: 60% 40%;
+}
+
+div.input-field {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
 }

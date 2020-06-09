@@ -74,7 +74,8 @@ input {
 }
 
 .liGerenciarInfo div.descricaoEtipoEngenharia p,
-input {
+input,
+select {
   justify-content: center;
   text-align: start;
 }

@@ -36,7 +36,7 @@
 
 .list-item .div-buttons button.btn-editar[type="button"] {
   padding: 8px 0;
-  margin: 10px;
+  margin: 15px 0 10px 0;
   font-weight: bold;
   font-size: 16px;
   border: none;
@@ -52,4 +52,19 @@
   cursor: pointer;
   background-color: #f05e23;
   color: white;
+}
+
+div.percentageCounter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  margin: 3px 10px 0 0;
+  font-weight: bold;
+}
+
+div.percentageCounter p {
+  background: #f9f9f9;
+  padding: 5px 8px;
+  border-radius: 5px;
 }
