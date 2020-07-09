@@ -34,8 +34,12 @@ function GerenciarInfo({
 
   // Novo estado que será utilizado no sistema, conforme pedido pelo Zé
   const [statusPorcentagem, setStatusPorcentagem] = useState(
-    informacao.statusPorcentagem || 0
+    informacao.statusPorcentagem || 75
   );
+
+  useEffect(() => {
+    console.log(statusPorcentagem);
+  }, [statusPorcentagem]);
 
   // updateInfo()
   //
@@ -185,7 +189,7 @@ function GerenciarInfo({
           />
         </div>
 
-        <div className="descricaoEtipoEngenharia">
+        <div className="linkDesenho">
           <p>Link do desenho:</p>
           <input
             type="text"
@@ -196,22 +200,6 @@ function GerenciarInfo({
               setLinkDesenho(e.target.value);
             }}
           />
-
-          <p>% do projeto:</p>
-          <select
-            className="statusPorcentagem"
-            name="statusPorcentagem"
-            value={statusPorcentagem}
-            onChange={(e) => {
-              setStatusPorcentagem(e.target.value);
-            }}
-          >
-            <option value="0">0%</option>
-            <option value="25">25%</option>
-            <option value="50">50%</option>
-            <option value="75">75%</option>
-            <option value="100">100%</option>
-          </select>
         </div>
 
         <div className="disciplinaErevisaoEformato">
@@ -319,6 +307,20 @@ function GerenciarInfo({
               setDataFinal(e.target.value);
             }}
           />
+        </div>
+
+        <div className="porcentagemStatus">
+          <p>Status do projeto:</p>
+          <select
+            defaultValue={statusPorcentagem}
+            onChange={(event) => setStatusPorcentagem(event.target.value)}
+          >
+            <option value="75">EM ELABORAÇÃO - 75%</option>
+            <option value="85">CHECAGEM - 85%</option>
+            <option value="90">EMISSÃO - 90%</option>
+            <option value="95">MEDIÇÃO - 95%</option>
+            <option value="100">FINALIZADO - 100%</option>
+          </select>
         </div>
 
         {/*

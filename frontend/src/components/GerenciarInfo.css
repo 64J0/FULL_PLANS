@@ -109,6 +109,16 @@ div.dataInicioEdataFinal {
   text-align: start;
 }
 
+.liGerenciarInfo div.porcentagemStatus {
+  display: flex;
+  flex-direction: row;
+}
+
+.liGerenciarInfo div.porcentagemStatus p {
+  width: 150px;
+  margin-right: 5px;
+}
+
 @media (max-width: 960px) {
   .liGerenciarInfo div.disciplinaErevisaoEformato,
   div.numFullEnumCliente,

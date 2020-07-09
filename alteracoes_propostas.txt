@@ -4,3 +4,8 @@ Alterações propostas pelo Zé:
 [0%, 25%, 50%, 75%, 100%]
 - Pra na página principal de cada projeto ter um campo somando a % concluída de cada projeto
 - E no gerencial a gente conseguir ver o avanço de cada um.
+
+========================================================================
+Alterações propostas pela Marília:
+
+- Alterar as opções de porcentagem e o texto referente a cada uma.
