@@ -4,7 +4,7 @@ import "./ListItem.css";
 
 import calculatePercentage from "../utils/calculatePercentage";
 
-function ListItem({ projeto, display, setProjeto }) {
+function ListItem({ projeto, setProjeto }) {
   const [percentageCalculated] = useState(
     calculatePercentage(projeto.infoProjetos)
   );
@@ -45,7 +45,6 @@ function ListItem({ projeto, display, setProjeto }) {
   function redirecionar() {
     // setProjeto == setProjetoUpdate do App.js
     setProjeto(projeto);
-    display("Gerenciar");
   }
 
   return (

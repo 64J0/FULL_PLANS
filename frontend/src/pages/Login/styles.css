@@ -1,0 +1,84 @@
+div.login {
+  align-self: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 500px;
+  height: 500px;
+  padding: 20px;
+  border-radius: 15px 0;
+
+  background-color: #fff;
+  color: #333;
+}
+
+div.login img {
+  width: 90px;
+  margin: 0 auto;
+}
+
+div.login form {
+  width: 90%;
+}
+
+div.login fieldset {
+  width: 100%;
+  border: none;
+}
+
+div.login fieldset hr {
+  margin-bottom: 25px;
+}
+
+div.login fieldset legend {
+  padding: 20px 0 10px 0;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+
+div.login fieldset button {
+  margin-top: 35px;
+  padding: 10px 0;
+  display: block;
+  justify-content: center;
+  width: 100%;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  background: rgb(23, 23, 160);
+  border-radius: 4px;
+  color: #ffffff;
+  transition: background 0.5s;
+}
+
+div.login fieldset button:hover {
+  background: #4d44d8;
+}
+
+/** INPUT CUSTOMIZADO **/
+div.login div.inputCustomizado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 15px 0;
+  border-radius: 3px;
+  border: 1px solid #a9a9a9;
+}
+
+div.login fieldset span {
+  width: 20px;
+  margin: 0 10px;
+}
+
+div.login fieldset input {
+  flex: 1;
+  padding: 5px;
+  border: none;
+  border-left: 1px solid #a9a9a9;
+  border-radius: 0;
+}

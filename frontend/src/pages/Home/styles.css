@@ -1,0 +1,36 @@
+div.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 85%;
+  height: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+
+  padding: 20px;
+}
+
+.home #img-logo {
+  text-align: center;
+  width: 100px;
+  padding-top: 15px;
+}
+
+.home #img-logo img {
+  width: 130px;
+}
+
+.home hr {
+  height: 2px;
+  width: 75%;
+  background-color: #a9a9a9;
+  margin: 25px 0;
+}
+
+.home h3 {
+  padding-bottom: 40px;
+  color: #353839;
+  text-align: center;
+}

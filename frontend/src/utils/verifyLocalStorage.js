@@ -1,18 +1,24 @@
+// Função criada para verificar o localStorage do navegador do usuário em relação a tokens de sessão salvos.
+
 function verifyLocalStorage() {
-  // Verifica se existe o item 'authJWT' no localStorage
-  const token = localStorage.getItem("authJWTFP");
-  if (token) {
-    let expirationDate = localStorage.getItem("expiresIn");
-    if (Number(Date.now()) > Number(expirationDate)) {
-      localStorage.removeItem("authJWTFP");
-      localStorage.removeItem("expiresIn");
-      return false;
-    } else {
-      return token;
-    }
-  } else {
-    return false;
+  const token = localStorage.getItem("@FullPlans:token");
+  const expiresIn = localStorage.getItem("@FullPlans:expiresIn");
+
+  if (!expiresIn) {
+    localStorage.removeItem("@FullPlans:token");
+    return undefined;
   }
+
+  if (Date.now() > expiresIn) {
+    localStorage.removeItem("@FullPlans:token");
+    localStorage.removeItem("@FullPlans:expiresIn");
+  }
+
+  if (!token) {
+    return undefined;
+  }
+
+  return token;
 }
 
 export default verifyLocalStorage;

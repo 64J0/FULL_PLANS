@@ -1,276 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { BrowserRouter } from 'react-router-dom';
 
-// Services
-import api from "./services/api";
+// Hooks
+import AppProvider from './hooks';
 
-// Components
-import CadastrarProjeto from "./components/CadastrarProjeto";
-import Cabecalho from "./components/Cabecalho";
-import Abertos from "./components/Abertos";
-import Arquivados from "./components/Arquivados";
-import Home from "./components/Home";
-import Footer from "./components/Footer";
-import Login from "./components/Login";
-import Gerenciar from "./components/Gerenciar";
+// Rotas
+import Routes from './routes';
 
 // CSS
-import "./App.css";
-import "./global.css";
-
-// utils
-import verifyLocalStorage from "./utils/verifyLocalStorage";
-import addLocalStorageInfo from "./utils/addLocalStorageInfo";
+import GlobalStyles from "./styles/global";
 
 function App() {
-  const [projetos, setProjetos] = useState([]);
-  const [projetosArquivados, setProjetosArquivados] = useState([]);
-  const [projetosAbertos, setProjetosAbertos] = useState([]);
-  const [login, setLogin] = useState(false);
-  const [projetoUpdate, setProjetoUpdate] = useState("");
-
-  const [auxProjetoUpdate, setAuxProjetoUpdate] = useState();
-  const [auxProjetos, setAuxProjetos] = useState();
-  const [toggleUpdate, setToggleUpdate] = useState(false);
-  const [biggerNumGRD, setBiggerNumGRD] = useState(0);
-
-  // Header das requisições http com informações sobre o JWT (JSON Web Token)
-  let configAuth = {
-    headers: {
-      Authorization: "Bearer " + String(login.token),
-    },
-  };
-
-  // loadProjetos()
-  //
-  // Carrega os dados do banco de dados na primeira renderização do aplicativo. Esse trecho
-  // de código vai sempre repetir quando o valor da propriedade login.auth mudar.
-  useEffect(() => {
-    async function loadProjetos() {
-      const response = await api.get("/projetos", configAuth);
-      return setProjetos(response.data);
-    }
-    if (login.auth) {
-      loadProjetos();
-    }
-    // eslint-disable-next-line
-  }, [login]);
-
-  // asignTheCorrectState()
-  //
-  // Faz a alocação dos projetos em estados diferentes, baseado na propriedades arquivado
-  // de cada um dos dados. Esse trecho de código vai repetir sempre que o valor do estado
-  // de projetos for alterado, para desta forma separar corretamente os projetos em cada
-  // aba.
-  useEffect(() => {
-    let arrayProjetosArquivados = [];
-    let arrayProjetosAbertos = [];
-    function asignTheCorrectState() {
-      projetos.map((projeto) => {
-        if (projeto.arquivado) {
-          arrayProjetosArquivados.push(projeto);
-        } else {
-          arrayProjetosAbertos.push(projeto);
-        }
-        return null;
-      });
-      setProjetosArquivados(arrayProjetosArquivados);
-      setProjetosAbertos(arrayProjetosAbertos);
-    }
-    if (projetos.length > 0) {
-      asignTheCorrectState();
-    }
-  }, [projetos]);
-
-  // setNumeroDaGRD()
-  //
-  // Essa função é responsável por preencher o campo com o valor do número da GRD que será
-  // usado posteriormente na hora de nomear a planilha no servidor
-  useEffect(() => {
-    function defineBiggerNumGRD() {
-      let maiorNumGRD = 0;
-      for (let aux = 0, len = projetos.length; aux < len; aux++) {
-        if (projetos[aux].numGRD && projetos[aux].numGRD >= maiorNumGRD) {
-          maiorNumGRD = projetos[aux].numGRD + 1;
-        }
-      }
-      return maiorNumGRD;
-    }
-
-    if (projetos) {
-      let biggerNum = defineBiggerNumGRD();
-      setBiggerNumGRD(biggerNum);
-    }
-    // eslint-disable-next-line
-  }, [projetos]);
-
-  // verifyLocalStorage()
-  //
-  // Esse useEffect é responsável por executar o código da função em utils/verifyLocalStorage,
-  // que por sua vez verifica se tem um token armazenado no localStorage e se ele ainda não
-  // expirou. Com base nessa informação é verificada a necessidade de mostrar a tela de login
-  // ou não.
-  // Essa função só repete uma vez no carregamento da página.
-  useEffect(() => {
-    if (verifyLocalStorage()) {
-      let token = localStorage.getItem("authJWTFP");
-      let objLoginTrue = {
-        auth: true,
-        token: token,
-      };
-      setLogin(objLoginTrue);
-    }
-  }, []);
-
-  // displayLogin()
-  //
-  // Essa função determina qual a tela que será exibida para o usuário quando
-  // ele carrega a aplicação. Em um primeiro momento, enquanto ele ainda não fez
-  // login será exibido o componente <Login />, porém quando ele já estiver logado
-  // e autenticado, serão exibidos os demais componentes.
-  function displayLogin() {
-    if (!login.auth) {
-      return <Login onSubmit={handleLogin} />;
-    } else {
-      return (
-        <>
-          <header className="App-header cabecalho">
-            <Cabecalho stringPagina={setStringPagina} />
-          </header>
-          <main className="App-main">{decideWhatToDisplay()}</main>
-          <footer className="App-footer">
-            <Footer />
-          </footer>
-        </>
-      );
-    }
-  }
-
-  // handleLogin()
-  //
-  // Essa função, como o próprio nome indica, lida com a tentativa de login do
-  // usuário. Ela é assíncrona, e recebe dois valores como parâmetros, que são abstraídos
-  // em um objeto chamado data (data.login, data.senha).
-  async function handleLogin(data) {
-    await api
-      .post("/login", data)
-      .then((response) => {
-        if (!response.data.auth) {
-          throw new Error();
-        } else {
-          setLogin(response.data);
-          addLocalStorageInfo(response); // Adiciona os tokens de login no localStorage
-        }
-      })
-      .catch(() => {
-        // Esse erro é enviado para a função que fez a chamada do método assíncrono
-        // para que esta possa lidar com o erro também.
-        throw new Error("Credenciais inválidas");
-      });
-  }
-
-  // handleAddProjeto()
-  //
-  // Essa função é responsável por adicionar um projeto ao banco de dados do sistema.
-  // Ela faz a chamada à API passando os dados que são passados em sua chamada, que por
-  // sua vez são abstraídos em um objeto chamado data.
-  async function handleAddProjeto(data) {
-    data.status = "EM ANDAMENTO"; // Esse dado não é cadastrável no componente
-    data.numGRD = biggerNumGRD; // Adiciona o valor da GRD nos dados cadastrados
-    await api
-      .post("/projetos", data, configAuth)
-      .then((response) => {
-        setProjetos([...projetos, response.data]);
-      })
-      .then(() => {
-        setStringPagina("Abertos");
-      })
-      .catch((error) => console.log(error));
-  }
-
-  // handleDeleteProjeto()
-  //
-  // Essa função foi comentada porque atualmente nenhum projeto será deletado do
-  // banco de dados. Quando um projeto for finalizado ele será arquivado.
   /*
-  async function handleDeleteProjeto(id) {
-
-    await api.delete(`/projetos/${id}`)
-    .then(() => {
-      setProjetos(projetos.filter(projeto => projeto._id !== id));
-    })
-    .catch(error => {
-      console.log(error);
-    });
-
-  }
-  */
-
-  // handleUpdateProjeto
-  //
-  // Essa função é responsável por chamar a rota da API que executa o método PUT,
-  // atualizando os dados de um projeto específico com os valores que serão passados
-  // no body da requisição. Além disso, para evitar uma nova chamada à rota inicial que
-  // seta o estado dos projetos, é feita uma atualização local na variável projetos que
-  // está sendo utilizada nessa instância da aplicação.
-  //
-  // ESSE TRECHO DE CÓDIGO AINDA PODE SER MELHORADO, PORÉM FALTA CONHECIMENTO AO AUTOR
-  // DO CÓDIGO
-  // O estado de projetos não é atualizado após a atualização
-  async function handleUpdateProjeto(id, body) {
-    var index = projetos.findIndex((x) => String(x._id) === String(id));
-    if (isNaN(index)) throw new Error("Não foi encontrado o ID do projeto");
-
-    await api
-      .put(`/projetos/${id}`, body, configAuth)
-      .then((response) => {
-        setAuxProjetoUpdate(response.data);
-        return response.data;
-      })
-      .then((data) => {
-        //body._id = id;
-
-        const projetosAtualizados = [
-          ...projetos.slice(0, index),
-          data,
-          ...projetos.slice(index + 1),
-        ];
-
-        setAuxProjetos(projetosAtualizados);
-      })
-      .then(() => {
-        setToggleUpdate(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  useEffect(() => {
-    function atualizaTudo() {
-      new Promise((resolve, reject) => {
-        setProjetos(auxProjetos);
-        resolve(true);
-      })
-        .then(() => {
-          setProjetoUpdate(auxProjetoUpdate);
-        })
-        .then(() => {
-          setToggleUpdate(false);
-        });
-    }
-
-    if (toggleUpdate) {
-      atualizaTudo();
-    }
-  }, [toggleUpdate, auxProjetos, auxProjetoUpdate]);
-
   // decideWhatToDisplay()
   //
   // Essa função define qual o componente que será renderizado na tela do usuário
   // do sistema. Para isso, ele utiliza o estado armazenado na variável stringPagina.
   const [stringPagina, setStringPagina] = useState("");
 
-  function decideWhatToDisplay() {
+  const decideWhatToDisplay = useCallback(() => {
     switch (stringPagina) {
       case "Abertos":
         return (
@@ -305,9 +53,61 @@ function App() {
       default:
         return <Home />;
     }
-  }
+  }, [handleAddProjeto, handleUpdateProjeto, projetoUpdate, projetosAbertos, projetosArquivados, stringPagina]);
 
-  return <div id="App">{displayLogin()}</div>;
+  // displayLogin()
+  //
+  // Essa função determina qual a tela que será exibida para o usuário quando
+  // ele carrega a aplicação. Em um primeiro momento, enquanto ele ainda não fez
+  // login será exibido o componente <Login />, porém quando ele já estiver logado
+  // e autenticado, serão exibidos os demais componentes.
+  const displayLogin = useCallback(() => {
+    if (!login) {
+      return <Login />;
+    } else {
+      return (
+        <>
+          <header className="App-header cabecalho">
+            <Cabecalho stringPagina={setStringPagina} />
+          </header>
+          <main className="App-main">{decideWhatToDisplay()}</main>
+          <footer className="App-footer">
+            <Footer />
+          </footer>
+        </>
+      );
+    }
+  }, [decideWhatToDisplay, login]);
+  
+  useEffect(() => {
+    function atualizaTudo() {
+      new Promise((resolve, reject) => {
+        setProjetos(auxProjetos);
+        resolve(true);
+      })
+        .then(() => {
+          setProjetoUpdate(auxProjetoUpdate);
+        })
+        .then(() => {
+          setToggleUpdate(false);
+        });
+    }
+
+    if (toggleUpdate) {
+      atualizaTudo();
+    }
+  }, [toggleUpdate, auxProjetos, auxProjetoUpdate, setProjetos]);
+  */
+
+  return (
+    <BrowserRouter>
+      <AppProvider>
+        <Routes />
+      </AppProvider>
+
+      <GlobalStyles />
+    </BrowserRouter>
+  );
 }
 
 export default App;

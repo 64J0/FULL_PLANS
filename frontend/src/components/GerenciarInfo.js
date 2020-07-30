@@ -34,7 +34,7 @@ function GerenciarInfo({
 
   // Novo estado que será utilizado no sistema, conforme pedido pelo Zé
   const [statusPorcentagem, setStatusPorcentagem] = useState(
-    informacao.statusPorcentagem || 75
+    informacao.statusPorcentagem || 0
   );
 
   useEffect(() => {
@@ -315,6 +315,9 @@ function GerenciarInfo({
             defaultValue={statusPorcentagem}
             onChange={(event) => setStatusPorcentagem(event.target.value)}
           >
+            <option value="0">EM ELABORAÇÃO - 0%</option>
+            <option value="25">EM ELABORAÇÃO - 25%</option>
+            <option value="50">EM ELABORAÇÃO - 50%</option>
             <option value="75">EM ELABORAÇÃO - 75%</option>
             <option value="85">CHECAGEM - 85%</option>
             <option value="90">EMISSÃO - 90%</option>
