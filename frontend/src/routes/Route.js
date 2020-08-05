@@ -29,7 +29,6 @@ const Route = ({
         }
 
         if (location.pathname === '/') {
-          console.log('Entrei aqui 2');
           return (
             <Redirect
               to={{
@@ -40,7 +39,6 @@ const Route = ({
           );
         }
 
-        console.log('Entrei aqui 3');
         return (
           <Layout>
             <Component />

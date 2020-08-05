@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom';
 
 import { Container } from './styles';
 
-import { useProjectsManagement } from '../../hooks/projectsManagement';
+import { useProjects } from '../../hooks/projects';
 
 function CadastrarProjeto() {
   const history = useHistory();
-  const { handleAddProjeto } = useProjectsManagement();
+  const { handleAddProjeto } = useProjects();
 
   const [cliente, setCliente] = useState('');
   const [nomeProjeto, setNomeProjeto] = useState('');

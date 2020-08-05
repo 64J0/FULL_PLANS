@@ -1,65 +1,50 @@
-import React, { useState, useEffect, useCallback } from "react";
-import GerenciarInfo from "./GerenciarInfo";
-import { FiChevronsUp } from "react-icons/fi";
+import React, { useState, useCallback } from "react";
+import { useLocation, useHistory } from 'react-router-dom';
 
-import "./Gerenciar.css";
-import api from "../services/api";
+import BackToTopBTN from '../../components/BackToTopBTN';
+import GerenciarInfo from "../../components/GerenciarInfo";
+import gerarPlanilha from "../../utils/gerarPlanilha";
+import { useProjects } from '../../hooks/projects';
 
-function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
-  const [cliente, setCliente] = useState(projeto.cliente || "");
-  const [nomeProjeto, setNomeProjeto] = useState(projeto.nomeProjeto || "");
+import { Container } from "./styles";
+
+function UpdateProjeto() {
+  const { handleUpdateProjeto } = useProjects();
+  const history = useHistory();
+  const location = useLocation();
+  const [projeto, setProjeto] = useState(location.state.projeto);
+
+  const [cliente, setCliente] = useState(projeto && projeto.cliente);
+  const [nomeProjeto, setNomeProjeto] = useState(projeto && projeto.nomeProjeto);
   const [disciplinaMestre, setDisciplinaMestre] = useState(
-    projeto.disciplinaMestre || ""
+    projeto && projeto.disciplinaMestre
   );
-  const [numPedido, setNumPedido] = useState(projeto.numPedido || "");
-  const [responsavel, setResponsavel] = useState(projeto.responsavel || "");
-  const [numGRD, setNumGRD] = useState(projeto.numGRD);
+  const [numPedido, setNumPedido] = useState(projeto && projeto.numPedido);
+  const [responsavel, setResponsavel] = useState(projeto && projeto.responsavel);
+  const [numGRD, setNumGRD] = useState(projeto && projeto.numGRD);
+  const [arquivado, setArquivado] = useState(projeto && projeto.arquivado);
+  const [status, setStatus] = useState(projeto && projeto.status);
+  const [comentario, setComentario] = useState(projeto && projeto.comentario);
 
-  const [arquivado, setArquivado] = useState(projeto.arquivado);
-  const [status, setStatus] = useState(projeto.status || "");
-  const [comentario, setComentario] = useState(projeto.comentario || "");
+  const [infoProjetos, setInfoProjetos] = useState(projeto && projeto.infoProjetos);
 
-  const [infoProjetos, setInfoProjetos] = useState(projeto.infoProjetos);
-
-  const [toggleNovoCampo, setToggleNovoCampo] = useState(false);
-
-  useEffect(() => {
-    setInfoProjetos(projeto.infoProjetos);
-  }, [projeto]);
-
-  // eslint-disable-next-line
-  useEffect(() => {
-    if (toggleNovoCampo) {
-      setToggleNovoCampo(false);
-      salvar(projeto._id);
-    }
-  });
-
-  const atualizaEstadoArquivado = useCallback(() => {
-    return setArquivado(!arquivado);
+  const toggleArquivado = useCallback(() => {
+    setArquivado(!arquivado);
   }, [arquivado]);
 
-  const decideWhatToDisplay = useCallback(
-    (boolProvisorio) => {
-      if (typeof boolProvisorio === "boolean") {
-        if (!arquivado) {
-          return display("Arquivados");
-        } else {
-          return display("Abertos");
-        }
-      }
-
+  const defineParaOndeRetornar = useCallback(
+    () => {
       if (arquivado) {
-        return display("Arquivados");
+        return history.push("/arquivados");
       } else {
-        return display("Abertos");
+        return history.push("/abertos");
       }
     },
-    [arquivado, display]
+    [arquivado, history]
   );
 
   const arquivar = useCallback(
-    async (id) => {
+    async () => {
       try {
         const texto = `Deseja realmente ${
           arquivado ? "desarquivar" : "arquivar"
@@ -70,7 +55,7 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
           return;
         }
 
-        atualizaEstadoArquivado();
+        toggleArquivado();
 
         var body = {
           cliente,
@@ -86,31 +71,19 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
         if (!projeto.arquivado) {
           body.dataArquivado = String(new Date(Date.now()));
+        } else {
+          body.dataArquivado = null;
         }
 
-        await onUpdateProjeto(id, body);
+        await handleUpdateProjeto(projeto._id, body);
 
-        return decideWhatToDisplay(true);
+        return defineParaOndeRetornar();
       } catch (err) {
         console.log("Ocorreu um erro :(", err);
         return err;
       }
     },
-    [
-      arquivado,
-      atualizaEstadoArquivado,
-      cliente,
-      comentario,
-      decideWhatToDisplay,
-      disciplinaMestre,
-      infoProjetos,
-      nomeProjeto,
-      numPedido,
-      onUpdateProjeto,
-      projeto.arquivado,
-      responsavel,
-      status,
-    ]
+    [arquivado, toggleArquivado, cliente, nomeProjeto, disciplinaMestre, numPedido, responsavel, status, comentario, infoProjetos, projeto.arquivado, projeto._id, handleUpdateProjeto, defineParaOndeRetornar]
   );
 
   const apagarProjeto = useCallback(
@@ -122,6 +95,62 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     [infoProjetos]
   );
 
+  const salvar = useCallback(async () => {
+    const body = {
+      cliente,
+      nomeProjeto,
+      disciplinaMestre,
+      numPedido,
+      responsavel,
+      status,
+      numGRD,
+      comentario,
+      infoProjetos,
+      arquivado,
+    };
+
+    await handleUpdateProjeto(projeto._id, body)
+      .then((response) => {
+        console.log(response.data);
+        setProjeto(response.data);
+      });
+  },
+    [cliente, nomeProjeto, disciplinaMestre, numPedido, responsavel, status, numGRD, comentario, infoProjetos, arquivado, handleUpdateProjeto, projeto._id]
+  );
+
+  const adicionaNovoCampo = useCallback(async () => {
+    let novaInfoProjeto = {
+      linkDesenho: "",
+      disciplinaDesenho: "",
+      revisao: "",
+      numFull: "",
+      numCliente: "",
+      formato: "",
+      descricao: "",
+      projetistaDesenho: "",
+      verificadorDesenho: "",
+      dataInicio: "01-01-2020",
+      dataFinal: "02-01-2020",
+    };
+
+    await handleUpdateProjeto(projeto._id,
+      Object.assign(projeto,
+        { infoProjetos: [...infoProjetos, novaInfoProjeto] }
+      )
+    )
+      .then((response) => {
+        setProjeto(response.data);
+        setInfoProjetos(response.data.infoProjetos);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [handleUpdateProjeto, infoProjetos, projeto]);
+
+  // updateInfoProjeto()
+  //
+  // Essa função é responsável por atualizar os valores de infoProjetos com os dados passados
+  // no body da função.
   const updateInfoProjeto = useCallback(
     (id, data) => {
       var index = infoProjetos.findIndex((x) => x._id === id);
@@ -136,120 +165,8 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
     [infoProjetos]
   );
 
-  const salvar = useCallback(
-    async (id) => {
-      var body = {
-        cliente,
-        nomeProjeto,
-        disciplinaMestre,
-        numPedido,
-        responsavel,
-        status,
-        numGRD,
-        comentario,
-        infoProjetos,
-        arquivado,
-      };
-
-      await onUpdateProjeto(id, body).then(() => {
-        if (infoProjetos !== projeto.infoProjetos) {
-          setInfoProjetos(projeto.infoProjetos);
-        }
-      });
-    },
-    [
-      arquivado,
-      cliente,
-      comentario,
-      disciplinaMestre,
-      infoProjetos,
-      nomeProjeto,
-      numGRD,
-      numPedido,
-      onUpdateProjeto,
-      projeto.infoProjetos,
-      responsavel,
-      status,
-    ]
-  );
-
-  const novosCampos = useCallback(() => {
-    let novaInfoProjeto = {
-      linkDesenho: "",
-      disciplinaDesenho: "",
-      revisao: "",
-      numFull: "",
-      numCliente: "",
-      formato: "",
-      descricao: "",
-      projetistaDesenho: "",
-      verificadorDesenho: "",
-      dataInicio: "01-01-2020",
-      dataFinal: "02-01-2020",
-    };
-    setInfoProjetos([...infoProjetos, novaInfoProjeto]);
-    setToggleNovoCampo(true);
-  }, [infoProjetos]);
-
-  const defineTextoBotaoArquivar = useCallback(() => {
-    if (projeto.arquivado) {
-      return "Desarquivar";
-    } else {
-      return "Arquivar";
-    }
-  }, [projeto.arquivado]);
-
-  async function gerarPlanilha() {
-    // js-file-download Package:
-    var jsFileDownload = function (data, filename, mime, bom) {
-      var blobData = typeof bom !== "undefined" ? [bom, data] : [data];
-      var blob = new Blob(blobData, {
-        type: mime || "application/octet-stream",
-      });
-      if (typeof window.navigator.msSaveBlob !== "undefined") {
-        // IE workaround for "HTML7007: One or more blob URLs were
-        // revoked by closing the blob for which they were created.
-        // These URLs will no longer resolve as the data backing
-        // the URL has been freed."
-        window.navigator.msSaveBlob(blob, filename);
-      } else {
-        var blobURL = (window.URL
-          ? window.URL
-          : window.webkitURL
-        ).createObjectURL(blob);
-        var tempLink = document.createElement("a");
-        tempLink.style.display = "none";
-        tempLink.href = blobURL;
-        tempLink.setAttribute("download", filename);
-
-        if (typeof tempLink.download === "undefined") {
-          tempLink.setAttribute("target", "_blank");
-        }
-
-        document.body.appendChild(tempLink);
-        tempLink.click();
-
-        // Fixes "webkit blob resource error 1"
-        setTimeout(function () {
-          document.body.removeChild(tempLink);
-          window.URL.revokeObjectURL(blobURL);
-        }, 0);
-      }
-    };
-
-    await api
-      .get(`/excel/${projeto._id}`, { responseType: "arraybuffer" })
-      .then((response) => {
-        var fileName = String(`GRD_${projeto.numGRD}.xlsx`);
-        jsFileDownload(response.data, fileName);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   return (
-    <>
+    <Container>
       <div className="update-item">
         <div id={projeto._id} className="grid-container">
           <form className="update-form">
@@ -358,12 +275,12 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
             </div>
 
             <ol>
-              {infoProjetos.map((informacao) => (
+              {infoProjetos && infoProjetos.map((informacao) => (
                 <GerenciarInfo
                   key={String(informacao._id)}
                   informacao={informacao}
-                  updateInfoProjeto={updateInfoProjeto}
                   apagarProjeto={apagarProjeto}
+                  updateInfoProjeto={updateInfoProjeto}
                   projeto={projeto}
                 />
               ))}
@@ -372,85 +289,61 @@ function UpdateProjeto({ projeto, onUpdateProjeto, display }) {
 
           {/* ================================================================================================ */}
 
-          <div className="div-back-to-top">
-            <button
-              className="back-to-top"
-              onClick={() => {
-                document.body.scrollTop = 0; // For Safari
-                document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-              }}
-            >
-              <FiChevronsUp size={30} />
-            </button>
-          </div>
+          <BackToTopBTN />
 
           <div className="div-buttons">
-            {/*
-              Adiciona os campos de input para adicionar novas informações ao projeto que 
-              está aberto
-            */}
+            {/* ADICIONA UM NOVO CAMPO */}
             <button
               type="button"
               className="btn-adicionarCampos"
-              onClick={novosCampos}
+              onClick={async () => await adicionaNovoCampo()}
             >
-              Add Campos
+              Novo Campo
             </button>
 
-            {/*
-              Quando o usuário clicar neste botão o projeto ou infoProjeto em questão será salvo
-              no banco de dados
-            */}
+            {/* SALVA */}
             <button
               type="button"
               className="btn-salvar"
-              onClick={() => {
-                salvar(projeto._id);
-              }}
+              onClick={async () => await salvar()}
             >
               Salvar
             </button>
 
-            {/* 
-              Quando o usuário clicar neste botão ele deve ser redirecionado para a página que 
-              estava anteriormente, que pode ser definida com base no valor da propriedade 
-              arquivado.
-            */}
+            {/* CANCELA */}
             <button
               type="button"
               className="btn-cancelar"
-              onClick={decideWhatToDisplay}
+              onClick={defineParaOndeRetornar}
             >
               Cancelar
             </button>
 
-            {/*
-              Quando este botão for clicado, deve abrir uma janela para o usuário confirmar
-              se quer ou não arquivar o projeto realmente. 
-            */}
+            {/* ARQUIVA */}
             <button
               type="button"
               className="btn-arquivar"
-              onClick={() => {
-                arquivar(projeto._id);
-              }}
+              onClick={async () => await arquivar()}
             >
-              {defineTextoBotaoArquivar()}
+              {
+                projeto.arquivado ? "Desarquivar" : "Arquivar"
+              }
             </button>
           </div>
 
+          {/* GERA PLANILHA */}
           <div className="btn-planilha">
             <button
               type="button"
               className="btn-criar-planilha"
-              onClick={gerarPlanilha}
+              onClick={async () => { await gerarPlanilha(projeto) }}
             >
               Gerar planilha!
             </button>
           </div>
         </div>
       </div>
-    </>
+    </Container>
   );
 }
 

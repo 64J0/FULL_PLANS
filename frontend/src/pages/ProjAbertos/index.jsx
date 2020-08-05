@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import ListItem from '../../components/ListItem';
 import Buscar from '../../components/Buscar/index';
-import { useProjectsManagement } from '../../hooks/projectsManagement';
+import { useProjects } from '../../hooks/projects';
 
 import { Container } from './styles';
 
 function Abertos() {
-  const { projetosAbertos, setProjetoUpdate } = useProjectsManagement();
+  const { projetosAbertos, setProjetoUpdate } = useProjects();
 
-  const [projetosEncontrados, setProjetosEncontrados] = useState([]);
+  const [projetosEncontrados, setProjetosEncontrados] = useState(projetosAbertos);
 
-  function defineProjetosEncontrados(projetos) {
+  const defineProjetosEncontrados = useCallback((projetos) => {
     setProjetosEncontrados(projetos);
-  }
+  }, []);
 
   return (
     <Container>

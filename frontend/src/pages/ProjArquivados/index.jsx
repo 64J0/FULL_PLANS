@@ -5,10 +5,10 @@ import PaginacaoBtn from "../../components/Paginacao";
 
 import { Container } from "./styles";
 
-import { useProjectsManagement } from '../../hooks/projectsManagement';
+import { useProjects } from '../../hooks/projects';
 
 function Arquivados() {
-  const { projetosArquivados: props, setProjetoUpdate: setProjeto } = useProjectsManagement();
+  const { projetosArquivados: props, setProjetoUpdate: setProjeto } = useProjects();
 
   const [projetosArquivados, setProjetosArquivados] = useState([]);
   const [projetosEncontradosNaBusca, setProjetosEncontradosNaBusca] = useState(

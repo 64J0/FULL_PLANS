@@ -3,9 +3,9 @@ import React, { createContext, useCallback, useState, useMemo, useEffect, useCon
 import api from '../services/api';
 import { useAuth } from './auth';
 
-const ProjectsManagementContext = createContext({});
+const ProjectsContext = createContext({});
 
-const ProjectsManagementProvider = ({ children }) => {
+const ProjectsProvider = ({ children }) => {
   const { loginData } = useAuth();
 
   const [projetos, setProjetos] = useState([]);
@@ -17,12 +17,6 @@ const ProjectsManagementProvider = ({ children }) => {
       });
     }
   }, [loginData]);
-
-  const [projetoUpdate, setProjetoUpdate] = useState("");
-
-  const [auxProjetoUpdate, setAuxProjetoUpdate] = useState();
-  const [auxProjetos, setAuxProjetos] = useState();
-  const [toggleUpdate, setToggleUpdate] = useState(false);
 
   const projetosAbertos = useMemo(() => {
     let arrayProjetosAbertos = [];
@@ -80,47 +74,45 @@ const ProjectsManagementProvider = ({ children }) => {
   }, [biggerNumGRD, projetos]);
 
   const handleUpdateProjeto = useCallback(async (id, body) => {
-    var index = projetos.findIndex((x) => String(x._id) === String(id));
+    if (!id) return undefined;
+    let returnStatement = null;
+
+    const index = projetos.findIndex((x) => String(x._id) === String(id));
+
     if (isNaN(index)) throw new Error("Não foi encontrado o ID do projeto");
 
     await api
       .put(`/projetos/${id}`, body)
       .then((response) => {
-        setAuxProjetoUpdate(response.data);
-        return response.data;
-      })
-      .then((data) => {
-        //body._id = id;
+        returnStatement = response;
 
         const projetosAtualizados = [
           ...projetos.slice(0, index),
-          data,
+          response.data,
           ...projetos.slice(index + 1),
         ];
-
-        setAuxProjetos(projetosAtualizados);
-      })
-      .then(() => {
-        setToggleUpdate(true);
+        setProjetos(projetosAtualizados);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
+
+    return returnStatement;
   }, [projetos]);
 
   return (
-    <ProjectsManagementContext.Provider
-      value={{ projetos, projetosAbertos, projetosArquivados, biggerNumGRD, handleAddProjeto, setProjetos, handleUpdateProjeto, setProjetoUpdate }}
+    <ProjectsContext.Provider
+      value={{ projetos, projetosAbertos, projetosArquivados, biggerNumGRD, handleAddProjeto, setProjetos, handleUpdateProjeto }}
     >
       {children}
-    </ProjectsManagementContext.Provider>
+    </ProjectsContext.Provider>
   );
 }
 
-function useProjectsManagement() {
-  const context = useContext(ProjectsManagementContext);
+function useProjects() {
+  const context = useContext(ProjectsContext);
 
   return context;
 }
 
-export { ProjectsManagementProvider, useProjectsManagement };
+export { ProjectsProvider, useProjects };

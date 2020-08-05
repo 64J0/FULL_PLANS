@@ -1,15 +1,24 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useHistory } from 'react-router-dom';
 
-import "./ListItem.css";
+import { Container } from "./styles";
 
-import calculatePercentage from "../utils/calculatePercentage";
+import calculatePercentage from "../../utils/calculatePercentage";
 
 function ListItem({ projeto, setProjeto }) {
+  const history = useHistory();
+  const percentageCounterDiv = useRef(null);
+
   const [percentageCalculated] = useState(
     calculatePercentage(projeto.infoProjetos)
   );
 
-  const percentageCounterDiv = useRef(null);
+  const handleGerenciarProjeto = useCallback(() => {
+    history.push({
+      pathname: '/gerenciar',
+      state: { projeto }
+    })
+  }, [projeto, history]);
 
   useEffect(() => {
     function changeColors() {
@@ -41,14 +50,8 @@ function ListItem({ projeto, setProjeto }) {
     }
   }, [percentageCalculated]);
 
-  // Redireciona para a página de gerenciamento de projetos, passando como parâmetro os dados do projeto que está sendo mostrado no card específico
-  function redirecionar() {
-    // setProjeto == setProjetoUpdate do App.js
-    setProjeto(projeto);
-  }
-
   return (
-    <li>
+    <Container>
       <div className="list-item">
         <div className="percentageCounter">
           <p ref={percentageCounterDiv}>{percentageCalculated}% concluído!</p>
@@ -71,13 +74,13 @@ function ListItem({ projeto, setProjeto }) {
           <button
             type="button"
             className="btn-editar"
-            onClick={() => redirecionar()}
+            onClick={handleGerenciarProjeto}
           >
             Gerenciar
           </button>
         </div>
       </div>
-    </li>
+    </Container>
   );
 }
 

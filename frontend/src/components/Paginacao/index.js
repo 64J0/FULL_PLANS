@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import "./index.css";
+import "./styles.css";
 
 function PaginacaoBtn({ prop, setPage, page }) {
   useEffect(() => {

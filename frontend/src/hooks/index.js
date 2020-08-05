@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { AuthProvider } from './auth';
-import { ProjectsManagementProvider } from './projectsManagement';
+import { ProjectsProvider } from './projects';
 
 const AppProvider = ({ children }) => {
   return (
     <AuthProvider>
-      <ProjectsManagementProvider>
+      <ProjectsProvider>
         {children}
-      </ProjectsManagementProvider>
+      </ProjectsProvider>
     </AuthProvider >
   );
 }

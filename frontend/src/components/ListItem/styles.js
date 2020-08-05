@@ -1,4 +1,7 @@
-.list-item {
+import styled from 'styled-components';
+
+export const Container = styled.li`
+  .list-item {
   display: block;
   padding: 8px;
   margin: 25px 5px;
@@ -68,3 +71,5 @@ div.percentageCounter p {
   padding: 5px 8px;
   border-radius: 5px;
 }
+
+`;

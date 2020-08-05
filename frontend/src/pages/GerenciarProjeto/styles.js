@@ -1,0 +1,168 @@
+import styled from 'styled-components';
+
+export const Container = styled.div`
+  width: 100%;
+
+  .update-item {
+    display: block;
+    padding: 8px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: #cac7c6;
+    width: 100%;
+    color: #353839;
+  }
+
+  .update-item h2 {
+    margin: 15px;
+  }
+
+  .update-item .input-block {
+    display: grid;
+    grid-template-columns: 180px auto;
+    width: 100%;
+  }
+
+  .update-item .input-block label,
+  .input-field label {
+    font-weight: bold;
+    padding: 3px 3px 3px 6px;
+    margin: 5px 0 0 5px;
+    color: #353839;
+    background: none;
+  }
+
+  .update-item .input-block input,
+  select,
+  textarea,
+  .input-field input {
+    font-size: 14px;
+    border: 1px solid black;
+    font-weight: bold;
+    padding: 3px 3px 3px 6px;
+    margin: 7px 20px 0 5px;
+    color: #353839;
+    border-radius: 5px;
+    background: rgb(245, 245, 245);
+  }
+
+  .update-item .div-buttons {
+    margin: 20px 0;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .update-item .div-buttons button.btn-adicionarCampos[type="button"] {
+    padding: 8px 0;
+    margin: 10px;
+    font-size: 16px;
+    border: 2px solid #2e8b57;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.55);
+    color: #2e8b57;
+    font-weight: 600;
+  }
+
+  .update-item .div-buttons button.btn-adicionarCampos[type="button"]:hover {
+    cursor: pointer;
+    background-color: #ccc;
+    border-color: black;
+    color: black;
+  }
+
+  .update-item .div-buttons button.btn-salvar[type="button"] {
+    padding: 8px 0;
+    margin: 10px;
+    font-size: 16px;
+    border: 2px solid #0f679a;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.55);
+    color: #0f679a;
+    font-weight: 600;
+  }
+
+  .update-item .div-buttons button.btn-salvar[type="button"]:hover {
+    cursor: pointer;
+    border-color: black;
+    background-color: #ccc;
+    color: black;
+  }
+
+  .update-item .div-buttons button.btn-cancelar[type="button"] {
+    padding: 8px 0;
+    margin: 10px;
+    font-size: 16px;
+    border: 2px solid #800;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.55);
+    color: #800;
+    font-weight: 600;
+  }
+
+  .update-item .div-buttons button.btn-cancelar[type="button"]:hover {
+    cursor: pointer;
+    border-color: black;
+    background-color: #ccc;
+    color: black;
+  }
+
+  .update-item .div-buttons button.btn-arquivar[type="button"] {
+    padding: 8px 0;
+    margin: 10px;
+    font-size: 16px;
+    border: 2px solid #705714;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.55);
+    color: #705714;
+    font-weight: 600;
+  }
+
+  .update-item .div-buttons button.btn-arquivar[type="button"]:hover {
+    cursor: pointer;
+    border-color: black;
+    background-color: #ccc;
+    color: black;
+  }
+
+  .update-item div.btn-planilha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .update-item div.btn-planilha button {
+    font-weight: bold;
+    width: 200px;
+    padding: 8px 0;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2e8b57;
+    color: #eee;
+  }
+
+  .update-item div.btn-planilha button:hover {
+    cursor: pointer;
+    background-color: rgba(126, 252, 0, 0.541);
+    color: #444;
+  }
+
+  div.inputFields {
+    padding-bottom: 10px;
+  }
+
+  div.input-group {
+    display: flex;
+    grid-template-columns: 60% 40%;
+  }
+
+  div.input-field {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+  }
+`;

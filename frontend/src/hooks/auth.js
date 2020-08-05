@@ -31,8 +31,6 @@ const AuthProvider = ({ children }) => {
     addLocalStorageInfo(response);
 
     const { token } = response.data;
-
-    console.log('cheguei aqui', token);
     api.defaults.headers.authorization = `Bearer ${token}`;
 
     setLoginData(response.data);

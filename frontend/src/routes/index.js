@@ -8,7 +8,8 @@ import Abertos from "../pages/ProjAbertos";
 import Arquivados from "../pages/ProjArquivados";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import Gerenciar from "../components/Gerenciar";
+import Gerenciar from "../pages/GerenciarProjeto";
+import Erro404 from '../pages/Erro404';
 
 const Routes = () => {
   return (
@@ -19,6 +20,8 @@ const Routes = () => {
       <Route path="/cadastrar" component={CadastrarProjeto} />
       <Route path="/abertos" component={Abertos} />
       <Route path="/arquivados" component={Arquivados} />
+      <Route path="/gerenciar" component={Gerenciar} />
+      <Route path="/*" component={Erro404} />
     </Switch>
 
   )
