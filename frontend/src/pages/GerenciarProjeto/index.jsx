@@ -275,15 +275,18 @@ function UpdateProjeto() {
             </div>
 
             <ol>
-              {infoProjetos && infoProjetos.map((informacao) => (
-                <GerenciarInfo
-                  key={String(informacao._id)}
-                  informacao={informacao}
-                  apagarProjeto={apagarProjeto}
-                  updateInfoProjeto={updateInfoProjeto}
-                  projeto={projeto}
-                />
-              ))}
+              {infoProjetos && infoProjetos.map((informacao, index) => {
+                return (
+                  <GerenciarInfo
+                    key={String(informacao._id)}
+                    showCopiar={!!index}
+                    informacao={informacao}
+                    apagarProjeto={apagarProjeto}
+                    updateInfoProjeto={updateInfoProjeto}
+                    projeto={projeto}
+                  />
+                )
+              })}
             </ol>
           </form>
 

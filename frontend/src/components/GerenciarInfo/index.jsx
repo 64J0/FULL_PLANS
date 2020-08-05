@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Container } from './styles';
 
 function GerenciarInfo({
+  showCopiar,
   informacao,
   updateInfoProjeto,
   apagarProjeto,
@@ -316,13 +317,18 @@ function GerenciarInfo({
       </div>
 
       <div className="buttonsGerenciarInfo">
-        <button
-          className="copiarSuperior"
-          type="button"
-          onClick={() => copiarDadosProjetoAnterior()}
-        >
-          Copiar ↑
-          </button>
+
+
+        {
+          showCopiar && (<button
+            className="copiarSuperior"
+            type="button"
+            onClick={() => copiarDadosProjetoAnterior()}
+          >
+            Copiar ↑
+          </button>)
+        }
+
         <button
           className="deletarInfoProjeto"
           type="button"
