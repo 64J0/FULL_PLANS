@@ -87,6 +87,10 @@ const projetoSchema = new Schema({
         type: Number,
         default: 0,
       },
+      comentarioDesenho: {
+        type: String,
+        uppercase: true,
+      },
       dataInicio: {
         type: Date,
         default: Date.now,

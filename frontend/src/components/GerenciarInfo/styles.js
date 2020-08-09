@@ -29,7 +29,6 @@ export const Container = styled.li`
   }
 
   button {
-    cursor: pointer;
     margin: 15px 30px;
     padding: 10px;
     width: 100px;
@@ -67,6 +66,24 @@ export const Container = styled.li`
   input {
     display: inline-block;
     border-radius: 5px;
+  }
+
+  div.comments-block {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    p {
+      width: 150px;
+    }
+
+    textarea {
+      text-transform: uppercase;
+      padding: 0.4rem;
+      margin-right: 0;
+      margin-left: 10px;
+      flex: 1;
+    }
   }
 
   div.descricaoEtipoEngenharia {

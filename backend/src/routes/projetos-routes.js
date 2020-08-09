@@ -13,5 +13,6 @@ router.get("/", verify.verifyJWT, projetosController.listProjeto);
 router.post("/", verify.verifyJWT, projetosController.createProjeto);
 router.put("/:id", verify.verifyJWT, projetosController.updateProjeto);
 router.delete("/:id", verify.verifyJWT, projetosController.deleteProjeto);
+router.get("/:id", verify.verifyJWT, projetosController.findProjetoById);
 
 module.exports = router;

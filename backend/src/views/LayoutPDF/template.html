@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+
+  <title>Full Plans Report</title>
+</head>
+
+<body>
+  <header>
+    <!--
+    <img src="http://fullengenharia.com.br/wp-content/uploads/2017/04/fullE_tcon.png" alt="Logo da Full Engenharia" />
+    -->
+    <h1>Full Plans - Relatório</h1>
+  </header>
+
+  <main>
+    <div id="identificacaoDoProjeto">
+      <h2>Dados do projeto</h2>
+
+      <div>
+        <h4>Projeto: </h4>
+        <p>{{nomeProjeto}}</p>
+      </div>
+
+      <div>
+        <h4>Cliente:</h4>
+        <p>{{cliente}}</p>
+      </div>
+      <div>
+        <h4>GRD:</h4>
+        <p>{{numGRD}}</p>
+      </div>
+
+      <div>
+        <h4>Responsável:</h4>
+        <p>{{responsavel}}</p>
+      </div>
+
+      <div>
+        <h4>Comentário:</h4>
+        <p>{{comentario}}</p>
+      </div>
+    </div>
+
+    <h2>Desenhos</h2>
+
+    {{#each infoProjetos}}
+    <div class="informacaoDesenho">
+      <div>
+        <h4>Descrição:</h4>
+        <p>{{descricao}}</p>
+      </div>
+
+      <div>
+        <h4>Disciplina:</h4>
+        <p>{{disciplinaDesenho}}</p>
+      </div>
+
+      <div>
+        <h4>Número FULL:</h4>
+        <p>{{numFull}}</p>
+      </div>
+
+      <div>
+        <h4>Número do Cliente:</h4>
+        <p>{{numCliente}}</p>
+      </div>
+
+      <div>
+        <h4>Comentário:</h4>
+        <p>{{comentarioDesenho}}</p>
+      </div>
+    </div>
+    {{/each}}
+
+  </main>
+
+  <footer>
+    <strong>
+      &copy; Full Engenharia
+    </strong>
+    <span id="dataDoDia">
+    </span>
+  </footer>
+</body>
+
+<script>
+  const data = new Date();
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  const dataFormatada = data.toLocaleDateString('pt-BR', options);
+
+  const pEl = document.getElementById("dataDoDia");
+  pEl.innerHTML = dataFormatada.toString();
+</script>
+
+</html>

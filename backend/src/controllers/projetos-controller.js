@@ -62,3 +62,21 @@ exports.deleteProjeto = async (req, res) => {
     });
   }
 };
+
+// getById
+exports.findProjetoById = async (req, res) => {
+  try {
+    const foundProject = await repository.findProjetoById(req.params.id);
+
+    if (!foundProject) {
+      return res.status(400).send({ message: "Não foi possível encontrar o projeto." });
+    }
+
+    return res.status(200).send(foundProject);
+  } catch (e) {
+    return res.status(500).send({
+      message: "Falha ao buscar o projeto pelo id!",
+      Error: e,
+    })
+  }
+}

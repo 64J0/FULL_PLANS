@@ -35,6 +35,7 @@ function GerenciarInfo({
   const [statusPorcentagem, setStatusPorcentagem] = useState(
     informacao.statusPorcentagem || 0
   );
+  const [comentarioDesenho, setComentarioDesenho] = useState(informacao.comentarioDesenho || "");
 
   // updateInfo()
   //
@@ -58,6 +59,7 @@ function GerenciarInfo({
         dataInicio,
         dataFinal,
         statusPorcentagem,
+        comentarioDesenho,
       });
     }
 
@@ -74,7 +76,8 @@ function GerenciarInfo({
       verificadorDesenho !== informacao.verificadorDesenho ||
       dataInicio !== informacao.dataInicio ||
       dataFinal !== informacao.dataFinal ||
-      statusPorcentagem !== informacao.statusPorcentagem
+      statusPorcentagem !== informacao.statusPorcentagem ||
+      comentarioDesenho !== informacao.comentarioDesenho
     ) {
       updateInfo();
     }
@@ -155,6 +158,18 @@ function GerenciarInfo({
 
   return (
     <Container>
+      <div className="comments-block">
+        <p>Comentários:</p>
+        <textarea
+          name="comentario"
+          id="comentario"
+          rows="2"
+          placeholder="Digite aqui algum comentário"
+          value={comentarioDesenho}
+          onChange={(e) => setComentarioDesenho(e.target.value)}
+        ></textarea>
+      </div>
+
       <div className="descricaoEtipoEngenharia">
         <p>Descrição:</p>
         <input

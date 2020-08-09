@@ -151,6 +151,10 @@ export const Container = styled.div`
     color: #444;
   }
 
+  .update-item div.btn-planilha .btn-criar-relatorio {
+    background-color: #0f679a;
+  }
+
   div.inputFields {
     padding-bottom: 10px;
   }

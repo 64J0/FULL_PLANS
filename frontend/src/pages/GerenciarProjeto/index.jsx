@@ -4,6 +4,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import BackToTopBTN from '../../components/BackToTopBTN';
 import GerenciarInfo from "../../components/GerenciarInfo";
 import gerarPlanilha from "../../utils/gerarPlanilha";
+import gerarRelatorio from "../../utils/gerarRelatorio";
 import { useProjects } from '../../hooks/projects';
 
 import { Container } from "./styles";
@@ -341,7 +342,15 @@ function UpdateProjeto() {
               className="btn-criar-planilha"
               onClick={async () => { await gerarPlanilha(projeto) }}
             >
-              Gerar planilha!
+              Planilha!
+            </button>
+
+            <button
+              type="button"
+              className="btn-criar-relatorio"
+              onClick={async () => { await gerarRelatorio(projeto) }}
+            >
+              Relatório!
             </button>
           </div>
         </div>

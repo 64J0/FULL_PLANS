@@ -42,3 +42,12 @@ exports.deleteProjeto = async (id) => {
   });
   return { message: "Deleted!" };
 };
+
+exports.findProjetoById = async (id) => {
+  const foundProject = await Projetos.findById(id)
+    .catch((error) => {
+      return error;
+    });
+
+  return foundProject;
+}
