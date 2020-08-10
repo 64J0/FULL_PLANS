@@ -1,11 +1,14 @@
 import React, { useState, useCallback } from "react";
 import { useLocation, useHistory } from 'react-router-dom';
 
-import BackToTopBTN from '../../components/BackToTopBTN';
-import GerenciarInfo from "../../components/GerenciarInfo";
+import { useProjects } from '../../hooks/projects';
+
 import gerarPlanilha from "../../utils/gerarPlanilha";
 import gerarRelatorio from "../../utils/gerarRelatorio";
-import { useProjects } from '../../hooks/projects';
+
+import BackToTopBTN from '../../components/BackToTopBTN';
+import GerenciarInfo from "../../components/GerenciarInfo";
+import Modal from '../../components/Modal';
 
 import { Container } from "./styles";
 
@@ -14,6 +17,12 @@ function UpdateProjeto() {
   const history = useHistory();
   const location = useLocation();
   const [projeto, setProjeto] = useState(location.state.projeto);
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  function toggleModal() {
+    setModalOpen(!modalOpen);
+  }
 
   const [cliente, setCliente] = useState(projeto && projeto.cliente);
   const [nomeProjeto, setNomeProjeto] = useState(projeto && projeto.nomeProjeto);
@@ -168,6 +177,10 @@ function UpdateProjeto() {
 
   return (
     <Container>
+      <Modal
+        isOpen={modalOpen}
+        setIsOpen={toggleModal}
+      />
       <div className="update-item">
         <div id={projeto._id} className="grid-container">
           <form className="update-form">
@@ -340,7 +353,13 @@ function UpdateProjeto() {
             <button
               type="button"
               className="btn-criar-planilha"
-              onClick={async () => { await gerarPlanilha(projeto) }}
+              onClick={async () => {
+                toggleModal();
+                await gerarPlanilha(projeto)
+                  .then(() => {
+                    setModalOpen(false);
+                  });
+              }}
             >
               Planilha!
             </button>
@@ -348,7 +367,13 @@ function UpdateProjeto() {
             <button
               type="button"
               className="btn-criar-relatorio"
-              onClick={async () => { await gerarRelatorio(projeto) }}
+              onClick={async () => {
+                toggleModal();
+                await gerarRelatorio(projeto)
+                  .then(() => {
+                    setModalOpen(false);
+                  });
+              }}
             >
               Relatório!
             </button>
