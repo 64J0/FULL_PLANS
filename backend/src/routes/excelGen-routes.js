@@ -3,7 +3,7 @@ const express = require("express");
 
 const router = express.Router();
 const excelGenController = require("../controllers/excel-controller");
-const verify = require("../utils/verifyJWT");
+const verify = require("../middlewares/verifyJWT");
 
 router.get("/:id", verify.verifyJWT, excelGenController.genExcelFile);
 

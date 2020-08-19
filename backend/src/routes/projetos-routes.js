@@ -5,7 +5,7 @@ const router = express.Router();
 const path = require("path");
 const dotenv = require("dotenv");
 const projetosController = require("../controllers/projetos-controller");
-const verify = require("../utils/verifyJWT");
+const verify = require("../middlewares/verifyJWT");
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 

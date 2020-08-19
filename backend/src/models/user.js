@@ -4,16 +4,26 @@ const bcrypt = require("bcryptjs");
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
+  name: {
+    type: String,
+    default: "Novo usuário"
+  },
   email: {
     type: String,
     unique: true,
     required: true,
     lowercase: true
   },
-  senha: {
+  password: {
     type: String,
     required: true,
     select: false
+  },
+  permission: {
+    type: String,
+    enum: ["read", "write", "admin"],
+    default: "read",
+    required: true
   },
   createdAt: {
     type: Date,
@@ -27,8 +37,8 @@ const UserSchema = new Schema({
 /* eslint func-names: ["error", "never"] */
 UserSchema.pre("save", async function (next) {
   try {
-    const hash = await bcrypt.hash(this.senha, 10);
-    this.senha = hash;
+    const hash = await bcrypt.hash(this.password, 10);
+    this.password = hash;
     return next();
   } catch (err) {
     return err;

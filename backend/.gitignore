@@ -5,3 +5,4 @@ requests.http
 tests/integration/projetos.spec.js
 credentials.json
 tmp/*
+src/config/acl.json
