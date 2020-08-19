@@ -11,14 +11,12 @@ export default function Modal({ isOpen, setIsOpen }) {
 
   return (
     <ReactModal
-      onRequestClose={setIsOpen}
       isOpen={modalStatus}
       ariaHideApp={false}
       style={{
         content: {
           display: 'flex',
           justifyContent: "center",
-          textAlign: 'center',
           alignItems: 'center',
           background: 'transparent',
           border: 'none',

@@ -20,10 +20,6 @@ function UpdateProjeto() {
 
   const [modalOpen, setModalOpen] = useState(false);
 
-  function toggleModal() {
-    setModalOpen(!modalOpen);
-  }
-
   const [cliente, setCliente] = useState(projeto && projeto.cliente);
   const [nomeProjeto, setNomeProjeto] = useState(projeto && projeto.nomeProjeto);
   const [disciplinaMestre, setDisciplinaMestre] = useState(
@@ -179,7 +175,7 @@ function UpdateProjeto() {
     <Container>
       <Modal
         isOpen={modalOpen}
-        setIsOpen={toggleModal}
+        setIsOpen={setModalOpen}
       />
       <div className="update-item">
         <div id={projeto._id} className="grid-container">
@@ -354,7 +350,7 @@ function UpdateProjeto() {
               type="button"
               className="btn-criar-planilha"
               onClick={async () => {
-                toggleModal();
+                setModalOpen(true);
                 await gerarPlanilha(projeto)
                   .then(() => {
                     setModalOpen(false);
@@ -368,7 +364,7 @@ function UpdateProjeto() {
               type="button"
               className="btn-criar-relatorio"
               onClick={async () => {
-                toggleModal();
+                setModalOpen(true);
                 await gerarRelatorio(projeto)
                   .then(() => {
                     setModalOpen(false);

@@ -3,22 +3,25 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 40px;
+  margin-top: 10px;
+  width: 100%;
+  color: #cac7c6;
 
   h1 {
     text-align: center;
     font-size: 40px;
-    color: #cac7c6;
     padding-bottom: 40px;
   }
 
   ul {
+    align-self: center;
     display: flex;
     flex-direction: row;
+    max-width: 550px;
 
     height: 50px;
-    margin-top: 15px;
-    padding-bottom: 80px;
+    margin-top: 5px;
+    padding-bottom: 60px;
     list-style-type: none;
   }
 
@@ -30,7 +33,6 @@ export const Container = styled.div`
 
   ul img {
     width: 40px;
-    margin-left: 50px;
   }
 
   ul li + li {
@@ -52,5 +54,53 @@ export const Container = styled.div`
 
   a:hover {
     background-color: #800000;
+  }
+`;
+
+export const UserSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  a.userGreetings {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transition: transform 0.7s;
+    padding-bottom: 10px;
+    margin-left: 50px;
+    width: 270px;
+
+    svg {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      transform: translateX(15px);
+      text-decoration: underline;
+      background-color: transparent;
+
+      svg {
+        color: #800000;
+      }
+    }
+  }
+`;
+
+export const SignOutDiv = styled.div`
+  button {
+    background: transparent;
+    margin-right: 50px;
+    border: none;
+
+    svg {
+      color: #cac7c6;
+
+      &:hover {
+        color: #800000;
+      }
+    }
   }
 `;

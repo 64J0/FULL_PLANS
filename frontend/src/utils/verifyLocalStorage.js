@@ -3,22 +3,27 @@
 function verifyLocalStorage() {
   const token = localStorage.getItem("@FullPlans:token");
   const expiresIn = localStorage.getItem("@FullPlans:expiresIn");
+  const user = JSON.parse(localStorage.getItem("@FullPlans:user"));
 
   if (!expiresIn) {
     localStorage.removeItem("@FullPlans:token");
-    return undefined;
+    localStorage.removeItem("@FullPlans:user");
+    return { token: null, user: null };
   }
 
   if (Date.now() > expiresIn) {
     localStorage.removeItem("@FullPlans:token");
     localStorage.removeItem("@FullPlans:expiresIn");
+    localStorage.removeItem("@FullPlans:user");
   }
 
   if (!token) {
-    return undefined;
+    localStorage.removeItem("@FullPlans:expiresIn");
+    localStorage.removeItem("@FullPlans:user");
+    return { token: null, user: null };
   }
 
-  return token;
+  return { token, user };
 }
 
 export default verifyLocalStorage;

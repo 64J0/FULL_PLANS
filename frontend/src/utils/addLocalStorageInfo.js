@@ -9,5 +9,7 @@ export default function addLocalStorageInfo(response) {
 
   localStorage.setItem("@FullPlans:expiresIn", expirationDate.toString());
 
+  localStorage.setItem("@FullPlans:user", JSON.stringify(response.data.user));
+
   return null;
 };

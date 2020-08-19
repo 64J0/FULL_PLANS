@@ -8,7 +8,7 @@ const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
   const [loginData, setLoginData] = useState(() => {
-    const token = verifyLocalStorage();
+    const { token } = verifyLocalStorage();
 
     if (token) {
       api.defaults.headers.authorization = `Bearer ${token}`;
@@ -18,10 +18,16 @@ const AuthProvider = ({ children }) => {
     return ({ token: '', auth: false });
   });
 
+  const [user, setUser] = useState(() => {
+    const { user } = verifyLocalStorage();
+
+    return user || {};
+  });
+
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post("/login", {
+    const response = await api.post("/user/login", {
       email,
-      senha: password
+      password
     });
 
     if (!response.data.auth) {
@@ -30,21 +36,24 @@ const AuthProvider = ({ children }) => {
 
     addLocalStorageInfo(response);
 
-    const { token } = response.data;
+    const { token, auth, user } = response.data;
     api.defaults.headers.authorization = `Bearer ${token}`;
 
-    setLoginData(response.data);
+    setLoginData({ token, auth });
+    setUser(user);
   }, [setLoginData]);
 
   const signOut = useCallback(() => {
-    localStorage.removeItem('@FullPlans:token');
-
+    localStorage.clear();
     setLoginData({});
+    setUser({});
+
+    return;
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ signIn, signOut, loginData }}
+      value={{ signIn, signOut, loginData, user, setUser }}
     >
       {children}
     </AuthContext.Provider>

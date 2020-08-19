@@ -9,6 +9,9 @@ import Arquivados from "../pages/ProjArquivados";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Gerenciar from "../pages/GerenciarProjeto";
+import UserPage from "../pages/UserPage";
+import AdminPage from "../pages/AdminPage";
+import CreateUserPage from "../pages/CreateUserPage";
 import Erro404 from '../pages/Erro404';
 
 const Routes = () => {
@@ -21,6 +24,9 @@ const Routes = () => {
       <Route path="/abertos" component={Abertos} />
       <Route path="/arquivados" component={Arquivados} />
       <Route path="/gerenciar" component={Gerenciar} />
+      <Route path="/user" component={UserPage} />
+      <Route path="/admin" component={AdminPage} />
+      <Route path="/create-user" component={CreateUserPage} />
       <Route path="/*" component={Erro404} />
     </Switch>
 
