@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
   repository.findById({ id })
     .then((response) => {
       if (!response) {
-        return res.status(400).send({ message: "Usuário não encontrado!" });
+        return res.status(400).send({ message: "Usuário admin não encontrado!" });
       }
 
       if (response.permission !== "admin") {

@@ -53,7 +53,7 @@ exports.list = async () => {
 
 exports.delete = async (id) => {
   try {
-    await User.deleteOne(id);
+    await User.findOneAndDelete({ _id: id });
   } catch (err) {
     throw new Error();
   }

@@ -69,8 +69,16 @@ exports.updateUser = async (req, res) => {
 
     const { permission } = req.body;
 
-    if (permission && permission !== "admin") {
-      if (permission !== user.permission) {
+    if (permission && permission !== user.permission) {
+      const { adminId } = req.body;
+
+      if (!adminId) {
+        throw new Error();
+      }
+
+      const adminUser = await repository.findById({ id: adminId });
+
+      if (!adminUser) {
         throw new Error();
       }
     }
