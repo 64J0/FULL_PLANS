@@ -38,36 +38,6 @@ export const Container = styled.div`
 export const UserList = styled.ul`
   list-style: none;
   width: 100%;
-
-  .userListItem {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    margin: 0.5rem 0;
-    padding: 0.5rem;
-    border: 1px solid #666;
-    border-radius: 0.2rem;
-  }
-
-  && button {
-    height: 100%;
-    margin: 0 0.5rem 0 0;
-    padding: 0;
-    background-color: #fff;
-  }
-
-  svg {
-    color: #1717a0;
-    transition: transform 2s;
-  }
-
-  && button:hover {
-    svg {
-      transform: rotateZ(360deg);
-    }
-  }
 `;
 
 export const ButtonAddUser = styled.button`

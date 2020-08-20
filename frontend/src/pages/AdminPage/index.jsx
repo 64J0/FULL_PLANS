@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { FiUserPlus } from 'react-icons/fi';
-import { BsGearFill } from 'react-icons/bs';
 import { useHistory } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
+
+import UserListItem from '../../components/UserListItem';
 
 import { Container, UserList, ButtonAddUser } from './styles';
 
@@ -37,16 +38,13 @@ export default function AdminPage() {
       <UserList>
         {usersList && usersList.map((administratedUser) => {
           return (
-            <li
+            <UserListItem
               key={administratedUser.email}
-              className="userListItem">
-              <p>{administratedUser.email}</p>
-              <p>{administratedUser.name}</p>
-              <p>{administratedUser.permission}</p>
-              <button type="button">
-                <BsGearFill size="1.2rem" />
-              </button>
-            </li>
+              administratedUser={administratedUser}
+              adminId={user._id}
+              usersList={usersList}
+              setUsersList={setUsersList}
+            />
           )
         })}
       </UserList>
@@ -55,8 +53,6 @@ export default function AdminPage() {
         <FiUserPlus size="20" />
         <span>Adicionar usuário</span>
       </ButtonAddUser>
-
-
     </Container>
   );
 }

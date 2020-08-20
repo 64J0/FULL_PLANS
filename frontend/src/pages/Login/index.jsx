@@ -21,14 +21,9 @@ function Login() {
         throw new Error('Usuário ou senha vazios');
       }
 
-      if (!(/@fullengenharia.com/.test(email))) {
-        throw new Error('E-mail errado');
-      }
-
       await signIn({ email, password });
     } catch (err) {
       btnLogin.current.setAttribute('style', '');
-      setEmail('');
       setPassword('');
       return alert(err.message);
     }
