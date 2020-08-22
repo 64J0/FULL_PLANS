@@ -11,7 +11,7 @@ const app = express();
 app.use(cors({}));
 
 // Caminho para os arquivos estáticos
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 // Indica que a instância do Express (app) irá analisar respostas em formato json
 app.use(express.json());
