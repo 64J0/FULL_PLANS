@@ -1,34 +1,40 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-
-const repository = require("../repositories/users-repository");
+const { AuthenticateUserService } = require("../services/AuthenticateUserService");
+const { CreateUserService } = require("../services/CreateUserService");
+const { UpdateUserService } = require("../services/UpdateUserService");
+const { ListUsersService } = require("../services/ListUsersService");
+const { DeleteUserService } = require("../services/DeleteUserService");
 
 exports.verifyUser = async (req, res) => {
   try {
     if (!req.body.email) {
-      return res.status(400).send({ auth: false })
+      return res.status(400).send({
+        auth: false,
+        message: "O e-mail não foi informado."
+      });
     };
 
-    const user = await repository.verifyUser(req.body);
+    if (!req.body.password) {
+      return res.status(400).send({
+        auth: false,
+        message: "A senha não foi informada."
+      });
+    };
+
+    const { auth, token, user } = await AuthenticateUserService(req.body);
 
     if (!user) {
-      return res.status(400).send({ auth: false });
+      return res.status(400).send({
+        auth: false,
+        message: "Autenticação falhou, favor encaminhar os dados corretos."
+      });
     }
 
-    const resComparacao = await bcrypt.compare(req.body.password, user.password);
-
-    if (!resComparacao) return res.status(400).send({ auth: false });
-
-    const id = user._id;
-    const token = jwt.sign({ id }, process.env.SECRET, {
-      expiresIn: 36000, // 10 horas
-    });
-
-    user.password = undefined;
-
-    return res.status(202).send({ auth: true, token, user });
+    return res.status(202).send({ auth, token, user });
   } catch (err) {
-    return res.status(500).send({ message: "Login inválido", Error: err });
+    return res.status(500).send({
+      message: "Falha interna do servidor.",
+      error: err
+    });
   }
 };
 
@@ -36,23 +42,28 @@ exports.verifyUser = async (req, res) => {
 // Cria um novo usuário que terá acesso ao sistema
 exports.createUser = async (req, res) => {
   try {
-    const userAlreadyExists = await repository.findByEmail(req.body);
+    const { name, email, password, permission } = req.body;
 
-    if (userAlreadyExists) {
-      throw new Error("E-mail já cadastrado. Utilize outro!");
+    if (!name || !email || !password) {
+      return res
+        .status(400)
+        .send({
+          message: "Algumas informações do usuário não foram informadas, por gentileza confira o formulário."
+        });
     }
 
-    const user = await repository.create({
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-      permission: req.body.permission
-    });
+    const newUser = await CreateUserService({ name, email, password, permission });
 
-    return res.status(201).send(user);
+    if (!newUser._id) {
+      return res
+        .status(400)
+        .send({ message: newUser.message });
+    }
+
+    return res.status(201).send(newUser);
   } catch (err) {
     return res
-      .status(400)
+      .status(500)
       .send({ message: err.message });
   }
 };
@@ -61,40 +72,26 @@ exports.createUser = async (req, res) => {
 // Atualiza os dados do usuário
 exports.updateUser = async (req, res) => {
   try {
-    const user = await repository.findById({ id: req.params.id });
+    const { id } = req.params;
 
-    if (!user) {
-      throw new Error();
-    }
-
-    const { permission } = req.body;
-
-    if (permission && permission !== user.permission) {
-      const { adminId } = req.body;
-
-      if (!adminId) {
-        throw new Error();
-      }
-
-      const adminUser = await repository.findById({ id: adminId });
-
-      if (!adminUser) {
-        throw new Error();
-      }
-    }
-
-    const updatedUser = await repository.update(req.params.id, {
-      ...req.body,
+    const updatedUser = await UpdateUserService({
+      id,
+      body: req.body
     });
 
-    if (!updatedUser) {
-      throw new Error();
+
+    if (!updatedUser._id) {
+      return res
+        .status(400)
+        .send({
+          message: updatedUser.message
+        });
     }
 
     return res.status(200).send(updatedUser);
   } catch (e) {
     return res
-      .status(400)
+      .status(500)
       .send({
         message: "Falha ao atualizar o usuário!"
       });
@@ -105,8 +102,8 @@ exports.updateUser = async (req, res) => {
 // Lista todos os usuários cadastrados
 exports.list = async (req, res) => {
   try {
-    const data = await repository.list();
-    return res.status(200).send(data);
+    const userList = await ListUsersService();
+    return res.status(200).send(userList);
   } catch (e) {
     return res
       .status(500)
@@ -118,7 +115,7 @@ exports.list = async (req, res) => {
 // Deleta um usuário
 exports.deleteUser = async (req, res) => {
   try {
-    await repository.delete(req.params.id);
+    await DeleteUserService(req.params);
     return res.status(200).send({ message: "Usuário deletado" });
   } catch {
     return res
