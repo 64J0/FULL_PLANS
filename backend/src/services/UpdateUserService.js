@@ -10,16 +10,14 @@ const UpdateUserService = async ({ id, body }) => {
 
   const { permission } = body;
   if (permission && permission !== user.permission) {
-    const { adminId } = body;
-
-    if (!adminId) {
-      return { message: "Informe o ID do usuário responsável pela alteração." };
+    if (!body.adminId) {
+      return { message: "Informe o ID do usuário administrador responsável pela alteração." };
     }
+
+    const { adminId } = body;
 
     const adminUser = await repository
       .findById({ id: adminId });
-
-    console.log(adminUser);
 
     if (!adminUser._id) {
       return { message: "O usuário administrador não foi encontrado." }
@@ -33,7 +31,7 @@ const UpdateUserService = async ({ id, body }) => {
   const userByEmail = await repository
     .findByEmail({ email: body.email });
 
-  if (userByEmail) {
+  if (userByEmail && userByEmail._id !== user._id) {
     return { message: "Não é possível alterar o usuário para um e-mail já cadastrado" };
   }
 

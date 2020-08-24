@@ -66,6 +66,7 @@ exports.list = async () => {
 exports.delete = async (id) => {
   try {
     await User.findOneAndDelete({ _id: id });
+    return { message: "Usuário deletado" };
   } catch (err) {
     throw new Error("Não foi possível apagar o usuário.");
   }

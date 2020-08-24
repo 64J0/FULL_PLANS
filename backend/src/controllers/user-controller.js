@@ -114,6 +114,12 @@ exports.list = async (req, res) => {
 // =========================================
 // Deleta um usuário
 exports.deleteUser = async (req, res) => {
+  if (!req.params.id) {
+    return res.status(400).send({
+      message: "Falha ao deletar o usuário pois o ID não foi informado"
+    });
+  }
+
   try {
     await DeleteUserService(req.params);
     return res.status(200).send({ message: "Usuário deletado" });

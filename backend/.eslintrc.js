@@ -17,7 +17,7 @@ module.exports = {
   rules: {
     "no-underscore-dangle": 0,
     "no-console": 0,
-    camelcase: "off",
+    "camelcase": "off",
     "no-shadow": "off",
     "consistent-return": "off",
   },
