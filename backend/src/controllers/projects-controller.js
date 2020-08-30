@@ -1,8 +1,8 @@
-const repository = require("../repositories/projects-repository");
-
 const ListProjectsService = require("../services/projects-services/ListProjectsService");
 const CreateProjectService = require("../services/projects-services/CreateProjectService");
 const UpdateProjectService = require("../services/projects-services/UpdateProjectService");
+const DeleteProjectService = require("../services/projects-services/DeleteProjectService");
+const FindProjectByIdService = require("../services/projects-services/FindProjectByIdService");
 
 
 
@@ -48,7 +48,7 @@ exports.updateProject = async (req, res) => {
 
 exports.deleteProject = async (req, res) => {
   try {
-    await repository.deleteProject(req.params.id);
+    await DeleteProjectService.execute({ id: req.params.id });
     return res.status(200).send({
       message: "Projeto removido com sucesso!",
     });
@@ -64,7 +64,7 @@ exports.deleteProject = async (req, res) => {
 
 exports.findProjectById = async (req, res) => {
   try {
-    const foundProject = await repository.findProjectById(req.params.id);
+    const foundProject = await FindProjectByIdService.execute({ id: req.params.id });
 
     if (!foundProject) {
       return res.status(400).send({ message: "Não foi possível encontrar o projeto." });

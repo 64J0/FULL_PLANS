@@ -1,6 +1,6 @@
 // const fs = require("fs");
 // const path = require('path');
-const repository = require("../repositories/projetos-repository");
+const repository = require("../repositories/projects-repository");
 const createPDF = require("../utils/createPDF");
 
 exports.gerarPdf = async (req, res) => {

@@ -24,9 +24,9 @@ exports.updateProject = (id, data) => {
 };
 
 exports.deleteProject = (id) => {
-  const newProjectsArray = ProjectsArray.filter((thisProject) => thisProject._id !== id);
+  const filteredProjectsArray = ProjectsArray.filter((thisProject) => thisProject._id !== id);
 
-  return newProjectsArray;
+  return filteredProjectsArray;
 };
 
 exports.findProjectById = (id) => {
