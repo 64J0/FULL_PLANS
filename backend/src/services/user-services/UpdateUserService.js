@@ -1,4 +1,4 @@
-const repository = require("../repositories/users-repository");
+const repository = require("../../repositories/users-repository");
 
 const UpdateUserService = async ({ id, body }) => {
   const user = await repository
@@ -46,4 +46,4 @@ const UpdateUserService = async ({ id, body }) => {
   return updatedUser;
 }
 
-exports.UpdateUserService = UpdateUserService;
+exports.execute = UpdateUserService;

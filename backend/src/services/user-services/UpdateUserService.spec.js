@@ -1,10 +1,10 @@
-const service = require("./UpdateUserService");
+const UpdateUserService = require("./UpdateUserService");
 
-jest.mock("../repositories/users-repository");
+jest.mock("../../repositories/users-repository");
 
 describe("UpdateUserService", () => {
   it("should update a user name, e-mail and permission of the user", async () => {
-    const updatedUser = await service.UpdateUserService({
+    const updatedUser = await UpdateUserService.execute({
       id: "1",
       body: {
         adminId: "3",
@@ -19,7 +19,7 @@ describe("UpdateUserService", () => {
   });
 
   it("should update a user name and e-mail", async () => {
-    const updatedUser = await service.UpdateUserService({
+    const updatedUser = await UpdateUserService.execute({
       id: "1",
       body: {
         name: "Novo nome 2",
@@ -31,8 +31,21 @@ describe("UpdateUserService", () => {
     expect(updatedUser).toHaveProperty("email", "novo-email-2@teste.com");
   });
 
+  it("should update a user name and keep the same e-mail", async () => {
+    const updatedUser = await UpdateUserService.execute({
+      id: "1",
+      body: {
+        name: "Novo nome 2",
+        email: "teste1@teste.com"
+      }
+    });
+
+    expect(updatedUser).toHaveProperty("name", "Novo nome 2");
+    expect(updatedUser).toHaveProperty("email", "teste1@teste.com");
+  });
+
   it("should not update a user permission if no adminId is provided", async () => {
-    const result = await service.UpdateUserService({
+    const result = await UpdateUserService.execute({
       id: "1",
       body: {
         name: "Novo nome 3",
@@ -45,7 +58,7 @@ describe("UpdateUserService", () => {
   });
 
   it("should not update a user permission if invalid adminId is provided", async () => {
-    const result = await service.UpdateUserService({
+    const result = await UpdateUserService.execute({
       id: "1",
       body: {
         adminId: "2",
@@ -59,7 +72,7 @@ describe("UpdateUserService", () => {
   });
 
   it("should not update a user without providing ID", async () => {
-    const result = await service.UpdateUserService({
+    const result = await UpdateUserService.execute({
       id: "",
       body: {
         name: "Novo nome 5",
@@ -71,7 +84,7 @@ describe("UpdateUserService", () => {
   });
 
   it("should not update a user to a already used e-mail", async () => {
-    const result = await service.UpdateUserService({
+    const result = await UpdateUserService.execute({
       id: "1",
       body: {
         name: "Novo nome 6",

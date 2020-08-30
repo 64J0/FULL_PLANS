@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
-const service = require("./AuthenticateUserService");
+const AuthenticateUserService = require("./AuthenticateUserService");
 
-jest.mock("../repositories/users-repository");
+jest.mock("../../repositories/users-repository");
 jest.mock("bcryptjs", () => {
   const compare = async (password, userPassword) => {
     return (
@@ -28,7 +28,7 @@ jest.mock("jsonwebtoken", () => {
 
 describe("AuthenticateUserService", () => {
   it("should authenticate", async () => {
-    const result = await service.AuthenticateUserService({
+    const result = await AuthenticateUserService.execute({
       email: "teste1@teste.com",
       password: "123456"
     });
@@ -41,7 +41,7 @@ describe("AuthenticateUserService", () => {
   });
 
   it("should not authenticate when it's used a non-existent e-mail in the database", async () => {
-    const result = await service.AuthenticateUserService({
+    const result = await AuthenticateUserService.execute({
       email: "non-existent@email.com",
       password: "123456"
     });
@@ -53,7 +53,7 @@ describe("AuthenticateUserService", () => {
   });
 
   it("should not authenticate when it's send a wrong password", async () => {
-    const result = await service.AuthenticateUserService({
+    const result = await AuthenticateUserService.execute({
       email: "teste1@teste.com",
       password: "123"
     });

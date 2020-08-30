@@ -1,4 +1,4 @@
-const repository = require("../repositories/users-repository");
+const repository = require("../../repositories/users-repository");
 
 const CreateUserService = async ({ name, email, password, permission }) => {
   const userAlreadyExists = await repository.findByEmail({ email });
@@ -17,4 +17,4 @@ const CreateUserService = async ({ name, email, password, permission }) => {
   return user;
 }
 
-exports.CreateUserService = CreateUserService;
+exports.execute = CreateUserService;

@@ -1,18 +1,15 @@
-/*
-    Este arquivo foi criado para gerenciar os controllers, através de uma arquitetura de programação diferente, chamada repository pattern
-*/
 const mongoose = require("mongoose");
 
 const Projetos = mongoose.model("Projetos");
 
-exports.listProjeto = async () => {
+exports.listProjects = async () => {
   const res = await Projetos.find({}).catch((error) => {
     return { error };
   });
   return res;
 };
 
-exports.createProjeto = async (data) => {
+exports.createProject = async (data) => {
   try {
     const projeto = new Projetos(data);
     await projeto.save().catch((error) => {
@@ -26,7 +23,7 @@ exports.createProjeto = async (data) => {
 
 // POSSIBILIDADES DE MELHORIAS:
 // Diminuir a quantidade de requisições ao banco de dados que são feitas
-exports.updateProjeto = async (id, data) => {
+exports.updateProject = async (id, data) => {
   await Projetos.findByIdAndUpdate(id, {
     $set: data,
   }).catch((error) => {
@@ -36,14 +33,14 @@ exports.updateProjeto = async (id, data) => {
   return Projetos.findById(id);
 };
 
-exports.deleteProjeto = async (id) => {
+exports.deleteProject = async (id) => {
   await Projetos.findByIdAndDelete(id).catch((error) => {
     return { error };
   });
   return { message: "Deleted!" };
 };
 
-exports.findProjetoById = async (id) => {
+exports.findProjectById = async (id) => {
   const foundProject = await Projetos.findById(id)
     .catch((error) => {
       return error;

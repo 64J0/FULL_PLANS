@@ -1,10 +1,10 @@
-const service = require("./ListUsersService");
+const ListUsersService = require("./ListUsersService");
 
-jest.mock("../repositories/users-repository");
+jest.mock("../../repositories/users-repository");
 
 describe("ListUsersService", () => {
   it("should list the users list", async () => {
-    const userList = await service.ListUsersService();
+    const userList = await ListUsersService.execute();
 
     expect(userList).toHaveLength(3);
     expect(userList[0]).toHaveProperty("_id", "1");

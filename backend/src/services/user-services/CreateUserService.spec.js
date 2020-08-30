@@ -1,10 +1,10 @@
-const service = require("./CreateUserService");
+const CreateUserService = require("./CreateUserService");
 
-jest.mock("../repositories/users-repository");
+jest.mock("../../repositories/users-repository");
 
 describe("CreateUserService", () => {
   it("should create a new user", async () => {
-    const result = await service.CreateUserService({
+    const result = await CreateUserService.execute({
       name: "New User",
       email: "new-user@teste.com",
       password: "123456",
@@ -18,7 +18,7 @@ describe("CreateUserService", () => {
   });
 
   it("should not create a new user when it's send a e-mail already in the database", async () => {
-    const result = await service.CreateUserService({
+    const result = await CreateUserService.execute({
       name: "New User",
       email: "teste2@teste.com",
       password: "123456",

@@ -1,8 +1,8 @@
-const { AuthenticateUserService } = require("../services/AuthenticateUserService");
-const { CreateUserService } = require("../services/CreateUserService");
-const { UpdateUserService } = require("../services/UpdateUserService");
-const { ListUsersService } = require("../services/ListUsersService");
-const { DeleteUserService } = require("../services/DeleteUserService");
+const AuthenticateUserService = require("../services/user-services/AuthenticateUserService");
+const CreateUserService = require("../services/user-services/CreateUserService");
+const UpdateUserService = require("../services/user-services/UpdateUserService");
+const ListUsersService = require("../services/user-services/ListUsersService");
+const DeleteUserService = require("../services/user-services/DeleteUserService");
 
 exports.verifyUser = async (req, res) => {
   try {
@@ -20,7 +20,7 @@ exports.verifyUser = async (req, res) => {
       });
     };
 
-    const { auth, token, user } = await AuthenticateUserService(req.body);
+    const { auth, token, user } = await AuthenticateUserService.execute(req.body);
 
     if (!user) {
       return res.status(400).send({
@@ -52,7 +52,7 @@ exports.createUser = async (req, res) => {
         });
     }
 
-    const newUser = await CreateUserService({ name, email, password, permission });
+    const newUser = await CreateUserService.execute({ name, email, password, permission });
 
     if (!newUser._id) {
       return res
@@ -74,7 +74,7 @@ exports.updateUser = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const updatedUser = await UpdateUserService({
+    const updatedUser = await UpdateUserService.execute({
       id,
       body: req.body
     });
@@ -102,7 +102,7 @@ exports.updateUser = async (req, res) => {
 // Lista todos os usuários cadastrados
 exports.list = async (req, res) => {
   try {
-    const userList = await ListUsersService();
+    const userList = await ListUsersService.execute();
     return res.status(200).send(userList);
   } catch (e) {
     return res
@@ -121,7 +121,7 @@ exports.deleteUser = async (req, res) => {
   }
 
   try {
-    await DeleteUserService(req.params);
+    await DeleteUserService.execute(req.params);
     return res.status(200).send({ message: "Usuário deletado" });
   } catch {
     return res

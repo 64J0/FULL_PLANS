@@ -1,4 +1,4 @@
-const repository = require("../repositories/users-repository");
+const repository = require("../../repositories/users-repository");
 
 const DeleteUserService = async ({ id }) => {
   try {
@@ -9,4 +9,4 @@ const DeleteUserService = async ({ id }) => {
   }
 }
 
-exports.DeleteUserService = DeleteUserService;
+exports.execute = DeleteUserService;

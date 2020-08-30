@@ -1,10 +1,10 @@
-const service = require("./DeleteUserService");
+const DeleteUserService = require("./DeleteUserService");
 
-jest.mock("../repositories/users-repository");
+jest.mock("../../repositories/users-repository");
 
 describe("DeleteUserService", () => {
   it("should delete a user", async () => {
-    const userList = await service.DeleteUserService({
+    const userList = await DeleteUserService.execute({
       id: "2"
     });
 

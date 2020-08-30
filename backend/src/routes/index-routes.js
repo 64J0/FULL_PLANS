@@ -4,13 +4,13 @@ const router = express.Router();
 
 const packageJson = require("../../package.json");
 
-const projetosRoutes = require("./projetos-routes");
+const projectsRoutes = require("./projects-routes");
 const userRoutes = require("./user-routes");
 const excelGenRoutes = require("./excelGen-routes");
 // const googleRoutes = require("./google-routes");
 const gerarPdfRoutes = require("./gerarPdf-routes");
 
-router.use("/projetos", projetosRoutes);
+router.use("/projetos", projectsRoutes);
 router.use("/user", userRoutes);
 router.use("/excel", excelGenRoutes);
 // router.use("/google", googleRoutes);
@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
 });
 
 router.route("/*").get((req, res) => {
-  return res.status(404).send({ error: "Error 404 - Page not found" });
+  return res.status(404).send({ error: "Error 404 - Content not found" });
 });
 
 module.exports = router;
