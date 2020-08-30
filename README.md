@@ -46,6 +46,8 @@ Para desenvolver o frontend foi utilizado, basicamente, ReactJS com Hooks.
 
 * Desenvolver um sistema de envio de e-mails automático, em que o projetista do desenho receberá um e-mail contendo valores para atualização das informações do desenho, como por exemplo, o número FULL;
 * Configurar o CORS para permitir acessar a API apenas de determinadas URLs;
+* Criar um Error Handler global e personalizado para o back-end padronizar as mensagens de erro;
+* Definir os arquivos de testes automatizados para o projeto inteiro, começando pelo back-end;
 * Funcionalidade necessária: Criar um botão no frontend para fazer download dos arquivos de desenhos salvos no ~~Google Drive~~ **OneDrive**. Serão acessados os links salvos para cada projeto, esses desenhos devem ser baixados em formato .zip.
 * *Layout* precisa ser ajustado para ficar mais *user friendly*:
   * Uma tela de *loading* para quando os projetos estiverem sendo carregados do banco de dados;
