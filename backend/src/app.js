@@ -5,7 +5,9 @@ const cors = require("cors");
 const hpp = require("hpp");
 const rateLimit = require("express-rate-limit");
 const cookieParser = require("cookie-parser");
-const db = require("./database");
+
+const database = require("./database");
+const AppError = require("./errors/AppError");
 
 const app = express();
 app.use(cors({}));
@@ -45,9 +47,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // BANCO DE DADOS (DATABASE)
-if (process.env.NODE_ENV !== "test") {
-  db();
-}
+database();
 
 // MODELS
 require("./models/projeto");
@@ -57,5 +57,24 @@ require("./models/user");
 const indexRoutes = require("./routes/index-routes");
 
 app.use(indexRoutes);
+
+// CUSTOM ERROR HANDLER
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  if (err instanceof AppError) {
+    return res
+      .status(err.statusCode)
+      .send({ status: 'error', message: err.message });
+  }
+
+  console.error(err);
+
+  return res
+    .status(500)
+    .send({
+      status: 'error',
+      message: 'Internal server error.'
+    });
+});
 
 module.exports = app;

@@ -1,7 +1,13 @@
 const repository = require("../repositories/users-repository");
+const AppError = require("../errors/AppError");
 
 module.exports = async (req, res, next) => {
   const id = req.body.adminId;
+
+  if (!id) {
+    return next(new AppError("teste", 400));
+  }
+
   repository.findById({ id })
     .then((response) => {
       if (!response) {
@@ -16,5 +22,5 @@ module.exports = async (req, res, next) => {
     })
     .catch(() => {
       return res.status(500).send({ message: "Problema na operação de verificar a permissão!" });
-    })
+    });
 }
