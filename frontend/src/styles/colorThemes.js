@@ -83,4 +83,8 @@ const error = {
   error: "#b00020"
 }
 
-module.exports = { primary, complementary, analogous1, analogous2, triadic1, triadic2, error };
+const fontColor = {
+  text: "#333333"
+}
+
+module.exports = { primary, complementary, analogous1, analogous2, triadic1, triadic2, error, fontColor };

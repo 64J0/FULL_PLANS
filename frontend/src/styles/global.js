@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import { primary } from './colorThemes';
+
 export default createGlobalStyle`
   *,
   input {
@@ -18,14 +20,14 @@ export default createGlobalStyle`
   }
 
   body {
-    background-color: #353839;
+    background-color: ${primary[600]};
     -webkit-font-smoothing: antialiased;
   }
 
   body,
   input,
   button {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Lato', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   button {

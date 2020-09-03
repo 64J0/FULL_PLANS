@@ -1,9 +1,10 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
+import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 
 import { useAuth } from '../../hooks/auth';
 
-import './styles.css';
+import { Container, InputCustomizado } from './styles';
 import logoImage from '../../assets/fullE_icon.png';
 
 function Login() {
@@ -11,6 +12,7 @@ function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [visibility, setVisibility] = useState(false);
 
   const btnLogin = useRef(null);
 
@@ -38,14 +40,14 @@ function Login() {
   }
 
   return (
-    <div className="login">
+    <Container>
       <img src={logoImage} alt="Logo da Full Engenharia" />
       <form onSubmit={handleSubmit}>
         <fieldset>
-          <legend>Full Plans</legend>
-          <hr />
-          <div className="inputCustomizado">
-            <span><FiMail size={20} color="#333" /></span>
+          <legend>FULL PLANS</legend>
+
+          <InputCustomizado>
+            <span><FiMail size={18} color="#333" /></span>
             <input
               type="text"
               onChange={(e) => setEmail(e.target.value)}
@@ -53,25 +55,39 @@ function Login() {
               id="email-login"
               placeholder="E-mail"
             />
-          </div>
+          </InputCustomizado>
 
-          <div className="inputCustomizado">
-            <span><FiLock size={20} color="#333" /></span>
+          <InputCustomizado>
+            <span><FiLock size={18} color="#333" /></span>
             <input
-              type="password"
+              type={visibility ? "text" : "password"}
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               id="senha-login"
               placeholder="Senha"
             />
-          </div>
+            <span
+              onClick={() => setVisibility(!visibility)}
+              style={{ cursor: 'pointer' }}
+            >
+              {visibility ? <AiOutlineEyeInvisible size={18} /> : <AiOutlineEye size={18} />}
+            </span>
+          </InputCustomizado>
 
-          <button ref={btnLogin} type="submit" id="btnLogin" onClick={() => { disableButton() }}>
+          <button
+            ref={btnLogin}
+            type="submit"
+            id="btnLogin"
+            onClick={() => {
+              setVisibility(false)
+              disableButton()
+            }}
+          >
             Logar
-                    </button>
+          </button>
         </fieldset>
       </form>
-    </div>
+    </Container>
   );
 }
 
