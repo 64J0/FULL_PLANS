@@ -20,12 +20,12 @@ export const Container = styled.div`
     display: flex;
     flex-direction: space-between;
     align-items: center;
+    justify-content: center;
     flex: 1;
 
-    height: 50px;
+    height: 40px;
     padding: 10px 0;
-    border-radius: 0;
-    border-bottom: 2px dashed #ccc;
+    margin: 0.2rem;
   }
 
   label {
@@ -37,11 +37,12 @@ export const Container = styled.div`
     width: 20%;
     min-width: 150px;
     margin-left: 15px;
+    text-align: right;
   }
 
   input {
     flex: 1;
-    max-width: 700px;
+    max-width: 500px;
     height: 30px;
 
     padding-left: 5px;
@@ -72,12 +73,10 @@ export const Container = styled.div`
   @media(max-width: 700px) {
     label {
       flex: 0.6;
-      margin: 0;
     }
 
     input {
       flex: 1;
-      margin: 0;
     }
 
     button[type="submit"] {

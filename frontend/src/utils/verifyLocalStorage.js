@@ -6,20 +6,16 @@ function verifyLocalStorage() {
   const user = JSON.parse(localStorage.getItem("@FullPlans:user"));
 
   if (!expiresIn) {
-    localStorage.removeItem("@FullPlans:token");
-    localStorage.removeItem("@FullPlans:user");
+    localStorage.clear();
     return { token: null, user: null };
   }
 
   if (Date.now() > expiresIn) {
-    localStorage.removeItem("@FullPlans:token");
-    localStorage.removeItem("@FullPlans:expiresIn");
-    localStorage.removeItem("@FullPlans:user");
+    localStorage.clear();
   }
 
   if (!token) {
-    localStorage.removeItem("@FullPlans:expiresIn");
-    localStorage.removeItem("@FullPlans:user");
+    localStorage.clear();
     return { token: null, user: null };
   }
 

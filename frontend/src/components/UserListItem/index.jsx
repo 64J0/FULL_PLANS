@@ -10,7 +10,6 @@ export default function UserListItem({ administratedUser, adminId, setUsersList,
   const [permission, setPermission] = useState(administratedUser.permission);
 
   const saveUserEdits = useCallback(async () => {
-    console.log("Salvo.")
     const id = administratedUser._id;
     await api.put(`/user/update/${id}`, {
       adminId,

@@ -28,11 +28,10 @@ const AuthProvider = ({ children }) => {
     const response = await api.post("/user/login", {
       email,
       password
-    });
-
-    if (!response.data.auth) {
-      throw new Error("Credenciais inválidas");
-    }
+    })
+      .catch(() => {
+        throw new Error("Credenciais inválidas, corrija-as por gentileza e tente fazer login novamente.");
+      });
 
     addLocalStorageInfo(response);
 

@@ -4,7 +4,6 @@ import { FaUserCircle } from 'react-icons/fa';
 import { GoSignOut } from 'react-icons/go';
 
 import { useAuth } from '../../hooks/auth';
-import Logo from '../../assets/fullE_icon.png';
 
 import { Container, UserSection, SignOutDiv } from './styles';
 
@@ -24,8 +23,8 @@ function Header() {
           </button>
         </SignOutDiv>
       </UserSection>
+
       <ul>
-        <li><img src={Logo} alt="Ícone da empresa" /></li>
         <li>
           <Link to='/home'>Home</Link>
         </li>

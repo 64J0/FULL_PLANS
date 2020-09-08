@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
+import { primary, complementary } from '../../styles/colorThemes';
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 10px;
   width: 100%;
-  color: #cac7c6;
+  color: ${primary[50]};
 
   h1 {
     text-align: center;
@@ -41,7 +43,7 @@ export const Container = styled.div`
   }
 
   a {
-    color: #cac7c6;
+    color: ${primary[50]};
     background: none;
     border: none;
     width: 100%;
@@ -53,7 +55,7 @@ export const Container = styled.div`
   }
 
   a:hover {
-    background-color: #800000;
+    background-color: ${complementary[800]};
   }
 `;
 
@@ -70,9 +72,11 @@ export const UserSection = styled.div`
     transition: transform 0.7s;
     padding-bottom: 10px;
     margin-left: 50px;
-    width: 270px;
+    max-width: 350px;
+    flex: 1;
 
     svg {
+      width: 2.4rem;
       margin-right: 10px;
     }
 
@@ -83,7 +87,7 @@ export const UserSection = styled.div`
       background-color: transparent;
 
       svg {
-        color: #800000;
+        color: ${complementary[800]};
       }
     }
   }
@@ -96,10 +100,11 @@ export const SignOutDiv = styled.div`
     border: none;
 
     svg {
-      color: #cac7c6;
+      width: 2.4rem;
+      color: ${primary[50]};
 
       &:hover {
-        color: #800000;
+        color: ${complementary[800]};
       }
     }
   }
