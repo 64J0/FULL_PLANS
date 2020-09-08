@@ -4,29 +4,22 @@ const UpdateUserService = require("../services/user-services/UpdateUserService")
 const ListUsersService = require("../services/user-services/ListUsersService");
 const DeleteUserService = require("../services/user-services/DeleteUserService");
 
-exports.verifyUser = async (req, res) => {
+const AppError = require("../errors/AppError");
+
+exports.verifyUser = async (req, res, next) => {
   try {
     if (!req.body.email) {
-      return res.status(400).send({
-        auth: false,
-        message: "O e-mail não foi informado."
-      });
+      return next(new AppError("O e-mail não foi informado.", 400));
     };
 
     if (!req.body.password) {
-      return res.status(400).send({
-        auth: false,
-        message: "A senha não foi informada."
-      });
+      return next(new AppError("A senha não foi informada.", 400));
     };
 
     const { auth, token, user } = await AuthenticateUserService.execute(req.body);
 
     if (!user) {
-      return res.status(400).send({
-        auth: false,
-        message: "Autenticação falhou, favor encaminhar os dados corretos."
-      });
+      return next(new AppError("Autenticação falhou, favor encaminhar as credenciais corretas.", 401));
     }
 
     return res.status(202).send({ auth, token, user });
@@ -40,24 +33,18 @@ exports.verifyUser = async (req, res) => {
 
 // =========================================
 // Cria um novo usuário que terá acesso ao sistema
-exports.createUser = async (req, res) => {
+exports.createUser = async (req, res, next) => {
   try {
     const { name, email, password, permission } = req.body;
 
     if (!name || !email || !password) {
-      return res
-        .status(400)
-        .send({
-          message: "Algumas informações do usuário não foram informadas, por gentileza confira o formulário."
-        });
+      return next(new AppError("Algumas informações do usuário não foram informadas, por gentileza confira o formulário.", 400));
     }
 
     const newUser = await CreateUserService.execute({ name, email, password, permission });
 
     if (!newUser._id) {
-      return res
-        .status(400)
-        .send({ message: newUser.message });
+      return next(new AppError(newUser.message, 400));
     }
 
     return res.status(201).send(newUser);
@@ -70,7 +57,7 @@ exports.createUser = async (req, res) => {
 
 // =========================================
 // Atualiza os dados do usuário
-exports.updateUser = async (req, res) => {
+exports.updateUser = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -81,11 +68,7 @@ exports.updateUser = async (req, res) => {
 
 
     if (!updatedUser._id) {
-      return res
-        .status(400)
-        .send({
-          message: updatedUser.message
-        });
+      return next(new AppError(updatedUser.message, 400));
     }
 
     return res.status(200).send(updatedUser);
@@ -113,11 +96,9 @@ exports.list = async (req, res) => {
 
 // =========================================
 // Deleta um usuário
-exports.deleteUser = async (req, res) => {
+exports.deleteUser = async (req, res, next) => {
   if (!req.params.id) {
-    return res.status(400).send({
-      message: "Falha ao deletar o usuário pois o ID não foi informado"
-    });
+    return next(new AppError("Falha ao deletar o usuário pois o ID não foi informado", 400));
   }
 
   try {

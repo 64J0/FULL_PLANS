@@ -9,12 +9,14 @@ const userRoutes = require("./user-routes");
 const excelGenRoutes = require("./excelGen-routes");
 // const googleRoutes = require("./google-routes");
 const gerarPdfRoutes = require("./gerarPdf-routes");
+const emailRoutes = require("./email-routes");
 
 router.use("/projetos", projectsRoutes);
 router.use("/user", userRoutes);
 router.use("/excel", excelGenRoutes);
 // router.use("/google", googleRoutes);
 router.use("/generatepdf", gerarPdfRoutes);
+router.use("/email", emailRoutes);
 
 // Rota default
 router.get("/", (req, res) => {

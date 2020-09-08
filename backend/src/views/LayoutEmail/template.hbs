@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 
+  <link rel="stylesheet" href="styles.css">
+  -->
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    main {
+      max-width: 20rem;
+      text-align: justify;
+    }
+
+    h2+p {
+      margin-bottom: 0.8rem;
+      color: #999;
+    }
+
+    footer {
+      margin-top: 3rem;
+    }
+
+    .bold {
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  </style>
+
+  <title>E-mail automático</title>
+</head>
+
+<body>
+  <header>
+    <h1>Full Form</h1>
+  </header>
+  <main>
+    <h2>E-mail automático</h2>
+    <p id="horarioEnvio"></p>
+
+    <p>Saudações.</p>
+
+    <p>Um novo usuário acaba de preencher o formulário do Full Forms e enviou as seguintes informações:</p>
+
+    <p class="bold">Nome: </p>
+    <p>{{name}}</p>
+
+    <p class="bold">E-mail:</p>
+    <p>{{email}}</p>
+
+    <p class="bold">Telefone:</p>
+    <p>{{phone}}</p>
+
+    <p class="bold">Explicação da necessidade:</p>
+    <p>{{necessity}}</p>
+  </main>
+  <footer>
+    <p>&#169; Full Engenharia, 2020.</p>
+  </footer>
+</body>
+
+<script>
+  (function determineDate() {
+    let pElement = document.getElementById("horarioEnvio");
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    pElement.innerHTML = `${day}/${month}/${year}`;
+  })();
+</script>
+
+</html>

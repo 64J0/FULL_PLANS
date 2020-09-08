@@ -4,11 +4,17 @@ const UpdateProjectService = require("../services/projects-services/UpdateProjec
 const DeleteProjectService = require("../services/projects-services/DeleteProjectService");
 const FindProjectByIdService = require("../services/projects-services/FindProjectByIdService");
 
+const AppError = require("../errors/AppError");
 
 
-exports.listProjects = async (req, res) => {
+exports.listProjects = async (req, res, next) => {
   try {
     const projectData = await ListProjectsService.execute();
+
+    if (!projectData || projectData.length === 0) {
+      return next(new AppError("Falha ao carregar os projetos. Entre em contato com o administrador do sistema para verificar.", 400));
+    }
+
     return res.status(200).send(projectData);
   } catch (e) {
     return res
@@ -19,9 +25,13 @@ exports.listProjects = async (req, res) => {
 
 
 
-exports.createProject = async (req, res) => {
+exports.createProject = async (req, res, next) => {
   try {
-    const newProject = await CreateProjectService.execute(req.body);
+    const newProject = await CreateProjectService.execute(req.body)
+      .catch(() => {
+        return next(new AppError("Não foi possível criar o projeto. Entre em contato com o administrador da aplicação para verificar.", 400));
+      });
+
     return res.status(201).send(newProject);
   } catch (e) {
     return res
@@ -32,9 +42,13 @@ exports.createProject = async (req, res) => {
 
 
 
-exports.updateProject = async (req, res) => {
+exports.updateProject = async (req, res, next) => {
   try {
-    const updatedProject = await UpdateProjectService.execute(req.params.id, req.body);
+    const updatedProject = await UpdateProjectService.execute(req.params.id, req.body)
+      .catch(() => {
+        return next(new AppError("Não foi possível atualizar o projeto. Entre em contato com o administrador da aplicação para verificar.", 400));
+      });
+
     return res.status(201).send(updatedProject);
   } catch (e) {
     return res.status(500).send({
@@ -46,9 +60,14 @@ exports.updateProject = async (req, res) => {
 
 
 
-exports.deleteProject = async (req, res) => {
+exports.deleteProject = async (req, res, next) => {
   try {
-    await DeleteProjectService.execute({ id: req.params.id });
+    await DeleteProjectService.execute({ id: req.params.id })
+      .catch(() => {
+        return next(new AppError("Não foi possível deletar o projeto. Entre em contato com o administrador da aplicação para verificar.", 400));
+      });
+
+
     return res.status(200).send({
       message: "Projeto removido com sucesso!",
     });
@@ -62,12 +81,15 @@ exports.deleteProject = async (req, res) => {
 
 
 
-exports.findProjectById = async (req, res) => {
+exports.findProjectById = async (req, res, next) => {
   try {
-    const foundProject = await FindProjectByIdService.execute({ id: req.params.id });
+    const foundProject = await FindProjectByIdService.execute({ id: req.params.id })
+      .catch(() => {
+        return next(new AppError("Não foi possível encontrar o projeto. Entre em contato com o administrador da aplicação para verificar.", 400));
+      });;
 
     if (!foundProject) {
-      return res.status(400).send({ message: "Não foi possível encontrar o projeto." });
+      return res.status(400).send({ message: "O projeto não foi encontrado." });
     }
 
     return res.status(200).send(foundProject);

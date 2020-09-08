@@ -5,7 +5,7 @@ const handlebars = require("handlebars");
 
 module.exports = async function createPDF(data) {
 
-  const templateHtml = fs.readFileSync(path.join(process.cwd(), 'src/views/LayoutPDF/template.html'), 'utf8');
+  const templateHtml = fs.readFileSync(path.join(process.cwd(), "src/views/LayoutPDF/template.html"), "utf8");
 
   const template = handlebars.compile(templateHtml);
 
@@ -22,18 +22,18 @@ module.exports = async function createPDF(data) {
       bottom: "30px"
     },
     printBackground: true,
-    format: 'A4'
-  }
+    format: "A4"
+  };
 
   const browser = await puppeteer.launch({
-    args: ['--no-sandbox'],
+    args: ["--no-sandbox"],
     headless: true
   });
 
   const page = await browser.newPage();
 
   await page.goto(`data:text/html;charset=UTF-8,${html}`, {
-    waitUntil: 'networkidle0'
+    waitUntil: "networkidle0"
   });
 
   const pathStyles = path.resolve(__dirname, "../views/LayoutPDF/styles.css");
@@ -43,4 +43,4 @@ module.exports = async function createPDF(data) {
   await browser.close();
 
   return pageBuffer;
-}
+};

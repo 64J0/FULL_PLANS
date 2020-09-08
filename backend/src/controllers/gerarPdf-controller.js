@@ -9,7 +9,7 @@ exports.gerarPdf = async (req, res) => {
 
     if (!projectData) {
       return res.status(400).send({
-        message: 'Projeto não encontrado'
+        message: "Projeto não encontrado"
       });
     }
 
@@ -36,7 +36,7 @@ exports.gerarPdf = async (req, res) => {
 
     return res.status(200).send(pageBuffer);
   } catch (e) {
-    console.log()
+    console.log();
     return res.status(400).send({
       message: "Falha ao gerar o PDF!",
       Error: e.message,

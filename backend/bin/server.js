@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 // Neste trecho estão sendo chamadas as dependências necessárias para subir
 // o servidor HTTP e realizar o  debug (procurar por erros).
 const debug = require("debug")("nodestr:server");
@@ -36,12 +37,14 @@ function onError(error) {
     case "EACCES":
       console.error(`${bind} requires elevated privileges`);
       process.exit(1);
-      break;
 
     case "EADDRINUSE":
       console.error(`${bind} is already in use`);
       process.exit(1);
-      break;
+
+    case "ELIFECYCLE":
+      console.error("Process has been stopped unexpectedly.")
+      process.exit(1);
 
     default:
       throw error;
