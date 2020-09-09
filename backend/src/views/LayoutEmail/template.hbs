@@ -2,94 +2,113 @@
 <html lang="pt-BR">
 
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- 
-  <link rel="stylesheet" href="styles.css">
-  -->
+  <!-- CSS Inline é um requisito dos clients de e-mail -->
 
-  <style>
-    * {
-      box-sizing: border-box;
+  <style type="text/css">
+    body {
       margin: 0;
       padding: 0;
+      background-color: #f6f6f6;
+    }
+
+    table {
+      border-spacing: 0;
+    }
+
+    td {
+      padding: 0;
+    }
+
+    img {
+      border: 0;
+    }
+
+    .wrapper {
+      width: 100%;
+      table-layout: fixed;
+      background-color: #f6f6f6;
+      padding-bottom: 40px;
+    }
+
+    .webkit {
+      max-width: 600px;
+      background-color: #ffffff;
+    }
+
+    .outer {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 600px;
+      border-spacing: 0;
       font-family: Arial, Helvetica, sans-serif;
+      color: #4a4a4a;
     }
 
-    body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+    @media screen and (max-width: 600px) {}
 
-    header {
-      margin-bottom: 2rem;
-    }
-
-    main {
-      max-width: 20rem;
-      text-align: justify;
-    }
-
-    h2+p {
-      margin-bottom: 0.8rem;
-      color: #999;
-    }
-
-    footer {
-      margin-top: 3rem;
-    }
-
-    .bold {
-      font-weight: bold;
-      margin-top: 1rem;
-    }
+    @media screen and (max-width: 400px) {}
   </style>
 
   <title>E-mail automático</title>
 </head>
 
 <body>
-  <header>
-    <h1>Full Form</h1>
-  </header>
-  <main>
-    <h2>E-mail automático</h2>
-    <p id="horarioEnvio"></p>
+  <center class="wrapper">
+    <div class="webkit">
+      <table class="outer" align="center">
+        <!-- Header -->
+        <tr>
+          <td>
+            <table width="100%" style="border-spacing: 0;">
+              <tr>
+                <td style="background-color: #0f679a;">
+                  <h1 style="color: #ffffff; padding: 20px; text-align: center;">FULL FORM</h1>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
 
-    <p>Saudações.</p>
+        <!-- Main -->
+        <tr>
+          <td>
+            <div style="margin-left: 20px;">
+              <h2>E-mail automático</h2>
+              <p id="horarioEnvio"></p>
 
-    <p>Um novo usuário acaba de preencher o formulário do Full Forms e enviou as seguintes informações:</p>
+              <p>Saudações,</p>
 
-    <p class="bold">Nome: </p>
-    <p>{{name}}</p>
+              <p>Um novo usuário acaba de preencher o formulário do Full Forms e enviou as seguintes informações:</p>
 
-    <p class="bold">E-mail:</p>
-    <p>{{email}}</p>
+              <p style="font-weight: bold;">Nome: </p>
+              <p>{{name}}</p>
 
-    <p class="bold">Telefone:</p>
-    <p>{{phone}}</p>
+              <p style="font-weight: bold;">E-mail:</p>
+              <p>{{email}}</p>
 
-    <p class="bold">Explicação da necessidade:</p>
-    <p>{{necessity}}</p>
-  </main>
-  <footer>
-    <p>&#169; Full Engenharia, 2020.</p>
-  </footer>
+              <p style="font-weight: bold;">Telefone:</p>
+              <p>{{phone}}</p>
+
+              <p style="font-weight: bold;">Explicação da necessidade:</p>
+              <p style="text-align: justify;">{{necessity}}</p>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="background-color: #0f679a;">
+            <p style="color: #ffffff; margin-top: 10px; padding: 10px; text-align: center;">&#169; Full Engenharia</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </center>
 </body>
-
-<script>
-  (function determineDate() {
-    let pElement = document.getElementById("horarioEnvio");
-    let date = new Date();
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-
-    pElement.innerHTML = `${day}/${month}/${year}`;
-  })();
-</script>
 
 </html>
