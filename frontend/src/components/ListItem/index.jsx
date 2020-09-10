@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
-import { Container } from "./styles";
+import { Container, PercentageCounter, ProjectInfo } from "./styles";
 
 import calculatePercentage from "../../utils/calculatePercentage";
 
-function ListItem({ projeto, setProjeto }) {
+function ListItem({ projeto }) {
   const history = useHistory();
   const percentageCounterDiv = useRef(null);
 
@@ -15,34 +15,29 @@ function ListItem({ projeto, setProjeto }) {
 
   const handleGerenciarProjeto = useCallback(() => {
     history.push({
-      pathname: '/gerenciar',
+      pathname: "/gerenciar",
       state: { projeto }
-    })
+    });
   }, [projeto, history]);
 
   useEffect(() => {
     function changeColors() {
+      let counterColor;
       if (percentageCalculated < 25) {
-        percentageCounterDiv.current.style.border = "2px solid red";
-        percentageCounterDiv.current.style.color = "red";
-        return null;
+        counterColor = "red";
       } else if (percentageCalculated >= 25 && percentageCalculated < 50) {
-        percentageCounterDiv.current.style.border = "2px solid orange";
-        percentageCounterDiv.current.style.color = "orange";
-        return null;
+        counterColor = "orange";
       } else if (percentageCalculated >= 50 && percentageCalculated < 75) {
-        percentageCounterDiv.current.style.border = "2px solid purple";
-        percentageCounterDiv.current.style.color = "purple";
-        return null;
+        counterColor = "purple";
       } else if (percentageCalculated >= 75 && percentageCalculated < 100) {
-        percentageCounterDiv.current.style.border = "2px solid blue";
-        percentageCounterDiv.current.style.color = "blue";
-        return null;
+        counterColor = "blue";
       } else {
-        percentageCounterDiv.current.style.border = "2px solid green";
-        percentageCounterDiv.current.style.color = "green";
-        return null;
+        counterColor = "green";
       }
+
+      percentageCounterDiv.current.style.border = `2px solid ${counterColor}`;
+      percentageCounterDiv.current.style.color = counterColor;
+      return null;
     }
 
     if (percentageCounterDiv.current) {
@@ -52,33 +47,43 @@ function ListItem({ projeto, setProjeto }) {
 
   return (
     <Container>
-      <div className="list-item">
-        <div className="percentageCounter">
-          <p ref={percentageCounterDiv}>{percentageCalculated}% concluído!</p>
+      <PercentageCounter>
+        <p ref={percentageCounterDiv}>{percentageCalculated}% concluído!</p>
+      </PercentageCounter>
+      <ProjectInfo id={projeto._id}>
+        <div>
+          <span>Status:</span>
+          <p>{projeto.status || "-"}</p>
         </div>
-        <div id={projeto._id} className="grid-container">
-          <p>Status:</p>
-          <p>{projeto.status}</p>
-          <p>Cliente: </p>
-          <p>{projeto.cliente}</p>
-          <p>Nome do projeto: </p>
-          <p>{projeto.nomeProjeto}</p>
-          <p>Disciplina mestre</p>
-          <p>{projeto.disciplinaMestre}</p>
-          <p>Número do pedido</p>
-          <p>{projeto.numPedido}</p>
-          <p>Responsável</p>
-          <p>{projeto.responsavel}</p>
+        <div>
+          <span>Cliente: </span>
+          <p>{projeto.cliente || "-"}</p>
         </div>
-        <div className="div-buttons">
-          <button
-            type="button"
-            className="btn-editar"
-            onClick={handleGerenciarProjeto}
-          >
-            Gerenciar
-          </button>
+        <div>
+          <span>Nome do projeto: </span>
+          <p>{projeto.nomeProjeto || "-"}</p>
         </div>
+        <div>
+          <span>Disciplina mestre:</span>
+          <p>{projeto.disciplinaMestre || "-"}</p>
+        </div>
+        <div>
+          <span>Número do pedido:</span>
+          <p>{projeto.numPedido || "-"}</p>
+        </div>
+        <div>
+          <span>Responsável:</span>
+          <p>{projeto.responsavel || "-"}</p>
+        </div>
+      </ProjectInfo>
+      <div className="div-buttons">
+        <button
+          type="button"
+          className="btn-editar"
+          onClick={handleGerenciarProjeto}
+        >
+          Gerenciar
+        </button>
       </div>
     </Container>
   );
