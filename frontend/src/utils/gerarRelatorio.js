@@ -1,4 +1,4 @@
-import api from '../services/api';
+import api from "../services/api";
 
 export default async function gerarRelatorio(projeto) {
   // js-file-download Package:

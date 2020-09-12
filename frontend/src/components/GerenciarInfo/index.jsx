@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-import { Container } from './styles';
+import { Container } from "./styles";
 
 function GerenciarInfo({
   showCopiar,
@@ -356,7 +356,7 @@ function GerenciarInfo({
           }}
         >
           Apagar
-          </button>
+        </button>
       </div>
     </Container>
   );

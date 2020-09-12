@@ -1,16 +1,16 @@
 import React, { useState, useCallback } from "react";
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from "react-router-dom";
 
-import { useProjects } from '../../hooks/projects';
+import { useProjects } from "../../hooks/projects";
 
 import gerarPlanilha from "../../utils/gerarPlanilha";
 import gerarRelatorio from "../../utils/gerarRelatorio";
 
-import BackToTopBTN from '../../components/BackToTopBTN';
+import BackToTopBTN from "../../components/BackToTopBTN";
 import GerenciarInfo from "../../components/GerenciarInfo";
-import Modal from '../../components/Modal';
+import Modal from "../../components/Modal";
 
-import { Container } from "./styles";
+import { Container, InputBlock, InputGroup } from "./styles";
 
 function UpdateProjeto() {
   const { handleUpdateProjeto } = useProjects();
@@ -52,9 +52,7 @@ function UpdateProjeto() {
   const arquivar = useCallback(
     async () => {
       try {
-        const texto = `Deseja realmente ${
-          arquivado ? "desarquivar" : "arquivar"
-          } este projeto?`;
+        const texto = `Deseja realmente ${arquivado ? "desarquivar" : "arquivar"} este projeto?`;
 
         let confirmationBool = window.confirm(texto);
         if (!confirmationBool) {
@@ -120,8 +118,7 @@ function UpdateProjeto() {
         console.log(response.data);
         setProjeto(response.data);
       });
-  },
-    [cliente, nomeProjeto, disciplinaMestre, numPedido, responsavel, status, numGRD, comentario, infoProjetos, arquivado, handleUpdateProjeto, projeto._id]
+  }, [cliente, nomeProjeto, disciplinaMestre, numPedido, responsavel, status, numGRD, comentario, infoProjetos, arquivado, handleUpdateProjeto, projeto._id]
   );
 
   const adicionaNovoCampo = useCallback(async () => {
@@ -177,203 +174,194 @@ function UpdateProjeto() {
         isOpen={modalOpen}
         setIsOpen={setModalOpen}
       />
-      <div className="update-item">
-        <div id={projeto._id} className="grid-container">
-          <form className="update-form">
-            <div className="inputFields">
-              <div className="input-block">
-                <label htmlFor="status">Status</label>
-                <select
-                  name="status"
-                  id="status"
-                  defaultValue={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                >
-                  <option value="EM ANDAMENTO">EM ANDAMENTO</option>
-                  <option value="PARALISADO PELO CLIENTE">
-                    PARALISADO PELO CLIENTE
-                  </option>
-                  <option value="AGUARDANDO INÍCIO PELA FULL">
-                    AGUARDANDO INÍCIO PELA FULL
-                  </option>
-                  <option value="AGUARDANDO LEVANTAMENTO DE CAMPO">
-                    AGUARDANDO LEVANTAMENTO DE CAMPO
-                  </option>
-                  <option value="FINALIZADO">FINALIZADO</option>
-                  <option value="NÚMEROS">NÚMEROS</option>
-                  <option value="MEDIÇÃO">MEDIÇÃO</option>
-                  <option value="APROVAÇÃO DO PROJETO">
-                    APROVAÇÃO DO PROJETO
-                  </option>
-                </select>
-              </div>
+      <div id={projeto._id} className="grid-container">
+        <form className="update-form">
+          <InputBlock>
+            <label htmlFor="status">Status</label>
+            <select
+              name="status"
+              id="status"
+              defaultValue={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
+              <option value="EM ANDAMENTO">EM ANDAMENTO</option>
+              <option value="PARALISADO PELO CLIENTE">
+                PARALISADO PELO CLIENTE
+              </option>
+              <option value="AGUARDANDO INÍCIO PELA FULL">
+                AGUARDANDO INÍCIO PELA FULL
+              </option>
+              <option value="AGUARDANDO LEVANTAMENTO DE CAMPO">
+                AGUARDANDO LEVANTAMENTO DE CAMPO
+              </option>
+              <option value="FINALIZADO">FINALIZADO</option>
+              <option value="NÚMEROS">NÚMEROS</option>
+              <option value="MEDIÇÃO">MEDIÇÃO</option>
+              <option value="APROVAÇÃO DO PROJETO">
+                APROVAÇÃO DO PROJETO
+              </option>
+            </select>
+          </InputBlock>
 
-              <div className="input-block">
-                <label htmlFor="comentario">Comentários</label>
-                <textarea
-                  name="comentario"
-                  id="comentario"
-                  rows="5"
-                  placeholder="Digite aqui algum comentário"
-                  value={comentario}
-                  onChange={(e) => setComentario(e.target.value)}
-                ></textarea>
-              </div>
+          <InputBlock>
+            <label htmlFor="comentario">Comentários</label>
+            <textarea
+              name="comentario"
+              id="comentario"
+              rows="5"
+              placeholder="Digite aqui algum comentário"
+              value={comentario}
+              onChange={(e) => setComentario(e.target.value)}
+            ></textarea>
+          </InputBlock>
 
-              <div className="input-block">
-                <label htmlFor="cliente">Cliente</label>
-                <input
-                  type="text"
-                  name="cliente"
-                  required
-                  value={cliente}
-                  onChange={(e) => setCliente(e.target.value)}
-                />
-              </div>
+          <InputBlock>
+            <label htmlFor="cliente">Cliente</label>
+            <input
+              type="text"
+              name="cliente"
+              required
+              value={cliente}
+              onChange={(e) => setCliente(e.target.value)}
+            />
+          </InputBlock>
 
-              <div className="input-block">
-                <label htmlFor="nomeProjeto">Nome do projeto</label>
-                <input
-                  type="text"
-                  name="nomeProjeto"
-                  value={nomeProjeto}
-                  onChange={(e) => setNomeProjeto(e.target.value)}
-                />
-              </div>
+          <InputBlock>
+            <label htmlFor="nomeProjeto">Nome do projeto</label>
+            <input
+              type="text"
+              name="nomeProjeto"
+              value={nomeProjeto}
+              onChange={(e) => setNomeProjeto(e.target.value)}
+            />
+          </InputBlock>
 
-              <div className="input-block">
-                <label htmlFor="disciplinaMestre">Disciplina mestre</label>
-                <input
-                  type="text"
-                  name="disciplinaMestre"
-                  value={disciplinaMestre}
-                  onChange={(e) => setDisciplinaMestre(e.target.value)}
-                />
-              </div>
+          <InputBlock>
+            <label htmlFor="disciplinaMestre">Disciplina mestre</label>
+            <input
+              type="text"
+              name="disciplinaMestre"
+              value={disciplinaMestre}
+              onChange={(e) => setDisciplinaMestre(e.target.value)}
+            />
+          </InputBlock>
 
-              <div className="input-group">
-                <div className="input-block">
-                  <label htmlFor="numPedido">Número do pedido</label>
-                  <input
-                    type="text"
-                    name="numPedido"
-                    value={numPedido}
-                    onChange={(e) => setNumPedido(e.target.value)}
-                  />
-                </div>
-
-                <div className="input-field">
-                  <label htmlFor="numGRD">GRD</label>
-                  <input
-                    type="text"
-                    name="numGRD"
-                    value={numGRD}
-                    onChange={(e) => setNumGRD(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="input-block">
-                <label htmlFor="responsavel">Responsável</label>
-                <input
-                  type="text"
-                  name="responsavel"
-                  value={responsavel}
-                  onChange={(e) => setResponsavel(e.target.value)}
-                />
-              </div>
+          <InputGroup>
+            <div>
+              <label htmlFor="numPedido">Número do pedido</label>
+              <input
+                type="text"
+                name="numPedido"
+                value={numPedido}
+                onChange={(e) => setNumPedido(e.target.value)}
+              />
             </div>
 
-            <ol>
-              {infoProjetos && infoProjetos.map((informacao, index) => {
-                return (
-                  <GerenciarInfo
-                    key={String(informacao._id)}
-                    showCopiar={!!index}
-                    informacao={informacao}
-                    apagarProjeto={apagarProjeto}
-                    updateInfoProjeto={updateInfoProjeto}
-                    projeto={projeto}
-                  />
-                )
-              })}
-            </ol>
-          </form>
+            <div>
+              <label htmlFor="numGRD">GRD</label>
+              <input
+                type="text"
+                name="numGRD"
+                value={numGRD}
+                onChange={(e) => setNumGRD(e.target.value)}
+              />
+            </div>
+          </InputGroup>
 
-          {/* ================================================================================================ */}
+          <InputBlock>
+            <label htmlFor="responsavel">Responsável</label>
+            <input
+              type="text"
+              name="responsavel"
+              value={responsavel}
+              onChange={(e) => setResponsavel(e.target.value)}
+            />
+          </InputBlock>
 
-          <BackToTopBTN />
+          <ol>
+            {infoProjetos && infoProjetos.map((informacao, index) => {
+              return (
+                <GerenciarInfo
+                  key={String(informacao._id)}
+                  showCopiar={!!index}
+                  informacao={informacao}
+                  apagarProjeto={apagarProjeto}
+                  updateInfoProjeto={updateInfoProjeto}
+                  projeto={projeto}
+                />
+              );
+            })}
+          </ol>
+        </form>
 
-          <div className="div-buttons">
-            {/* ADICIONA UM NOVO CAMPO */}
-            <button
-              type="button"
-              className="btn-adicionarCampos"
-              onClick={async () => await adicionaNovoCampo()}
-            >
-              Novo Campo
-            </button>
+        {/* ================================================================================================ */}
 
-            {/* SALVA */}
-            <button
-              type="button"
-              className="btn-salvar"
-              onClick={async () => await salvar()}
-            >
-              Salvar
-            </button>
+        <BackToTopBTN />
 
-            {/* CANCELA */}
-            <button
-              type="button"
-              className="btn-cancelar"
-              onClick={defineParaOndeRetornar}
-            >
-              Cancelar
-            </button>
+        <div className="div-buttons">
+          <button
+            type="button"
+            className="btn-adicionarCampos"
+            onClick={async () => await adicionaNovoCampo()}
+          >
+            Novo Campo
+          </button>
 
-            {/* ARQUIVA */}
-            <button
-              type="button"
-              className="btn-arquivar"
-              onClick={async () => await arquivar()}
-            >
-              {
-                projeto.arquivado ? "Desarquivar" : "Arquivar"
-              }
-            </button>
-          </div>
+          <button
+            type="button"
+            className="btn-salvar"
+            onClick={async () => await salvar()}
+          >
+            Salvar
+          </button>
 
-          {/* GERA PLANILHA */}
-          <div className="btn-planilha">
-            <button
-              type="button"
-              className="btn-criar-planilha"
-              onClick={async () => {
-                setModalOpen(true);
-                await gerarPlanilha(projeto)
-                  .then(() => {
-                    setModalOpen(false);
-                  });
-              }}
-            >
-              Planilha!
-            </button>
+          <button
+            type="button"
+            className="btn-cancelar"
+            onClick={defineParaOndeRetornar}
+          >
+            Cancelar
+          </button>
 
-            <button
-              type="button"
-              className="btn-criar-relatorio"
-              onClick={async () => {
-                setModalOpen(true);
-                await gerarRelatorio(projeto)
-                  .then(() => {
-                    setModalOpen(false);
-                  });
-              }}
-            >
-              Relatório!
-            </button>
-          </div>
+          <button
+            type="button"
+            className="btn-arquivar"
+            onClick={async () => await arquivar()}
+          >
+            {
+              projeto.arquivado ? "Desarquivar" : "Arquivar"
+            }
+          </button>
+        </div>
+
+        <div className="btn-downloads">
+          <button
+            type="button"
+            className="btn-criar-planilha"
+            onClick={async () => {
+              setModalOpen(true);
+              await gerarPlanilha(projeto)
+                .then(() => {
+                  setModalOpen(false);
+                });
+            }}
+          >
+            Planilha!
+          </button>
+
+          <button
+            type="button"
+            className="btn-criar-relatorio"
+            onClick={async () => {
+              setModalOpen(true);
+              await gerarRelatorio(projeto)
+                .then(() => {
+                  setModalOpen(false);
+                });
+            }}
+          >
+            Relatório!
+          </button>
         </div>
       </div>
     </Container>
