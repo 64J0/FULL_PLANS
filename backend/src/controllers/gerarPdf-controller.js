@@ -1,11 +1,9 @@
-// const fs = require("fs");
-// const path = require('path');
 const repository = require("../repositories/projects-repository");
 const createPDF = require("../utils/createPDF");
 
 exports.gerarPdf = async (req, res) => {
   try {
-    const projectData = await repository.findProjetoById(req.params.id);
+    const projectData = await repository.findProjectById(req.params.id);
 
     if (!projectData) {
       return res.status(400).send({
