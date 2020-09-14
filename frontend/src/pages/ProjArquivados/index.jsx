@@ -5,7 +5,7 @@ import PaginacaoBtn from "../../components/Paginacao";
 
 import { Container } from "./styles";
 
-import { useProjects } from '../../hooks/projects';
+import { useProjects } from "../../hooks/projects";
 
 function Arquivados() {
   const { projetosArquivados: props, setProjetoUpdate: setProjeto } = useProjects();

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Route as ReactDOMRoute, Redirect } from 'react-router-dom';
+import React from "react";
+import { Route as ReactDOMRoute, Redirect } from "react-router-dom";
 
-import { useAuth } from '../hooks/auth';
-import Layout from '../pages/Layout';
+import { useAuth } from "../hooks/auth";
+import Layout from "../pages/Layout";
 
 const Route = ({
   component: Component,
@@ -15,24 +15,25 @@ const Route = ({
       {...rest}
       render={({ location }) => {
         if (!loginData.auth) {
-          if (location.pathname !== '/') {
+
+          if (location.pathname !== "/") {
             return (
               <Redirect
                 to={{
-                  pathname: '/'
+                  pathname: "/"
                 }}
               />
             );
           }
 
-          return <Component />
+          return <Component />;
         }
 
-        if (location.pathname === '/') {
+        if (location.pathname === "/") {
           return (
             <Redirect
               to={{
-                pathname: '/home',
+                pathname: "/home",
                 state: { from: location }
               }}
             />
@@ -46,7 +47,7 @@ const Route = ({
         );
       }}
     />
-  )
-}
+  );
+};
 
 export default Route;

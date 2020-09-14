@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback } from "react";
 
-import ListItem from '../../components/ListItem';
-import Buscar from '../../components/Buscar/index';
-import { useProjects } from '../../hooks/projects';
+import ListItem from "../../components/ListItem";
+import Buscar from "../../components/Buscar/index";
+import { useProjects } from "../../hooks/projects";
 
-import { Container } from './styles';
+import { Container } from "./styles";
 
 function Abertos() {
   const { projetosAbertos, setProjetoUpdate } = useProjects();

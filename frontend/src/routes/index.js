@@ -1,7 +1,7 @@
-import React from 'react';
-import { Switch } from 'react-router-dom';
+import React from "react";
+import { Switch } from "react-router-dom";
 
-import Route from './Route';
+import Route from "./Route";
 
 import CadastrarProjeto from "../pages/CadastrarProjeto";
 import Abertos from "../pages/ProjAbertos";
@@ -12,7 +12,7 @@ import Gerenciar from "../pages/GerenciarProjeto";
 import UserPage from "../pages/UserPage";
 import AdminPage from "../pages/AdminPage";
 import CreateUserPage from "../pages/CreateUserPage";
-import Erro404 from '../pages/Erro404';
+import Erro404 from "../pages/Erro404";
 
 const Routes = () => {
   return (
@@ -30,7 +30,7 @@ const Routes = () => {
       <Route path="/*" component={Erro404} />
     </Switch>
 
-  )
-}
+  );
+};
 
 export default Routes;

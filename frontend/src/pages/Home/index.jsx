@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import './styles.css';
+import "./styles.css";
 import logoImage from "../../assets/fullE_icon.png";
 
 function Home() {

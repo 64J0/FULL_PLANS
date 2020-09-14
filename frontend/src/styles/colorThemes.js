@@ -12,7 +12,7 @@ const primary = {
   200: "#93c9e1",
   100: "#bbddec",
   50: "#e4f2f7"
-}
+};
 
 const complementary = {
   900: "#9a420f",
@@ -25,7 +25,7 @@ const complementary = {
   200: "#eaaa8c",
   100: "#f2cbb9",
   50: "#f6e8e5"
-}
+};
 
 const analogous1 = {
   900: "#035040",
@@ -38,7 +38,7 @@ const analogous1 = {
   200: "#82cdc3",
   100: "#b3e0da",
   50: "#e0f3f1"
-}
+};
 
 const analogous2 = {
   900: "#0f229a",
@@ -51,7 +51,7 @@ const analogous2 = {
   200: "#ae9fdf",
   100: "#cec5eb",
   50: "#ece7f7"
-}
+};
 
 const triadic1 = {
   900: "#420f9a",
@@ -64,7 +64,7 @@ const triadic1 = {
   200: "#ce92de",
   100: "#e1bdeb",
   50: "#f3e5f6"
-}
+};
 
 const triadic2 = {
   900: "#9a0f67",
@@ -77,14 +77,15 @@ const triadic2 = {
   200: "#fd95c3",
   100: "#fcbfdb",
   50: "#fee6f0"
-}
+};
 
 const error = {
   error: "#b00020"
-}
+};
 
 const fontColor = {
   text: "#333333"
-}
+};
 
+// eslint-disable-next-line no-undef
 module.exports = { primary, complementary, analogous1, analogous2, triadic1, triadic2, error, fontColor };
