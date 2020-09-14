@@ -1,8 +1,7 @@
-login.http
-node_modules
-.env
-requests.http
-tests/integration/projetos.spec.js
-credentials.json
+node_modules/
+.vscode/
 tmp/*
+.env
+credentials.json
 src/config/acl.json
+src/assets/GRD.xlsx

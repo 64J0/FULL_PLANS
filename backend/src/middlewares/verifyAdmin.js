@@ -2,25 +2,29 @@ const repository = require("../repositories/users-repository");
 const AppError = require("../errors/AppError");
 
 module.exports = async (req, res, next) => {
-  const id = req.body.adminId;
+  try {
+    const id = req.body.adminId;
 
-  if (!id) {
-    return next(new AppError("teste", 400));
+    if (!id) {
+      return next(new AppError("O ID do admin não foi informado!", 401));
+    }
+
+    repository.findById({ id })
+      .then((dbResponse) => {
+        if (!dbResponse._id) {
+          return next(new AppError("Usuário admin não encontrado!", 401));
+        }
+
+        if (dbResponse.permission !== "admin") {
+          return next(new AppError("Usuário não autorizado a fazer essa ação!", 401));
+        }
+
+        return next();
+      })
+      .catch(() => {
+        throw new Error({ message: "Problema na operação de verificar a permissão!" });
+      });
+  } catch (err) {
+    return res.status(500).send(err);
   }
-
-  repository.findById({ id })
-    .then((response) => {
-      if (!response) {
-        return res.status(400).send({ message: "Usuário admin não encontrado!" });
-      }
-
-      if (response.permission !== "admin") {
-        return res.status(401).send({ message: "Usuário não autorizado a fazer essa ação!" });
-      }
-
-      return next();
-    })
-    .catch(() => {
-      return res.status(500).send({ message: "Problema na operação de verificar a permissão!" });
-    });
-}
+};

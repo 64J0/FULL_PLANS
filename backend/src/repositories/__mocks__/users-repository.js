@@ -37,7 +37,7 @@ exports.findByEmail = async ({ email }) => {
   } catch {
     return undefined;
   }
-}
+};
 
 exports.findById = async ({ id }) => {
   try {
@@ -51,7 +51,7 @@ exports.findById = async ({ id }) => {
   } catch (err) {
     return { message: err };
   }
-}
+};
 
 exports.create = async ({ name, email, password, permission }) => {
   const user = { name, email, password, permission };
@@ -63,7 +63,7 @@ exports.create = async ({ name, email, password, permission }) => {
 
   user.password = undefined;
   return user;
-}
+};
 
 exports.update = async (id, data) => {
   const updatedData = { ...data };
@@ -73,7 +73,7 @@ exports.update = async (id, data) => {
 
   updatedUser.password = undefined;
   return updatedUser;
-}
+};
 
 exports.list = async () => {
   return UserDataBase;
@@ -83,4 +83,4 @@ exports.delete = async (id) => {
   UserDataBase = UserDataBase.filter((thisUser) => thisUser._id !== id);
 
   return UserDataBase;
-}
+};

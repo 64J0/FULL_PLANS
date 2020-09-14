@@ -18,5 +18,5 @@ describe("CreateProjectService", () => {
 
     expect(newProject).toHaveProperty("numGRD", "9091");
     expect(newProjectsArray).toHaveLength(3);
-  })
-})
+  });
+});

@@ -1,6 +1,5 @@
 class AppError {
   message;
-
   statusCode = 400;
 
   constructor(message, statusCode) {
