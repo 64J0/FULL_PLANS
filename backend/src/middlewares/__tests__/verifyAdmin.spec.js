@@ -1,7 +1,7 @@
-const verifyAdmin = require("./verifyAdmin");
-const AppError = require("../errors/AppError");
+const verifyAdmin = require("../verifyAdmin");
+const AppError = require("../../errors/AppError");
 
-jest.mock("../repositories/users-repository");
+jest.mock("../../repositories/users-repository");
 
 const mockedRes = () => {
   const res = {};
