@@ -1,12 +1,15 @@
 const repository = require("../repositories/excel-repository");
+const AppError = require("../errors/AppError");
 
-exports.genExcelFile = async (req, res) => {
+exports.genExcelFile = async (req, res, next) => {
   try {
     await repository
-      .genExcelFile(req.params.id)
-      .then((PlanilhaEditada) => {
-        const workBook = PlanilhaEditada.saida;
-        const { numGRD } = PlanilhaEditada;
+      .genExcelFile({ projectId: req.params.id })
+      .then((spreadsheet) => {
+        const workBook = spreadsheet.editedSpreadsheet;
+        const { numGRD } = spreadsheet;
+
+        // Headers da resposta
         res.setHeader("Content-Description", "File Transfer");
         res.setHeader(
           "Content-Type",
@@ -17,10 +20,13 @@ exports.genExcelFile = async (req, res) => {
           "attachment;",
           "filename='Report.xlsx'"
         );
+
+        // O nome do arquivo que será enviado
         const fileName = `GRD_${numGRD}.xlsx`;
+
         // const fileName = "Report.xlsx";
         res.attachment(fileName);
-        // workBook.xlsx.writeFile(fileName); // Salva localmente no backend
+
         return workBook.xlsx.write(res);
       })
       .catch((err) => {
@@ -28,9 +34,8 @@ exports.genExcelFile = async (req, res) => {
       });
     return { ok: true };
   } catch (e) {
-    return res.status(500).send({
-      message: "Falha ao gerar o Excel!",
-      Error: e.message,
-    });
+    return next(
+      new AppError("Falha ao gerar o Excel!", 500)
+    );
   }
 };

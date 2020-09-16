@@ -1,9 +1,9 @@
 const express = require("express");
 
-const router = express.Router();
 const gerarPdfController = require("../controllers/gerarPdf-controller");
-const verify = require("../middlewares/verifyJWT");
 
-router.get("/:id", verify.verifyJWT, gerarPdfController.gerarPdf);
+const router = express.Router();
+
+router.get("/:id", gerarPdfController.gerarPdf);
 
 module.exports = router;

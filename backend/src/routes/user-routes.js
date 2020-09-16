@@ -1,10 +1,9 @@
 const { Router } = require("express");
 
+const userControllers = require("../controllers/user-controller");
 const verifyAdmin = require("../middlewares/verifyAdmin");
 
 const router = Router();
-
-const userControllers = require("../controllers/user-controller");
 
 router.post("/login", userControllers.verifyUser);
 router.post("/create", verifyAdmin, userControllers.createUser);

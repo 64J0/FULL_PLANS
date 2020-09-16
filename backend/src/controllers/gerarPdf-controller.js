@@ -1,35 +1,29 @@
-const repository = require("../repositories/projects-repository");
-const createPDF = require("../utils/createPDF");
+const CreatePDFService = require("../services/pdf-services/CreatePDFService");
 
 exports.gerarPdf = async (req, res) => {
   try {
-    const projectData = await repository.findProjectById(req.params.id);
+    const projectId = req.params.id;
 
-    if (!projectData) {
+    if (!projectId) {
       return res.status(400).send({
         message: "Projeto não encontrado"
       });
     }
 
-    const pageBuffer = await createPDF(projectData);
+    const pageBuffer = await CreatePDFService.execute({
+      projectId
+    });
 
-    /*
-    const pdfPath = path.join(__dirname, "teste.pdf")
-    fs.writeFileSync(pdfPath, pageBuffer);
-    */
-
+    // Headers da resposta:
     res.setHeader("Content-Description", "File Transfer");
-    res.setHeader(
-      "Content-Type",
-      "application/pdf"
-    );
+    res.setHeader("Content-Type", "application/pdf");
     res.setHeader(
       "Content-Disposition",
       "attachment;",
       "filename='Relatorio.pdf'"
     );
 
-    const fileName = `Relatorio_${projectData.numGRD}.pdf`;
+    const fileName = "Relatorio_FullPlans.pdf";
     res.attachment(fileName);
 
     return res.status(200).send(pageBuffer);

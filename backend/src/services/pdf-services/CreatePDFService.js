@@ -3,13 +3,22 @@ const path = require("path");
 const puppeteer = require("puppeteer");
 const handlebars = require("handlebars");
 
-module.exports = async function createPDF(data) {
+const repository = require("../../repositories/projects-repository");
 
-  const templateHtml = fs.readFileSync(path.join(process.cwd(), "src/views/LayoutPDF/template.html"), "utf8");
+async function CreatePDFService({ projectId }) {
+  const projectData = await repository.findProjectById(projectId);
+
+  const templateHtml = fs.readFileSync(
+    path.join(
+      process.cwd(),
+      "src/views/LayoutPDF/template.html"
+    ), "utf8"
+  );
 
   const template = handlebars.compile(templateHtml);
 
-  const html = template(data,
+  const html = template(
+    projectData,
     { allowProtoPropertiesByDefault: true }
   );
 
@@ -36,11 +45,16 @@ module.exports = async function createPDF(data) {
     waitUntil: "networkidle0"
   });
 
-  const pathStyles = path.resolve(__dirname, "../views/LayoutPDF/styles.css");
+  const pathStyles = path.resolve(
+    __dirname,
+    "../../views/LayoutPDF/styles.css"
+  );
   await page.addStyleTag({ path: pathStyles });
 
   const pageBuffer = await page.pdf(options);
   await browser.close();
 
   return pageBuffer;
-};
+}
+
+exports.execute = CreatePDFService;

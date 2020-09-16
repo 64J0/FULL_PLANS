@@ -64,7 +64,7 @@ app.use((err, req, res, next) => {
   if (err instanceof AppError) {
     return res
       .status(err.statusCode)
-      .send({ status: 'error', message: err.message });
+      .send({ status: "error", message: err.message });
   }
 
   console.error(err);
@@ -72,8 +72,8 @@ app.use((err, req, res, next) => {
   return res
     .status(500)
     .send({
-      status: 'error',
-      message: 'Internal server error.'
+      status: "error",
+      message: "Internal server error."
     });
 });
 

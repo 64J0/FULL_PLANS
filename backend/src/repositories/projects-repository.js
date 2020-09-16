@@ -47,4 +47,4 @@ exports.findProjectById = async (id) => {
     });
 
   return foundProject;
-}
+};
