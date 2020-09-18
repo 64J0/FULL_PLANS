@@ -150,10 +150,6 @@ function UpdateProjeto() {
       });
   }, [handleUpdateProjeto, infoProjetos, projeto]);
 
-  // updateInfoProjeto()
-  //
-  // Essa função é responsável por atualizar os valores de infoProjetos com os dados passados
-  // no body da função.
   const updateInfoProjeto = useCallback(
     (id, data) => {
       var index = infoProjetos.findIndex((x) => x._id === id);

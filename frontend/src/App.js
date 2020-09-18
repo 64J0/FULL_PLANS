@@ -1,11 +1,11 @@
 import React from "react";
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 
 // Hooks
-import AppProvider from './hooks';
+import AppProvider from "./hooks";
 
 // Rotas
-import Routes from './routes';
+import Routes from "./routes";
 
 // CSS
 import GlobalStyles from "./styles/global";

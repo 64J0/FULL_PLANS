@@ -1,7 +1,7 @@
-import React, { createContext, useCallback, useState, useMemo, useEffect, useContext } from 'react';
+import React, { createContext, useCallback, useState, useMemo, useEffect, useContext } from "react";
 
-import api from '../services/api';
-import { useAuth } from './auth';
+import api from "../services/api";
+import { useAuth } from "./auth";
 
 const ProjectsContext = createContext({});
 
@@ -107,7 +107,7 @@ const ProjectsProvider = ({ children }) => {
       {children}
     </ProjectsContext.Provider>
   );
-}
+};
 
 function useProjects() {
   const context = useContext(ProjectsContext);

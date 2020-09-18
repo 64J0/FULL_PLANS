@@ -1,13 +1,13 @@
-import React, { useState, useCallback } from 'react';
-import { FiUserPlus } from 'react-icons/fi';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useCallback } from "react";
+import { FiUserPlus } from "react-icons/fi";
+import { useHistory } from "react-router-dom";
 
-import { useAuth } from '../../hooks/auth';
-import api from '../../services/api';
+import { useAuth } from "../../hooks/auth";
+import api from "../../services/api";
 
-import UserListItem from '../../components/UserListItem';
+import UserListItem from "../../components/UserListItem";
 
-import { Container, UserList, ButtonAddUser } from './styles';
+import { Container, UserList, ButtonAddUser } from "./styles";
 
 export default function AdminPage() {
   const history = useHistory();
@@ -16,7 +16,7 @@ export default function AdminPage() {
   const [usersList, setUsersList] = useState([]);
 
   const getUsersList = useCallback(async () => {
-    const response = await api.post('/user/list', {
+    const response = await api.post("/user/list", {
       adminId: user._id
     });
 
@@ -24,7 +24,7 @@ export default function AdminPage() {
   }, [user._id]);
 
   const goToCreateUserPage = useCallback(() => {
-    history.push('/create-user');
+    history.push("/create-user");
   }, [history]);
 
   return (
@@ -45,7 +45,7 @@ export default function AdminPage() {
               usersList={usersList}
               setUsersList={setUsersList}
             />
-          )
+          );
         })}
       </UserList>
 

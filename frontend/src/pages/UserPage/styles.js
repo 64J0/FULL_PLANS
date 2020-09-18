@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import { lighten } from 'polished';
+import styled from "styled-components";
+import { lighten } from "polished";
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 
-  h2 {
+  h1 {
     margin-bottom: 50px;
     font-weight: bold;
     text-align: center;

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { fontColor, primary, analogous2 } from '../../styles/colorThemes';
+import { fontColor, primary, analogous2 } from "../../styles/colorThemes";
 
 export const Container = styled.div`
   align-self: center;

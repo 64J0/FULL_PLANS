@@ -1,13 +1,14 @@
-import React, { useState, useCallback } from 'react';
-import * as Yup from 'yup';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useCallback } from "react";
+import * as Yup from "yup";
+import { useHistory } from "react-router-dom";
 
-import Modal from '../../components/Modal';
-import PasswordInput from '../../components/PasswordInput';
-import { useAuth } from '../../hooks/auth';
-import api from '../../services/api';
+import BIContainer from "../../components/BIContainer";
+import Modal from "../../components/Modal";
+import PasswordInput from "../../components/PasswordInput";
+import { useAuth } from "../../hooks/auth";
+import api from "../../services/api";
 
-import { Container, DivCheckbox, ButtonContainer } from './styles';
+import { Container, DivCheckbox, ButtonContainer } from "./styles";
 
 export default function UserPage() {
   const { user, setUser } = useAuth();
@@ -75,14 +76,14 @@ export default function UserPage() {
   }, [confirmNewPassword, email, name, newPassword, setUser, user._id]);
 
   const navigateToAdminPage = useCallback(() => {
-    history.push('/admin');
+    history.push("/admin");
   }, [history]);
 
   const toggleUpdatePasswordArea = () => {
     setShowUpdatePassword(!showUpdatePassword);
     setNewPassword("");
     setConfirmNewPassword("");
-  }
+  };
 
   return (
     <Container>
@@ -90,7 +91,7 @@ export default function UserPage() {
         isOpen={modalOpen}
         setIsOpen={setModalOpen}
       />
-      <h2>PÁGINA DO USUÁRIO</h2>
+      <h1>PÁGINA DO USUÁRIO</h1>
 
       <form onSubmit={handleSubmit}>
         <div className="input-block">
@@ -179,7 +180,11 @@ export default function UserPage() {
             Atualizar o usuário
           </button>
         </ButtonContainer>
+
       </form>
+
+      <hr />
+      { user.permission === "admin" && <BIContainer />}
     </Container>
   );
 }
