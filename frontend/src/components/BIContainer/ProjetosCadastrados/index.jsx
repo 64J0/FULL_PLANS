@@ -54,7 +54,7 @@ function ProjetosCadastrados() {
       options: {
         title: {
           display: true,
-          text: "Projetos cadastrados neste ano",
+          text: "PROJETOS CADASTRADOS NESTE ANO",
         },
         scales: {
           yAxes: [
