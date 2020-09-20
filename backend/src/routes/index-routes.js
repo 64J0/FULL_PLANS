@@ -20,6 +20,7 @@ router.get("/", (req, res) => {
 });
 
 router.use("/user", userRoutes);
+
 router.use(verifyJWT);
 
 router.use("/projetos", projectsRoutes);
