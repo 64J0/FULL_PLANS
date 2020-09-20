@@ -2,6 +2,7 @@ import React from "react";
 
 import ProjCadastrados from "./ProjetosCadastrados";
 import ProjStatus from "./ProjetosStatus";
+import ProjFinalizados from "./ProjetosFinalizados";
 
 import { Container } from "./styles";
 
@@ -12,6 +13,7 @@ function BIContainer() {
 
       <ProjCadastrados />
       <ProjStatus />
+      <ProjFinalizados />
     </Container>
   );
 }
