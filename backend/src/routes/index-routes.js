@@ -21,12 +21,10 @@ router.get("/", (req, res) => {
 
 router.use("/user", userRoutes);
 
-router.use(verifyJWT);
-
-router.use("/projetos", projectsRoutes);
-router.use("/excel", excelRoutes);
-router.use("/generatepdf", gerarPdfRoutes);
-router.use("/email", emailRoutes);
+router.use("/projetos", verifyJWT, projectsRoutes);
+router.use("/excel", verifyJWT, excelRoutes);
+router.use("/generatepdf", verifyJWT, gerarPdfRoutes);
+router.use("/email", verifyJWT, emailRoutes);
 
 router.route("/*").get((req, res) => {
   return res.status(404).send({ error: "Error 404 - Content not found" });

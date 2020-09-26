@@ -86,7 +86,7 @@ exports.findProjectById = async (req, res, next) => {
     const foundProject = await FindProjectByIdService.execute({ id: req.params.id })
       .catch(() => {
         return next(new AppError("Não foi possível encontrar o projeto. Entre em contato com o administrador da aplicação para verificar.", 400));
-      });;
+      });
 
     if (!foundProject) {
       return res.status(400).send({ message: "O projeto não foi encontrado." });
@@ -97,6 +97,6 @@ exports.findProjectById = async (req, res, next) => {
     return res.status(500).send({
       message: "Falha ao buscar o projeto pelo id!",
       Error: e,
-    })
+    });
   }
-}
+};

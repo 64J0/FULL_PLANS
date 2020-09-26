@@ -1,6 +1,6 @@
 {
   "name": "full-plans",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "This project is a REST API of a project management system that is implemented in Full Engenharia.",
   "main": "bin/server.js",
   "private": true,
@@ -23,7 +23,7 @@
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "debug": "^4.1.1",
+    "debug": "^4.2.0",
     "dotenv": "^8.2.0",
     "exceljs": "^3.10.0",
     "express": "^4.17.1",
@@ -37,18 +37,18 @@
     "hpp": "^0.2.3",
     "jsonwebtoken": "^8.5.1",
     "mailgun-js": "^0.22.0",
-    "mongoose": "^5.10.5",
+    "mongoose": "^5.10.7",
     "morgan": "^1.10.0",
     "nodemailer": "^6.4.11",
     "package.json": "^2.0.1",
     "path": "^0.12.7",
-    "puppeteer": "^5.3.0",
+    "puppeteer": "^5.3.1",
     "rate-limiter-flexible": "^2.1.10"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.2",
-    "eslint": "^7.8.1",
+    "eslint": "^7.9.0",
     "jest": "^25.5.4",
     "nodemon": "^2.0.4"
   }
