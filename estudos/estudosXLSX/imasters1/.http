@@ -1,8 +1,0 @@
-POST http://localhost:3000/person
-Content-Type: application/json
-
-{
-    "name": "João Silva",
-    "mail": "joao@gmail.com",
-    "role": "Architect"
-}
