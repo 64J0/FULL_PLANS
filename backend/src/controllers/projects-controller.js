@@ -1,4 +1,5 @@
 const ListProjectsService = require("../services/projects-services/ListProjectsService");
+const FilterProjectDataByUserPermission = require("../services/projects-services/FilterProjectDataByUserPermission");
 const CreateProjectService = require("../services/projects-services/CreateProjectService");
 const UpdateProjectService = require("../services/projects-services/UpdateProjectService");
 const DeleteProjectService = require("../services/projects-services/DeleteProjectService");
@@ -9,13 +10,25 @@ const AppError = require("../errors/AppError");
 
 exports.listProjects = async (req, res, next) => {
   try {
+    const userId = req.headers.user_id;
+
+    if (!userId) {
+      const message = "userId not informed.";
+      const statusCode = 401;
+      return next(new AppError(message, statusCode));
+    }
+
     const projectData = await ListProjectsService.execute();
 
     if (!projectData || projectData.length === 0) {
-      return next(new AppError("Falha ao carregar os projetos. Entre em contato com o administrador do sistema para verificar.", 400));
+      const message = "Falha ao carregar os projetos. Entre em contato com o administrador do sistema para verificar.";
+      const errorCode = 400;
+      return next(new AppError(message, errorCode));
     }
 
-    return res.status(200).send(projectData);
+    const filteredProjectData = await FilterProjectDataByUserPermission.execute({ userId, projectData });
+
+    return res.status(200).send(filteredProjectData);
   } catch (e) {
     return res
       .status(500)

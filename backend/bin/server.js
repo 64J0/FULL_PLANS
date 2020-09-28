@@ -43,7 +43,7 @@ function onError(error) {
       process.exit(1);
 
     case "ELIFECYCLE":
-      console.error("Process has been stopped unexpectedly.")
+      console.error("Process has been stopped unexpectedly.");
       process.exit(1);
 
     default:
@@ -64,4 +64,4 @@ function onListening() {
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
-console.log(`API rodando na porta ${port}!`);
+console.log(`API is running on port: ${port}!`);

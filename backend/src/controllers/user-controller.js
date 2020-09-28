@@ -10,11 +10,11 @@ exports.verifyUser = async (req, res, next) => {
   try {
     if (!req.body.email) {
       return next(new AppError("O e-mail não foi informado.", 400));
-    };
+    }
 
     if (!req.body.password) {
       return next(new AppError("A senha não foi informada.", 400));
-    };
+    }
 
     const { auth, token, user } = await AuthenticateUserService.execute(req.body);
 
@@ -79,7 +79,7 @@ exports.updateUser = async (req, res, next) => {
         message: "Falha ao atualizar o usuário!"
       });
   }
-}
+};
 
 // =========================================
 // Lista todos os usuários cadastrados
@@ -109,4 +109,4 @@ exports.deleteUser = async (req, res, next) => {
       .status(500)
       .send({ message: "Falha ao deletar o usuário!" });
   }
-}
+};

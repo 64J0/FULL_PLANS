@@ -10,7 +10,7 @@ exports.findByEmail = async ({ email }) => {
       return error;
     });
   return user;
-}
+};
 
 exports.findById = async ({ id }) => {
   const user = await User
@@ -19,7 +19,7 @@ exports.findById = async ({ id }) => {
       return error;
     });
   return user;
-}
+};
 
 exports.create = async ({ name, email, password, permission }) => {
   const user = new User({ name, email, password, permission });
@@ -31,7 +31,7 @@ exports.create = async ({ name, email, password, permission }) => {
   user.password = undefined;
 
   return user;
-}
+};
 
 exports.update = async (id, data) => {
   const filter = { _id: id };
@@ -52,7 +52,7 @@ exports.update = async (id, data) => {
 
   updatedUser.password = undefined;
   return updatedUser;
-}
+};
 
 exports.list = async () => {
   try {
@@ -70,4 +70,4 @@ exports.delete = async (id) => {
   } catch (err) {
     throw new Error("Não foi possível apagar o usuário.");
   }
-}
+};

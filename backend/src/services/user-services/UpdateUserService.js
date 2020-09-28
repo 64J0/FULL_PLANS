@@ -1,8 +1,7 @@
 const repository = require("../../repositories/users-repository");
 
 const UpdateUserService = async ({ id, body }) => {
-  const user = await repository
-    .findById({ id });
+  const user = await repository.findById({ id });
 
   if (!user._id) {
     return { message: "O usuário não foi encontrado." };
@@ -20,7 +19,7 @@ const UpdateUserService = async ({ id, body }) => {
       .findById({ id: adminId });
 
     if (!adminUser._id) {
-      return { message: "O usuário administrador não foi encontrado." }
+      return { message: "O usuário administrador não foi encontrado." };
     }
 
     if (adminUser.permission !== "admin") {
@@ -28,10 +27,9 @@ const UpdateUserService = async ({ id, body }) => {
     }
   }
 
-  const userByEmail = await repository
-    .findByEmail({ email: body.email });
+  const userByEmail = await repository.findByEmail({ email: body.email });
 
-  if (userByEmail && userByEmail._id !== user._id) {
+  if (userByEmail && String(userByEmail._id) !== String(user._id)) {
     return { message: "Não é possível alterar o usuário para um e-mail já cadastrado" };
   }
 
@@ -44,6 +42,6 @@ const UpdateUserService = async ({ id, body }) => {
     });
 
   return updatedUser;
-}
+};
 
 exports.execute = UpdateUserService;

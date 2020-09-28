@@ -1,4 +1,3 @@
-// Middleware do Express para verificar a validade do token informado pelo usuário
 const jwt = require("jsonwebtoken");
 
 const AppError = require("../errors/AppError");
