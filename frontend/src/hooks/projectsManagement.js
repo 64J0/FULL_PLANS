@@ -1,6 +1,6 @@
-import React, { createContext, useCallback, useState, useContext } from 'react';
+import React, { createContext, useCallback, useState, useContext } from "react";
 
-import api from '../services/api';
+import api from "../services/api";
 
 const ProjectsManagementContext = createContext({});
 
@@ -9,8 +9,7 @@ const ProjectsManagementProvider = ({ children }) => {
   const arquivar = useCallback(
     async () => {
       try {
-        const texto = `Deseja realmente ${
-          arquivado ? "desarquivar" : "arquivar"
+        const texto = `Deseja realmente ${arquivado ? "desarquivar" : "arquivar"
           } este projeto?`;
 
         let confirmationBool = window.confirm(texto);
@@ -136,7 +135,7 @@ const ProjectsManagementProvider = ({ children }) => {
       {children}
     </ProjectsManagementContext.Provider>
   );
-}
+};
 
 function useProjectsManagement() {
   const context = useContext(ProjectsManagementContext);

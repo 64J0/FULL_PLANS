@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import { AuthProvider } from './auth';
-import { ProjectsProvider } from './projects';
+import { AuthProvider } from "./auth";
+import { ProjectsProvider } from "./projects";
 // import { ProjectsManagementProvider } from './projectsManagement';
 
 const AppProvider = ({ children }) => {
@@ -12,6 +12,6 @@ const AppProvider = ({ children }) => {
       </ProjectsProvider>
     </AuthProvider >
   );
-}
+};
 
 export default AppProvider;

@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-import { Container } from './styles';
+import { Container } from "./styles";
 
-import { useProjects } from '../../hooks/projects';
+import { useProjects } from "../../hooks/projects";
 
 function CadastrarProjeto() {
   const history = useHistory();
   const { handleAddProjeto } = useProjects();
 
-  const [cliente, setCliente] = useState('');
-  const [nomeProjeto, setNomeProjeto] = useState('');
-  const [disciplinaMestre, setDisciplinaMestre] = useState('');
-  const [numPedido, setNumPedido] = useState('');
-  const [responsavel, setResponsavel] = useState('');
+  const [cliente, setCliente] = useState("");
+  const [nomeProjeto, setNomeProjeto] = useState("");
+  const [disciplinaMestre, setDisciplinaMestre] = useState("");
+  const [numPedido, setNumPedido] = useState("");
+  const [responsavel, setResponsavel] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -25,9 +25,11 @@ function CadastrarProjeto() {
       numPedido,
       responsavel
     }).then(() => {
-      alert('Projeto cadastrado com sucesso');
+      alert("Projeto cadastrado com sucesso");
 
-      history.push('/abertos');
+      history.push("/abertos");
+    }).catch(() => {
+      return alert("Puxa vida, não foi possível criar um novo projeto.");
     });
   }
 
@@ -56,7 +58,7 @@ function CadastrarProjeto() {
         <div className="input-block">
           <label htmlFor="nomeProjeto">
             Nome do projeto
-                    </label>
+          </label>
           <input
             type="text"
             name="nomeProjeto"
@@ -69,7 +71,7 @@ function CadastrarProjeto() {
         <div className="input-block">
           <label htmlFor="disciplinaMestre">
             Disciplina mestre
-                    </label>
+          </label>
           <input
             type="text"
             name="disciplinaMestre"
@@ -82,7 +84,7 @@ function CadastrarProjeto() {
         <div className="input-block">
           <label htmlFor="numPedido">
             Número do pedido
-                    </label>
+          </label>
           <input
             type="text"
             name="numPedido"
@@ -95,7 +97,7 @@ function CadastrarProjeto() {
         <div className="input-block">
           <label htmlFor="responsavel">
             Responsável
-                    </label>
+          </label>
           <input
             type="text"
             name="responsavel"

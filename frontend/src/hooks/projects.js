@@ -70,7 +70,10 @@ const ProjectsProvider = ({ children }) => {
       .then((response) => {
         setProjetos([...projetos, response.data]);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        throw new Error();
+      });
   }, [biggerNumGRD, projetos]);
 
   const handleUpdateProjeto = useCallback(async (id, body) => {

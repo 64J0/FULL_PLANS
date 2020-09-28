@@ -1,8 +1,8 @@
-import React, { createContext, useCallback, useState, useContext } from 'react';
+import React, { createContext, useCallback, useState, useContext, useEffect } from "react";
 
-import api from '../services/api';
-import addLocalStorageInfo from '../utils/addLocalStorageInfo';
-import verifyLocalStorage from '../utils/verifyLocalStorage';
+import api from "../services/api";
+import addLocalStorageInfo from "../utils/addLocalStorageInfo";
+import verifyLocalStorage from "../utils/verifyLocalStorage";
 
 const AuthContext = createContext({});
 
@@ -15,11 +15,15 @@ const AuthProvider = ({ children }) => {
       return ({ token, auth: true });
     }
 
-    return ({ token: '', auth: false });
+    return ({ token: "", auth: false });
   });
 
   const [user, setUser] = useState(() => {
     const { user } = verifyLocalStorage();
+
+    if (user && user._id) {
+      return api.defaults.headers.user_id = user._id;
+    }
 
     return user || {};
   });
@@ -30,24 +34,36 @@ const AuthProvider = ({ children }) => {
       password
     })
       .catch(() => {
-        throw new Error("Credenciais inválidas, corrija-as por gentileza e tente fazer login novamente.");
+        const message = "Credenciais inválidas, corrija-as por gentileza e tente fazer login novamente.";
+        throw new Error(message);
       });
 
     addLocalStorageInfo(response);
 
     const { token, auth, user } = response.data;
     api.defaults.headers.authorization = `Bearer ${token}`;
+    api.defaults.headers.user_id = user._id;
 
     setLoginData({ token, auth });
-    setUser(user);
+    return setUser(user);
   }, [setLoginData]);
 
+  useEffect(() => {
+    function adjustUserIdInHeaders() {
+      if (user._id) {
+        return api.defaults.headers.user_id = user._id;
+      }
+    }
+
+    adjustUserIdInHeaders();
+  }, [user]);
+
   const signOut = useCallback(() => {
+    api.defaults.headers.authorization = "";
+    api.defaults.headers.user_id = "";
     localStorage.clear();
     setLoginData({});
-    setUser({});
-
-    return;
+    return setUser({});
   }, []);
 
   return (
@@ -57,7 +73,7 @@ const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 function useAuth() {
   const context = useContext(AuthContext);
