@@ -2,9 +2,9 @@
 
 Ferramenta de planejamento e gerenciamento de projetos.
 
-## Back-end
+## 1 - Back-end
 
-Os códigos da API *Rest* foram baseados, principalmente, nessa sequência de posts do William Oliveira (<a href="https://woliveiras.com.br/posts/construindo-uma-api-com-node-js-parte-1-criando-e-listando-dados/">link do blog</a>). Algumas tecnologias utilizadas foram *NodeJS*, *Express* para roteamento, banco de dados *MongoDB* com *Mongoose*.
+Os códigos da API *Rest* foram baseados, principalmente, nessa sequência de posts do William Oliveira (<a href="https://woliveiras.com.br/posts/construindo-uma-api-com-node-js-parte-1-criando-e-listando-dados/">link do blog</a>). Algumas tecnologias utilizadas foram *NodeJS*, *Express* para roteamento, banco de dados *MongoDB* com *Mongoose* como ODM.
 
 * NodeJS -> Motor de execução de códigos JavaScript em tempo de execução;
 * Express -> Roteamento e middlewares da aplicação;
@@ -18,8 +18,18 @@ Os códigos da API *Rest* foram baseados, principalmente, nessa sequência de po
 * Cookie-parser -> *Middleware* que configura os *cookies* anexados ao objeto da requisição do cliente;
 * BCryptJS -> Pacote com funções de encriptação e verificação;
 * Exceljs -> Pacote usado para manipular arquivos xlsx do *Excel*;
+* Handlebars -> Pacote utilizado para compilar e gerar arquivos HTML com valores preenchidos automaticamente vindos da API. Neste projeto ele está sendo usado para gerar as páginas dos relatórios que podem ser baixados com informações dos projetos.
+* Puppeteer -> Ferramenta utilizada para simular o funcionamento do browser com o Chromium utilizado para abrir a página gerada com o Handlebars e salvar como PDF que posteriormente será enviado para o usuário da aplicação.
+* Jest -> Ferramenta utilizada para fazer os testes automatizados. Atualmente estão sendo implementados apenas no *back-end* pois muitos detalhes do *front-end* podem vir a mudar em breve.
+* Mailgun-js -> Pacote que facilita a integração com o Mailgun, sendo essa a plataforma utilizada atualmente para enviar e-mails alertando os usuários do sistema em caso de alterações nos projetos em que estão trabalhando.
 
-## Front-end
+Neste projeto os usuários tem algumas permissões baseadas no encontrado em sistemas Unix.
+
+As possibilidades são: *admin*, *write* ou *read*. Onde os usuários *admin* tem acesso a todas as informações e possibilidades de interação com os usuários e projetos cadastrados enquanto os demais perfis tem capacidades limitadas.
+
+Tanto os perfis *write* quanto *read* tem acesso apenas aos projetos em que estão envolvidos de alguma forma, como **projetistas**, **verificadores** ou **responsáveis**.
+
+## 2 - Front-end
 
 Para desenvolver o frontend foi utilizado, basicamente, ReactJS com Hooks.
 
@@ -39,8 +49,6 @@ Para desenvolver o frontend foi utilizado, basicamente, ReactJS com Hooks.
   * Agora o usuário **administrador** é capaz de cadastrar novos usuários para usar o sistema;
   * É possível também baixar um *PDF* com algumas informações resumidas do projeto;
   * Foi feita uma refatoração do projeto para deixar o código mais elegante;
-* *Deploy* da API no GCP (*Google Cloud Platform*);
-* O *front-end* está hospedado no *Netlify*, pois o plano gratuito atende bem as necessidades atuais;
 
 ### O que ainda será desenvolvido :memo::
 
@@ -55,9 +63,33 @@ Para desenvolver o frontend foi utilizado, basicamente, ReactJS com Hooks.
   * Implementar um *layout* responsivo;
 * Escrever testes automatizados, inicialmente focados apenas no *back-end*.
 
-## Como executar o projeto
+## 3 - Deploy
 
-:warning: Para executar o projeto deve-se configurar algumas variáveis de ambiente (.env) no *back-end*, como por exemplo a string de comunicação com o banco de dados. Além disso, o *front-end* está configurado para buscar com o *Axios* a API num link específico para o ambiente em que o projeto está sendo desenvolvido, portanto, antes que você tente executá-lo, corrija o caminho da chave *baseURl* em *frontend/src/services/api.js* para o *IP* correto. :warning:
+* *Deploy* da API no GCP (*Google Cloud Platform*);
+* O *front-end* está hospedado no *Netlify*, pois o plano gratuito atende bem as necessidades atuais;
+
+## 4 - Como executar o projeto
+
+Antes de tudo, para executar este projeto devemos baixar o código fonte do Github. Podemos fazer isso baixando os binários do Git e instalando em nossa máquina. Em seguida basta abrir o terminal, navegar até a pasta que serão armazenados os códigos e digitar:
+
+```bash
+# download do repositório
+git clone https://github.com/64J0/FULL_PLANS.git
+
+# instalação das dependências:
+
+cd frontend/
+npm install
+# ou yarn install, caso prefira
+
+cd backend/
+npm install
+# ou yarn install, caso prefira
+```
+
+:warning: Para executar o projeto deve-se configurar algumas variáveis de ambiente (.env) no *back-end*, como por exemplo a string de comunicação com o banco de dados. 
+
+Além disso, o *front-end* está configurado para buscar com o *Axios* a API num link específico para o ambiente em que o projeto está sendo desenvolvido, portanto, antes que você tente executá-lo, corrija o caminho da chave *baseURl* em *frontend/src/services/api.js* para o *IP* correto. :warning:
 
 Enfim, após terem sido realizadas estas alterações, basta abrir uma instância do prompt de comando e navegar até a pasta *./backend* e executar:
 
@@ -73,4 +105,5 @@ cd frontend
 npm start
 ```
 
+---
 *Vinícius Gajo Marques Oliveira*, 2020.
